@@ -1,0 +1,210 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import { 
+  Building2, 
+  Workflow, 
+  Briefcase, 
+  CheckCircle2, 
+  ArrowRight, 
+  FileCheck2, 
+  ShieldCheck,
+  TrendingUp,
+  Cpu,
+  GraduationCap
+} from 'lucide-astro';
+
+const enterpriseAdvantages = [
+  {
+    title: 'Pre-Training Diagnostic',
+    desc: 'Assessing departmental skill gaps, workflow bottlenecks, and specific manager requirements before finalizing syllabus outlines.'
+  },
+  {
+    title: 'Flexible Delivery Formats',
+    desc: 'On-site corporate workshops, blended digital modules, or On-the-Job Training (OJT) schedules structured to avoid workplace disruption.'
+  },
+  {
+    title: 'HRD Corp Levy Optimization',
+    desc: 'Assisting eligible Malaysian employers with grant paperwork, course registration, and 100% levy claim settlement under SBL-Khas.'
+  },
+  {
+    title: 'Milestone-Based Execution',
+    desc: 'Post-training review rubrics to measure verifiable skill transfer and productivity gains back in daily operations.'
+  }
+];
+
+const solutionsBySector = [
+  {
+    sector: 'Enterprises & Multinational Corporations',
+    icon: Building2,
+    focus: 'Cross-functional managerial upskilling, supervisory coaching, digital marketing strategy (CDMS), and customer experience alignment.'
+  },
+  {
+    sector: 'Government Bodies & Statutory Authorities',
+    icon: ShieldCheck,
+    focus: 'Public sector leadership development, change management, governance excellence, and digital workplace literacy.'
+  },
+  {
+    sector: 'Colleges & Higher Learning Institutions',
+    icon: GraduationCap,
+    focus: 'Pedagogical training, modern workplace readiness programs for graduating cohorts, and blended capability frameworks.'
+  }
+];
+
+const roadmapSteps = [
+  {
+    number: 'Phase 1',
+    title: 'Consultation & Discovery',
+    desc: 'Our enterprise consultants meet with HR leadership to map target competencies against corporate milestones.'
+  },
+  {
+    number: 'Phase 2',
+    title: 'Custom Curriculum Formulation',
+    desc: 'Bespoke course modules, industry case studies, and practical simulation exercises are prepared alongside grant claim forms.'
+  },
+  {
+    number: 'Phase 3',
+    title: 'Deployment & Capability Verification',
+    desc: 'Master facilitators conduct the sessions with milestone assessments, post-training feedback, and HRD Corp claim closure.'
+  }
+];
+---
+
+<BaseLayout
+  title="Corporate Solutions & B2B Capability Interventions"
+  description="Customized corporate training interventions, workforce capability diagnostics, and HRD Corp levy optimization engineered for measurable business ROI."
+>
+  <!-- Header Banner -->
+  <section class="bg-brand-dark text-white py-16 lg:py-20 border-b border-brand-sage/40">
+    <div class="container-custom max-w-4xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 text-brand-gold text-xs font-bold uppercase tracking-wider mb-4">
+        <span>Enterprise & B2B Capability</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-6">
+        Corporate Solutions
+      </h1>
+      <p class="text-lg text-gray-200 leading-relaxed">
+        Customized corporate training interventions and workforce capability diagnostics engineered for real business impact and measurable operational ROI across Malaysia.
+      </p>
+    </div>
+  </section>
+
+  <!-- Problem / Solution Overview -->
+  <section class="py-20 bg-white">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <SectionHeader
+            eyebrow="Tailored B2B Programmes"
+            title="Workforce Training Engineered for Real Business Impact"
+            subtitle="Modern enterprises face rapid operational shifts, digital disruption, and rising governance standards. Off-the-shelf courses rarely address the specific friction points of individual departments."
+          />
+          <p class="text-brand-muted leading-relaxed text-base">
+            GET Academy co-designs tailored corporate capability interventions aligned directly with organizational KPIs and commercial objectives. We partner with corporate HR directors, department heads, and government bodies to transform employee capability, streamline cross-functional collaboration, and optimize training budgets through HRD Corp levy utilization.
+          </p>
+          <div class="pt-2">
+            <a
+              href="/contact"
+              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-brand-sage text-white font-bold hover:bg-brand-sage-dark transition-all text-sm shadow-sm"
+            >
+              <span>Schedule an Enterprise Discovery Call</span>
+              <ArrowRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-4">
+          {enterpriseAdvantages.map((item) => (
+            <div class="p-5 rounded-xl bg-brand-light border border-brand-border flex items-start gap-4 hover:border-brand-sage/60 transition-colors">
+              <CheckCircle2 class="w-5 h-5 text-brand-sage shrink-0 mt-0.5" />
+              <div>
+                <h4 class="font-bold text-brand-dark text-sm mb-1">{item.title}</h4>
+                <p class="text-xs text-brand-muted leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions by Sector -->
+  <section class="py-20 bg-brand-light border-y border-brand-border">
+    <div class="container-custom">
+      <SectionHeader
+        eyebrow="Sectors Served"
+        title="Tailored Interventions for Diverse Organizational Models"
+        subtitle="Addressing unique sector mandates through flexible delivery models and verified governance standards."
+        centered={true}
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {solutionsBySector.map((sol) => (
+          <div class="bg-white p-8 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-lg bg-brand-light text-brand-sage flex items-center justify-center mb-5 border border-brand-border">
+                <sol.icon class="w-6 h-6" />
+              </div>
+              <h3 class="text-lg font-bold text-brand-dark mb-3 leading-snug">{sol.sector}</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">{sol.focus}</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-brand-border/60">
+              <span class="text-xs font-bold text-brand-sage">Customizable In-House Format</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3-Phase Roadmap -->
+  <section class="py-20 bg-white">
+    <div class="container-custom">
+      <SectionHeader
+        eyebrow="Engagement Roadmap"
+        title="How We Execute Your Corporate Intervention"
+        subtitle="From initial talent diagnostics to final levy claim reconciliation, our team handles the heavy lifting."
+        centered={true}
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {roadmapSteps.map((phase) => (
+          <div class="bg-brand-light p-7 rounded-xl border border-brand-border">
+            <span class="inline-block px-2.5 py-1 rounded bg-brand-sage/10 text-brand-sage font-mono text-xs font-bold uppercase tracking-wider mb-4">
+              {phase.number}
+            </span>
+            <h3 class="text-lg font-bold text-brand-dark mb-2">{phase.title}</h3>
+            <p class="text-sm text-brand-muted leading-relaxed">{phase.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Verification Note -->
+  <section class="py-10 bg-amber-50/70 border-t border-amber-200">
+    <div class="container-custom max-w-4xl">
+      <div class="text-xs text-amber-900 space-y-1">
+        <p class="font-bold uppercase tracking-wider">Enterprise Engagement Terms & Approvals:</p>
+        <p class="leading-relaxed">
+          Detailed module syllabi, custom in-house trainer availability, and multi-day masterclass pricing schedules are finalized upon direct stakeholder consultation. SBL-Khas approvals are subject to HRD Corp employer account standing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Corporate Enquiry Banner -->
+  <section class="py-16 bg-brand-dark text-white text-center">
+    <div class="container-custom max-w-3xl space-y-4">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Need a Bespoke In-House Capability Outline?</h2>
+      <p class="text-gray-200 text-sm max-w-xl mx-auto leading-relaxed">
+        Our enterprise consultants co-design training frameworks directly tailored to your corporate calendar and strategic objectives.
+      </p>
+      <div class="pt-2">
+        <a href="/contact" class="px-6 py-3 rounded-lg font-bold bg-brand-gold text-brand-dark hover:bg-brand-gold-deep transition-all text-sm inline-block">
+          Enquire About Corporate Solutions
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

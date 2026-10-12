@@ -1,0 +1,177 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import { 
+  Building2, 
+  Award, 
+  Target, 
+  Users2, 
+  CheckCircle2, 
+  Compass, 
+  ShieldCheck, 
+  Layers,
+  ArrowRight
+} from 'lucide-astro';
+
+const pillars = [
+  {
+    title: 'Over a Decade of Industry Experience',
+    desc: 'Serving Malaysian corporate, governmental, and institutional clients since 2012 with proven capability interventions.'
+  },
+  {
+    title: 'Blended Learning Methodology',
+    desc: 'Combining interactive physical workshops, digital modules, and milestone-based execution for maximum knowledge retention.'
+  },
+  {
+    title: 'International Standards Alignment',
+    desc: 'Curricula structured in accordance with globally recognized certification benchmarks (e.g. CompTIA, Microsoft, PMI).'
+  },
+  {
+    title: 'Measurable Workplace ROI',
+    desc: 'Focusing on immediate on-the-job application, verified skill transfer, and demonstrative business productivity growth.'
+  }
+];
+
+const capabilities = [
+  {
+    title: 'Executive & Managerial Leadership',
+    desc: 'Empowering senior executives, department managers, and supervisors with strategic decision-making, emotional intelligence, and change management tools.'
+  },
+  {
+    title: 'Digital & Technical Upskilling',
+    desc: 'Modernising workforce technical competencies across digital strategy, IT infrastructure, cloud adoption, and cybersecurity hygiene.'
+  },
+  {
+    title: 'High-Impact Workplace Performance',
+    desc: 'Developing critical core skills including root-cause problem solving, critical thinking, customer experience management, and cross-functional team synergy.'
+  },
+  {
+    title: 'Structured On-the-Job Training (OJT)',
+    desc: 'Designing and executing workplace-embedded learning frameworks that bridge classroom concepts directly to day-to-day operational execution.'
+  }
+];
+---
+
+<BaseLayout 
+  title="About Us — Corporate Profile & Mission"
+  description="Discover GET Academy's background since 2012, operating pillars, and human capital development approach."
+>
+  <!-- Page Header -->
+  <section class="bg-brand-dark text-white py-16 lg:py-20 border-b border-brand-sage/40">
+    <div class="container-custom max-w-4xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 text-brand-gold text-xs font-bold uppercase tracking-wider mb-4">
+        <span>About GET Academy</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-6">
+        Dedicated to Transforming Talents & Organisations
+      </h1>
+      <p class="text-lg text-gray-200 leading-relaxed">
+        GET Academy is a dedicated corporate training and capability development provider established in 2012. We deliver cutting-edge blended learning and tailored corporate training solutions engineered to help organisations build resilient, high-performing, and future-ready teams across Malaysia.
+      </p>
+    </div>
+  </section>
+
+  <!-- Corporate Profile Overview -->
+  <section class="py-20 bg-white">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6 space-y-6">
+          <SectionHeader 
+            eyebrow="Our Identity"
+            title="Bridging Theoretical Knowledge with Practical Workplace Impact"
+            subtitle="We partner with enterprise corporations, statutory bodies, and educational institutions to achieve quantifiable capability improvements and sustainable operational success."
+          />
+          <p class="text-brand-muted leading-relaxed text-base">
+            In an era of rapid technological transformation and dynamic market requirements, standard off-the-shelf training often fails to bridge operational gaps. GET Academy focuses on outcome-driven learning architectures that align directly with corporate strategic priorities.
+          </p>
+          <div class="p-5 rounded-xl bg-brand-light border border-brand-border">
+            <h4 class="font-bold text-brand-dark text-sm mb-2 flex items-center gap-2">
+              <ShieldCheck class="w-5 h-5 text-brand-sage" />
+              <span>HRD Corp Registered Training Provider</span>
+            </h4>
+            <p class="text-xs text-brand-muted leading-relaxed">
+              All eligible corporate programs are fully claimable under the Human Resource Development Corporation (HRD Corp) SBL-Khas levy scheme, enabling Malaysian employers to maximize their training investments with zero cash outlay.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {pillars.map((pillar, idx) => (
+            <div class="bg-brand-light p-6 rounded-xl border border-brand-border hover:border-brand-sage/60 transition-all flex flex-col justify-between">
+              <div>
+                <span class="text-2xl font-extrabold text-brand-sage font-mono block mb-3">0{idx + 1}</span>
+                <h3 class="font-bold text-brand-dark text-base mb-2">{pillar.title}</h3>
+                <p class="text-xs text-brand-muted leading-relaxed">{pillar.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Capabilities Detailed -->
+  <section class="py-20 bg-brand-light border-y border-brand-border">
+    <div class="container-custom">
+      <SectionHeader 
+        eyebrow="Core Competency Pillars"
+        title="What GET Academy Delivers"
+        subtitle="Our targeted training pillars are engineered to address critical workforce capability requirements across all tiers of the organization."
+        centered={true}
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        {capabilities.map((cap) => (
+          <div class="bg-white p-7 rounded-xl border border-brand-border shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="p-3 bg-brand-light rounded-lg text-brand-sage shrink-0 border border-brand-border">
+                <Target class="w-6 h-6" />
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-brand-dark mb-2">{cap.title}</h3>
+                <p class="text-sm text-brand-muted leading-relaxed">{cap.desc}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Corporate Registration Details Notice -->
+  <section class="py-12 bg-white">
+    <div class="container-custom max-w-4xl">
+      <div class="bg-amber-50/70 border border-amber-200/80 rounded-xl p-6 sm:p-8">
+        <h3 class="text-base font-bold text-amber-900 mb-2 uppercase tracking-wide">
+          Institutional Credentials & Verification
+        </h3>
+        <p class="text-sm text-amber-950 leading-relaxed mb-4">
+          GET Academy operates as an accredited corporate capability provider in Malaysia. Full corporate profile brochures, SSM registration cert copies, and trainer credential packs are furnished upon official corporate enquiry.
+        </p>
+        <div class="text-xs text-amber-800 flex flex-wrap gap-4 font-medium">
+          <span>• Incorporated in Malaysia (2012)</span>
+          <span>• HRD Corp Registered Provider</span>
+          <span>• Official proposals issued under 24–48 hours</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="py-16 bg-brand-dark text-white text-center">
+    <div class="container-custom max-w-3xl space-y-5">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Partner with GET Academy Today</h2>
+      <p class="text-gray-200 text-sm sm:text-base leading-relaxed">
+        Let our advisors assist your organization in formulating a tailored human capital roadmap aligned with your business milestones and HRD Corp levy fund.
+      </p>
+      <div class="pt-2 flex justify-center gap-4">
+        <a href="/contact" class="px-6 py-3 rounded-lg font-bold bg-brand-gold text-brand-dark hover:bg-brand-gold-deep transition-all text-sm">
+          Request Company Consultation
+        </a>
+        <a href="/courses" class="px-6 py-3 rounded-lg font-bold bg-transparent border border-white text-white hover:bg-white/10 transition-all text-sm">
+          Browse Course Directory
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
