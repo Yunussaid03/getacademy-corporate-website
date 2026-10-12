@@ -79,8 +79,8 @@ const documentedEngagements = [
     role: 'Public University AI Readiness',
     scope: 'Invited by the Deputy Secretary-General to present strategic AI transformation and adoption pathways to 30+ Chief Digital Officers (CDOs) across Malaysia’s public universities.',
     category: 'Government & Higher Education',
-    image: '/assets/photos/mohe-cdo-briefing.jpeg',
-    imageAlt: 'Strategic AI transformation briefing to 30+ public university Chief Digital Officers by invitation of MOHE',
+    image: '/assets/photos/staging-university-workshop.jpg',
+    imageAlt: 'Executive higher education workshop session conducted for university leadership and digital officers',
     logo: '/assets/partners/Ministry-of-Education.png',
     stat: '30+ CDOs Briefed'
   },
@@ -390,8 +390,8 @@ const featuredCourses = coursesData.slice(0, 6);
           <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
             <div class="lg:col-span-5 relative min-h-[260px] lg:min-h-[340px] bg-slate-100 overflow-hidden">
               <img 
-                src="/assets/photos/mohe-cdo-briefing.jpeg" 
-                alt="Strategic AI transformation briefing to 30+ public university Chief Digital Officers by invitation of MOHE" 
+                src={documentedEngagements[0].image} 
+                alt={documentedEngagements[0].imageAlt} 
                 class="w-full h-full object-cover object-center"
                 loading="lazy"
               />
