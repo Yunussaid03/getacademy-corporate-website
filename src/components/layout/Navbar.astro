@@ -1,21 +1,42 @@
 ---
-import { Menu, X } from 'lucide-astro';
+import { Menu, X, ChevronDown } from 'lucide-astro';
 
-const navItems = [
+interface SubNavItem {
+  label: string;
+  href: string;
+}
+
+interface NavItem {
+  label: string;
+  href: string;
+  subItems?: SubNavItem[];
+}
+
+const aboutSections: SubNavItem[] = [
+  { label: 'What We Do', href: '/#what-we-do' },
+  { label: 'Accreditations & Institutional Relationships', href: '/#accreditations' },
+  { label: 'Why GET Academy', href: '/#why-get-academy' },
+];
+
+const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
-  { label: 'About Us', href: '/about' },
-  { label: 'Courses', href: '/courses' },
+  { 
+    label: 'About Us', 
+    href: '/#what-we-do',
+    subItems: aboutSections
+  },
+  { label: 'Courses', href: '/#programmes' },
   { label: 'Corporate Solutions', href: '/corporate-solutions' },
-  { label: 'Our Trainers', href: '/trainers' },
   { label: 'Contact', href: '/contact' },
 ];
 
 const currentPath = Astro.url.pathname;
 const isActive = (href: string) => {
   if (href === '/' && currentPath === '/') return true;
-  if (href !== '/' && currentPath.startsWith(href)) return true;
+  if (href !== '/' && !href.startsWith('/#') && currentPath.startsWith(href)) return true;
   return false;
 };
+const isAboutActive = currentPath === '/about' || currentPath.startsWith('/about');
 ---
 
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-border/80 transition-all shadow-sm">
@@ -41,18 +62,54 @@ const isActive = (href: string) => {
     </a>
 
     <!-- Desktop Navigation Links -->
-    <nav class="hidden lg:flex items-center space-x-1 xl:space-x-2">
+    <nav class="hidden lg:flex items-center space-x-1 xl:space-x-2" aria-label="Main Navigation">
       {navItems.map((item) => (
-        <a
-          href={item.href}
-          class={`px-3.5 py-2 rounded-md text-sm font-semibold transition-all ${
-            isActive(item.href)
-              ? 'text-brand-sage bg-brand-sage-light font-bold border-b-2 border-brand-sage'
-              : 'text-brand-text hover:text-brand-sage hover:bg-brand-light'
-          }`}
-        >
-          {item.label}
-        </a>
+        item.subItems ? (
+          <div class="relative group">
+            <a
+              href={item.href}
+              class={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-sm font-semibold transition-all ${
+                isAboutActive
+                  ? 'text-brand-sage bg-brand-sage-light font-bold border-b-2 border-brand-sage'
+                  : 'text-brand-text hover:text-brand-sage hover:bg-brand-light'
+              }`}
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <span>{item.label}</span>
+              <ChevronDown class="w-3.5 h-3.5 text-brand-muted group-hover:text-brand-sage transition-transform duration-200 group-hover:rotate-180" />
+            </a>
+
+            <!-- Dropdown Menu -->
+            <div 
+              class="absolute left-0 top-full pt-1.5 hidden group-hover:block group-focus-within:block z-50 min-w-[320px]"
+              role="menu"
+            >
+              <div class="bg-white rounded-xl shadow-xl border border-brand-border p-1.5 text-sm">
+                {item.subItems.map((sub) => (
+                  <a
+                    href={sub.href}
+                    class="block px-3.5 py-2.5 text-xs sm:text-sm text-brand-dark hover:text-brand-sage hover:bg-brand-light font-semibold rounded-lg transition-colors leading-snug"
+                    role="menuitem"
+                  >
+                    {sub.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <a
+            href={item.href}
+            class={`px-3.5 py-2 rounded-md text-sm font-semibold transition-all ${
+              isActive(item.href)
+                ? 'text-brand-sage bg-brand-sage-light font-bold border-b-2 border-brand-sage'
+                : 'text-brand-text hover:text-brand-sage hover:bg-brand-light'
+            }`}
+          >
+            {item.label}
+          </a>
+        )
       ))}
     </nav>
 
@@ -83,24 +140,50 @@ const isActive = (href: string) => {
   <!-- Mobile Drawer Navigation -->
   <div
     id="mobile-nav-menu"
-    class="hidden lg:hidden border-t border-brand-border bg-white px-4 pt-3 pb-6 space-y-2 shadow-lg"
+    class="hidden lg:hidden border-t border-brand-border bg-white px-4 pt-3 pb-6 space-y-1 shadow-lg max-h-[calc(100vh-5rem)] overflow-y-auto"
   >
     {navItems.map((item) => (
-      <a
-        href={item.href}
-        class={`block px-3 py-2.5 rounded-md text-base font-medium ${
-          isActive(item.href)
-            ? 'text-brand-sage bg-brand-sage-light font-bold'
-            : 'text-brand-text hover:text-brand-sage hover:bg-brand-light'
-        }`}
-      >
-        {item.label}
-      </a>
+      item.subItems ? (
+        <div class="py-1">
+          <div class="flex items-center justify-between px-3 py-2 rounded-md bg-brand-light/70">
+            <a
+              href={item.href}
+              class="text-base font-bold text-brand-dark hover:text-brand-sage transition-colors"
+            >
+              {item.label}
+            </a>
+            <span class="text-[10px] font-bold text-brand-sage uppercase tracking-wider bg-white px-2 py-0.5 rounded border border-brand-border">
+              Homepage Sections
+            </span>
+          </div>
+          <div class="pl-3 mt-1.5 space-y-1 border-l-2 border-brand-sage/40 ml-3">
+            {item.subItems.map((sub) => (
+              <a
+                href={sub.href}
+                class="block px-3 py-2 text-sm text-brand-muted hover:text-brand-sage hover:bg-brand-light font-medium rounded-md transition-colors"
+              >
+                {sub.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <a
+          href={item.href}
+          class={`block px-3 py-2.5 rounded-md text-base font-medium transition-colors ${
+            isActive(item.href)
+              ? 'text-brand-sage bg-brand-sage-light font-bold'
+              : 'text-brand-text hover:text-brand-sage hover:bg-brand-light'
+          }`}
+        >
+          {item.label}
+        </a>
+      )
     ))}
     <div class="pt-4 border-t border-brand-border mt-3">
       <a
         href="/contact"
-        class="block w-full text-center px-4 py-2.5 text-sm font-bold rounded-lg text-white bg-brand-sage hover:bg-brand-sage-dark"
+        class="block w-full text-center px-4 py-2.5 text-sm font-bold rounded-lg text-white bg-brand-sage hover:bg-brand-sage-dark shadow-xs"
       >
         Corporate Enquiry
       </a>
@@ -115,6 +198,15 @@ const isActive = (href: string) => {
   const iconOpen = document.getElementById('menu-icon-open');
   const iconClose = document.getElementById('menu-icon-close');
 
+  function closeMobileNav() {
+    if (toggleBtn && mobileNav && iconOpen && iconClose) {
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      mobileNav.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    }
+  }
+
   if (toggleBtn && mobileNav && iconOpen && iconClose) {
     toggleBtn.addEventListener('click', () => {
       const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
@@ -123,5 +215,32 @@ const isActive = (href: string) => {
       iconOpen.classList.toggle('hidden');
       iconClose.classList.toggle('hidden');
     });
+
+    // Automatically close mobile menu when any navigation link is clicked
+    const drawerLinks = mobileNav.querySelectorAll('a');
+    drawerLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        closeMobileNav();
+      });
+    });
   }
+
+  // Smooth scroll handler for anchor links when already on the homepage
+  document.querySelectorAll('a[href^="/#"], a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (e) => {
+      const href = anchor.getAttribute('href');
+      if (!href) return;
+      const hash = href.startsWith('/#') ? href.slice(1) : href;
+      if (window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '') {
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+          if (history.pushState) {
+            history.pushState(null, '', hash);
+          }
+        }
+      }
+    });
+  });
 </script>
