@@ -22,12 +22,13 @@ const {
     <link rel="icon" type="image/png" href="/assets/brand/GETA-Logo-100x100.png" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Google Fonts: Manrope -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Preload local variable font for optimal Core Web Vitals (sub-second LCP) -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/fonts/Manrope-VariableFont_wght.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
 
     <!-- SEO Meta Tags -->
@@ -38,6 +39,7 @@ const {
     <meta property="og:image" content="/assets/brand/GETA-Logo.png" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#1A2E26" />
   </head>
   <body class="min-h-screen flex flex-col bg-white text-brand-text antialiased selection:bg-brand-gold selection:text-brand-dark">
     <Navbar />
