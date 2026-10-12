@@ -29,37 +29,46 @@ const capabilityPillars = [
     number: '01',
     icon: Cpu,
     title: 'Artificial Intelligence Capacity Building',
-    subtitle: 'Institutional AI Readiness & Workforce Adoption',
-    description: 'Empowering enterprise workforces, educators, and public institutions with applied AI competencies, executive transformation pathways, and responsible AI governance frameworks.',
+    subtitle: 'Institutional & Workforce AI Adoption',
+    description: 'Institutional AI readiness, leadership advisory, and practical AI adoption for educators, public sector leaders, and corporate workforces.',
+    image: '/assets/photos/ai-educator-training.jpeg',
+    imageAlt: 'GET Academy educators and institutional leaders in an applied AI training session',
     href: '/corporate-solutions',
-    highlights: ['Institutional AI transformation', 'Chief Digital Officer (CDO) briefings', 'Educator & workforce adoption']
+    badge: 'Institutional & Workforce AI'
   },
   {
     number: '02',
     icon: ShieldCheck,
     title: 'Global IT Certification',
-    subtitle: 'Industry-Standard Credentials',
-    description: 'Structured curricula aligned to international standards, including CompTIA technical tracks (Security+, Network+, Cloud+, CySA+, CASP+) and cybersecurity readiness for non-IT personnel.',
+    subtitle: 'Industry-Aligned Credentials',
+    description: 'Industry-aligned IT and cybersecurity training, including CompTIA certification pathways and foundational digital resilience for non-IT personnel.',
+    image: '/assets/brand/comptia-cert-strip.png',
+    isBrandGraphic: true,
+    imageAlt: 'CompTIA authorized international certification pathways',
     href: '/courses',
-    highlights: ['CompTIA Authorized Partner curriculum', 'Cybersecurity resilience tracks', 'Cloud infrastructure fundamentals']
+    badge: 'CompTIA Pathways'
   },
   {
     number: '03',
     icon: Award,
     title: 'Professional Development',
-    subtitle: 'Managerial & Workplace Capability',
-    description: 'Outcome-driven leadership and operational modules focusing on root-cause problem solving, customer experience management (CEM), design thinking, team synergy, and supervisory excellence.',
+    subtitle: 'Managerial & Operational Excellence',
+    description: 'Applied leadership development, customer experience management, design thinking, root-cause problem solving, and cross-functional team performance.',
+    image: '/assets/photos/welcome-classroom-session.jpeg',
+    imageAlt: 'Interactive classroom workshop session on managerial capabilities',
     href: '/courses?category=workplace-performance',
-    highlights: ['Executive leadership & governance', 'Design thinking & problem-solving', 'Customer experience & sales management']
+    badge: 'Leadership & Team Performance'
   },
   {
     number: '04',
     icon: Globe2,
     title: 'Entrepreneurship & Cross-Border Business',
-    subtitle: 'Incubation & Market Acceleration',
-    description: 'Supporting high-potential enterprises, SMEs, and startups with strategic business incubation, market research, digital marketing strategies (CDMS), and cross-border commercial pathways.',
+    subtitle: 'Incubation & Market Expansion',
+    description: 'Certified digital marketing strategies (CDMS), enterprise incubation, and market expansion pathways connecting local businesses with global ecosystems.',
+    image: '/assets/photos/mitra-entrepreneurship-coaching.jpeg',
+    imageAlt: 'GET Academy entrepreneurship coaching and business digitalization session',
     href: '/corporate-solutions',
-    highlights: ['SEGi certified digital marketing (CDMS)', 'SME & startup business incubation', 'Cross-border trade & market entry']
+    badge: 'Digital Strategy & Incubation'
   }
 ];
 
@@ -257,49 +266,79 @@ const featuredCourses = coursesData.slice(0, 6);
   </section>
 
   <!-- Section 2 — What We Do: 4 Capability Pillars -->
-  <section class="py-20 bg-white" id="what-we-do">
+  <section class="py-20 lg:py-24 bg-white" id="what-we-do">
     <div class="container-custom">
       <SectionHeader 
-        eyebrow="Core Competency Pillars"
+        eyebrow="Core Capabilities"
         title="What We Do"
-        subtitle="Specialized training expertise structured across four primary capability domains to support workforce modernization and enterprise competitiveness."
+        subtitle="Specialized human capital and capability development structured across four distinct pillars for organizations seeking measurable operational growth."
         centered={true}
       />
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
         {capabilityPillars.map((pillar) => (
-          <div class="bg-brand-light rounded-xl p-6 border border-brand-border hover:border-brand-sage/60 hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-xs font-mono font-extrabold text-brand-sage px-2 py-0.5 rounded bg-white border border-brand-border">{pillar.number}</span>
-                <div class="w-10 h-10 rounded-lg bg-white border border-brand-border flex items-center justify-center text-brand-sage group-hover:bg-brand-sage group-hover:text-white transition-colors shadow-sm">
-                  <pillar.icon class="w-5 h-5" />
+          <div class="bg-brand-light rounded-2xl border border-brand-border hover:border-brand-sage/60 hover:shadow-lg transition-all duration-300 flex flex-col overflow-hidden group">
+            <!-- Visual Asset: Meaningful Photograph or Certified Strip from Company Profile -->
+            <div class="relative h-48 w-full bg-slate-100 overflow-hidden border-b border-brand-border">
+              {pillar.isBrandGraphic ? (
+                <div class="w-full h-full p-4 flex items-center justify-center bg-white group-hover:scale-105 transition-transform duration-500">
+                  <img 
+                    src={pillar.image} 
+                    alt={pillar.imageAlt}
+                    class="max-h-24 max-w-full object-contain"
+                    loading="lazy"
+                  />
                 </div>
-              </div>
-              <h3 class="text-lg font-bold text-brand-dark mb-1.5 group-hover:text-brand-sage transition-colors">
-                {pillar.title}
-              </h3>
-              <p class="text-xs font-bold text-brand-sage uppercase tracking-wider mb-3">
-                {pillar.subtitle}
-              </p>
-              <p class="text-xs text-brand-muted leading-relaxed mb-5">
-                {pillar.description}
-              </p>
-              <div class="space-y-1.5 border-t border-brand-border/60 pt-3 mb-5">
-                {pillar.highlights.map((h) => (
-                  <div class="flex items-center gap-1.5 text-[11px] text-brand-dark font-medium">
-                    <span class="w-1.5 h-1.5 rounded-full bg-brand-gold shrink-0"></span>
-                    <span>{h}</span>
-                  </div>
-                ))}
+              ) : (
+                <img 
+                  src={pillar.image} 
+                  alt={pillar.imageAlt}
+                  class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              )}
+              
+              <!-- Badge Overlay -->
+              <div class="absolute top-3 left-3 flex items-center gap-2">
+                <span class="bg-brand-dark/90 backdrop-blur-sm text-brand-gold text-xs font-mono font-extrabold px-2.5 py-1 rounded shadow-sm">
+                  {pillar.number}
+                </span>
+                <span class="bg-white/95 backdrop-blur-sm text-brand-dark text-[10px] font-bold px-2 py-1 rounded shadow-sm">
+                  {pillar.badge}
+                </span>
               </div>
             </div>
-            <a
-              href={pillar.href}
-              class="inline-flex items-center text-xs font-bold text-brand-sage group-hover:text-brand-sage-dark hover:underline pt-2 border-t border-brand-border/60"
-            >
-              <span>Explore Capability Track &rarr;</span>
-            </a>
+
+            <!-- Card Content -->
+            <div class="p-6 flex-grow flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-2 mb-2 text-brand-sage">
+                  <pillar.icon class="w-4 h-4 shrink-0" />
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-brand-sage">
+                    {pillar.subtitle}
+                  </span>
+                </div>
+
+                <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-sage transition-colors leading-snug mb-3">
+                  {pillar.title}
+                </h3>
+
+                <p class="text-xs text-brand-muted leading-relaxed mb-4">
+                  {pillar.description}
+                </p>
+              </div>
+
+              <!-- Action Link -->
+              <div class="pt-4 border-t border-brand-border/70">
+                <a
+                  href={pillar.href}
+                  class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-sage group-hover:text-brand-sage-dark group-hover:translate-x-0.5 transition-all"
+                >
+                  <span>Explore Track</span>
+                  <ArrowRight class="w-3.5 h-3.5 text-brand-sage" />
+                </a>
+              </div>
+            </div>
           </div>
         ))}
       </div>
