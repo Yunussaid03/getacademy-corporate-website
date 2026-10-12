@@ -1,0 +1,49 @@
+---
+import Navbar from './Navbar.astro';
+import Footer from './Footer.astro';
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'GET Academy — Your Unbeatable Human Capital Development Partner. Delivering cutting-edge corporate training, leadership development, and HRD Corp claimable programs across Malaysia since 2012.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/assets/brand/GETA-Logo-100x100.png" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Google Fonts: Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- SEO Meta Tags -->
+    <title>{title} | GET Academy</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={`${title} | GET Academy`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/assets/brand/GETA-Logo.png" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body class="min-h-screen flex flex-col bg-white text-brand-text antialiased selection:bg-brand-gold selection:text-brand-dark">
+    <Navbar />
+    <main class="flex-grow">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

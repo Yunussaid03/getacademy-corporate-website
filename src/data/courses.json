@@ -1,0 +1,173 @@
+[
+  {
+    "id": 1,
+    "number": "#01",
+    "category": "digital-strategy",
+    "faculty": "Professional",
+    "title": "Certified Digital Marketing Strategist – CDMS",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/Untitled-design-2.png"
+  },
+  {
+    "id": 2,
+    "number": "#02",
+    "category": "workplace-performance",
+    "faculty": "Professional",
+    "title": "Problem Solving",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/PROBLEM-SOLVING.png"
+  },
+  {
+    "id": 3,
+    "number": "#03",
+    "category": "workplace-performance",
+    "faculty": "Professional",
+    "title": "Critical Thinking",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/3-1.png"
+  },
+  {
+    "id": 4,
+    "number": "#04",
+    "category": "leadership-management",
+    "faculty": "Professional",
+    "title": "Corporate Culture and Team Building",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/4-1.png"
+  },
+  {
+    "id": 5,
+    "number": "#05",
+    "category": "workplace-performance",
+    "faculty": "Professional",
+    "title": "Customer Experience Management",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/5-1.png"
+  },
+  {
+    "id": 6,
+    "number": "#06",
+    "category": "workplace-performance",
+    "faculty": "Professional",
+    "title": "Sales and Sales Management",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/6.png"
+  },
+  {
+    "id": 7,
+    "number": "#07",
+    "category": "workplace-performance",
+    "faculty": "Professional",
+    "title": "Event Management",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/7.png"
+  },
+  {
+    "id": 8,
+    "number": "#08",
+    "category": "digital-strategy",
+    "faculty": "Professional",
+    "title": "Leverage Outsourcing to Scale Up Business",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/8.png"
+  },
+  {
+    "id": 9,
+    "number": "#09",
+    "category": "digital-strategy",
+    "faculty": "Professional",
+    "title": "Revolutionize Business Using ChatGPT",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/9.png"
+  },
+  {
+    "id": 10,
+    "number": "#10",
+    "category": "leadership-management",
+    "faculty": "Professional",
+    "title": "Managing Millennial and Gen Z",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/10.png"
+  },
+  {
+    "id": 11,
+    "number": "#11",
+    "category": "leadership-management",
+    "faculty": "Professional",
+    "title": "Local Breed Internationally Skilled Manager",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/11.png"
+  },
+  {
+    "id": 12,
+    "number": "#12",
+    "category": "leadership-management",
+    "faculty": "Professional",
+    "title": "The Ugly Truth About Meetings and Secret Methods",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/12.png"
+  },
+  {
+    "id": 13,
+    "number": "#13",
+    "category": "technical-it",
+    "faculty": "Professional",
+    "title": "CompTIA Network+",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/13.png"
+  },
+  {
+    "id": 14,
+    "number": "#14",
+    "category": "technical-it",
+    "faculty": "Professional",
+    "title": "CompTIA Security+",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/14.png"
+  },
+  {
+    "id": 15,
+    "number": "#15",
+    "category": "technical-it",
+    "faculty": "Professional",
+    "title": "CompTIA CySA+",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/15.png"
+  },
+  {
+    "id": 16,
+    "number": "#16",
+    "category": "technical-it",
+    "faculty": "Professional",
+    "title": "CompTIA CASP+",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/16.png"
+  },
+  {
+    "id": 17,
+    "number": "#17",
+    "category": "technical-it",
+    "faculty": "Professional",
+    "title": "CompTIA Server+",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/17.png"
+  },
+  {
+    "id": 18,
+    "number": "#18",
+    "category": "technical-it",
+    "faculty": "Professional",
+    "title": "CompTIA Cloud+",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/18.png"
+  },
+  {
+    "id": 19,
+    "number": "#19",
+    "category": "technical-it",
+    "faculty": "Professional",
+    "title": "CompTIA Cloud Essentials+",
+    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "image": "/assets/courses/19.png"
+  }
+]

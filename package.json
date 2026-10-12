@@ -1,0 +1,32 @@
+{
+  "name": "getacademy-corporate-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yunussaid03/getacademy-corporate-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Yunussaid03/getacademy-corporate-website/issues"
+  },
+  "homepage": "https://github.com/Yunussaid03/getacademy-corporate-website#readme",
+  "dependencies": {
+    "@astrojs/tailwind": "6.0.2",
+    "astro": "5.18.2",
+    "lucide-astro": "0.556.0",
+    "tailwindcss": "3.4.17",
+    "typescript": "5.7.3"
+  }
+}

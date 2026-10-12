@@ -1,0 +1,357 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import CourseCard from '@/components/ui/CourseCard.astro';
+import coursesData from '@/data/courses.json';
+import { 
+  ArrowRight, 
+  ShieldCheck, 
+  Building2, 
+  Users2, 
+  Award, 
+  TrendingUp, 
+  CheckCircle, 
+  Target,
+  Sparkles,
+  Layers,
+  GraduationCap
+} from 'lucide-astro';
+
+// Take first 6 verified courses for the home featured section
+const featuredCourses = coursesData.slice(0, 6);
+
+const capabilities = [
+  {
+    icon: Award,
+    title: 'Leadership & Transformation',
+    description: 'Strategic leadership development, change management, supervisory excellence, and executive decision-making designed for managers, supervisors, and rising leaders.',
+    href: '/courses?category=leadership-management'
+  },
+  {
+    icon: TrendingUp,
+    title: 'Workplace Performance & Skills',
+    description: 'Essential workplace competencies including problem solving, professional communications, team synergy, and operational performance enhancement.',
+    href: '/courses?category=workplace-performance'
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Industry Certification Prep',
+    description: 'Structured curricula aligned to globally recognized certification frameworks to validate specialized professional and technical competencies.',
+    href: '/courses'
+  },
+  {
+    icon: Building2,
+    title: 'Customized In-House Modules',
+    description: 'Bespoke corporate learning programs co-designed to target organizational skill gaps, compliance mandates, and operational milestones.',
+    href: '/corporate-solutions'
+  }
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Capability Diagnostic',
+    description: 'We assess departmental skill gaps and align learning objectives with organizational KPIs and operational requirements.'
+  },
+  {
+    number: '02',
+    title: 'Bespoke Delivery',
+    description: 'Practical, practitioner-led workshops delivered via blended formats, on-site bootcamps, or structured On-the-Job Training.'
+  },
+  {
+    number: '03',
+    title: 'Measurable ROI & Levy Settlement',
+    description: 'Post-training evaluation and seamless HRD Corp SBL-Khas grant claim support with zero out-of-pocket cash requirements.'
+  }
+];
+
+// Verified corporate partner logos available in project assets
+const verifiedPartners = [
+  { name: 'Microsoft', logo: '/assets/partners/Microsoft.png' },
+  { name: 'PMI', logo: '/assets/partners/PMI.png' },
+  { name: 'Malaysia Airlines', logo: '/assets/partners/malaysia-airlines.png' },
+  { name: 'Shopee', logo: '/assets/partners/shopee.png' },
+  { name: 'Lazada', logo: '/assets/partners/lazada.png' },
+];
+---
+
+<BaseLayout 
+  title="Your Unbeatable Human Capital Development Partner"
+  description="GET Academy delivers cutting-edge blended learning and tailored corporate training solutions across Malaysia since 2012. 100% HRD Corp SBL-Khas claimable."
+>
+  <!-- Hero Section -->
+  <section class="relative bg-brand-dark text-white overflow-hidden py-20 lg:py-28 border-b border-brand-sage/40">
+    <!-- Subtle Background Pattern -->
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#FADB50_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+    <div class="absolute -right-24 -bottom-24 w-96 h-96 bg-brand-sage/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="container-custom relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Hero Text -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-brand-gold/30 text-brand-gold text-xs font-extrabold tracking-wide uppercase">
+            <span class="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
+            <span>Over a Decade of Excellence • Est. 2012</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight sm:leading-tight text-white">
+            Your Unbeatable <span class="text-brand-gold underline decoration-brand-sage/60 decoration-4 underline-offset-4">Human Capital</span> Development Partner
+          </h1>
+
+          <p class="text-lg text-gray-200 leading-relaxed max-w-2xl">
+            Offering cutting-edge blended learning solutions to the industry. We not only cater to working professionals but also deliver customized, high-impact capability programs for corporations, businesses, and educational institutions across Malaysia.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="pt-2 flex flex-wrap gap-4 items-center">
+            <a
+              href="/courses"
+              class="inline-flex items-center justify-center px-6 py-3.5 text-base font-bold rounded-lg text-brand-dark bg-brand-gold hover:bg-brand-gold-deep shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5"
+            >
+              <span>Explore HRDC Courses</span>
+              <ArrowRight class="w-4 h-4 ml-2" />
+            </a>
+            <a
+              href="/contact"
+              class="inline-flex items-center justify-center px-6 py-3.5 text-base font-bold rounded-lg text-white bg-transparent border-2 border-white/80 hover:bg-white/10 hover:border-white transition-all"
+            >
+              Request Corporate Proposal
+            </a>
+          </div>
+
+          <!-- Quick Trust Badges -->
+          <div class="pt-6 border-t border-white/10 grid grid-cols-3 gap-4 text-xs">
+            <div>
+              <span class="block text-xl font-extrabold text-brand-gold">100%</span>
+              <span class="text-gray-300">HRDC SBL-Khas Claimable</span>
+            </div>
+            <div>
+              <span class="block text-xl font-extrabold text-brand-gold">10+ Years</span>
+              <span class="text-gray-300">Enterprise Track Record</span>
+            </div>
+            <div>
+              <span class="block text-xl font-extrabold text-brand-gold">19+</span>
+              <span class="text-gray-300">Verified Approved Courses</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Card / Testimonial Box -->
+        <div class="lg:col-span-5">
+          <div class="bg-white/5 backdrop-blur-md border border-white/15 rounded-2xl p-7 sm:p-9 shadow-2xl space-y-6">
+            <div class="flex items-center gap-2 text-brand-gold">
+              <Sparkles class="w-5 h-5" />
+              <span class="text-xs font-bold uppercase tracking-wider">Client Impact Spotlight</span>
+            </div>
+
+            <blockquote class="text-lg text-gray-100 font-medium italic leading-relaxed">
+              &ldquo;GET Academy&rsquo;s program was absolutely a great transformation with out of the box strategy and impactful implementation.&rdquo;
+            </blockquote>
+
+            <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+              <div>
+                <p class="font-bold text-white text-sm">Leadership Transformation Program</p>
+                <p class="text-xs text-brand-gold">Ministry of Education Participant</p>
+              </div>
+              <ShieldCheck class="w-8 h-8 text-brand-sage/80" />
+            </div>
+
+            <div class="bg-brand-sage/20 rounded-xl p-4 border border-brand-sage/40 flex items-start gap-3">
+              <div class="w-2.5 h-2.5 rounded-full bg-brand-gold mt-1.5 shrink-0"></div>
+              <p class="text-xs text-gray-200 leading-normal">
+                <strong>Zero Cash Outlay:</strong> Registered employers can fund training directly through their existing HRD Corp levy with full grant administration guidance.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Verified Partner & Accreditations Strip -->
+  <section class="py-10 bg-brand-light border-b border-brand-border">
+    <div class="container-custom">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="text-center md:text-left">
+          <span class="text-xs font-extrabold uppercase tracking-widest text-brand-sage block">Verified Credentials</span>
+          <span class="text-sm font-semibold text-brand-muted">Trusted by leading enterprises & aligned with international standards</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-10 grayscale hover:grayscale-0 transition-all opacity-85 hover:opacity-100">
+          {verifiedPartners.map((partner) => (
+            <div class="flex items-center justify-center h-8 sm:h-9">
+              <img 
+                src={partner.logo} 
+                alt={`${partner.name} logo`} 
+                class="max-h-8 sm:max-h-9 w-auto object-contain filter"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview & Capabilities Section -->
+  <section class="py-20 bg-white">
+    <div class="container-custom">
+      <SectionHeader 
+        eyebrow="Training Capabilities"
+        title="Engineered for Measurable Workforce Excellence"
+        subtitle="Flexible, outcome-driven learning pathways designed to build in-demand industry competencies through blended, online, and instructor-led delivery formats."
+        centered={true}
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {capabilities.map((cap) => (
+          <div class="bg-brand-light rounded-xl p-6 border border-brand-border hover:border-brand-sage/60 hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="w-12 h-12 rounded-lg bg-white border border-brand-border flex items-center justify-center text-brand-sage group-hover:bg-brand-sage group-hover:text-white transition-colors mb-5 shadow-sm">
+                <cap.icon class="w-6 h-6" />
+              </div>
+              <h3 class="text-lg font-bold text-brand-dark mb-2.5 group-hover:text-brand-sage transition-colors">
+                {cap.title}
+              </h3>
+              <p class="text-sm text-brand-muted leading-relaxed mb-6">
+                {cap.description}
+              </p>
+            </div>
+            <a
+              href={cap.href}
+              class="inline-flex items-center text-xs font-bold text-brand-sage group-hover:text-brand-sage-dark hover:underline"
+            >
+              <span>Explore Track</span>
+              <ArrowRight class="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured HRD Corp Courses Grid -->
+  <section class="py-20 bg-brand-light border-y border-brand-border">
+    <div class="container-custom">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">Approved Programmes</p>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">Featured HRD Corp Claimable Courses</h2>
+          <p class="text-sm sm:text-base text-brand-muted mt-2 max-w-xl">
+            Choose from our 19 verified SBL-Khas programs covering modern workplace strategy, technology, leadership, and customer success.
+          </p>
+        </div>
+        <div>
+          <a
+            href="/courses"
+            class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold rounded-lg text-white bg-brand-sage hover:bg-brand-sage-dark transition-colors shadow-sm"
+          >
+            <span>View All 19 Courses</span>
+            <ArrowRight class="w-4 h-4 ml-1.5" />
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {featuredCourses.map((course) => (
+          <CourseCard {...course} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Enterprise Partnership Framework (3 Steps) -->
+  <section class="py-20 bg-white">
+    <div class="container-custom">
+      <SectionHeader 
+        eyebrow="The 3-Step Enterprise Roadmap"
+        title="How We Partner with Your Organisation"
+        subtitle="A structured, consultative execution framework ensuring seamless grant approvals and verifiable capability outcomes."
+        centered={true}
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+        {processSteps.map((step) => (
+          <div class="bg-white rounded-xl p-8 border border-brand-border shadow-sm hover:border-brand-sage/60 transition-all flex flex-col justify-between">
+            <div>
+              <div class="text-3xl font-extrabold text-brand-gold mb-4 font-mono">
+                {step.number}
+              </div>
+              <h3 class="text-xl font-bold text-brand-dark mb-3">
+                {step.title}
+              </h3>
+              <p class="text-sm text-brand-muted leading-relaxed">
+                {step.description}
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-brand-border/60 flex items-center gap-2 text-xs font-semibold text-brand-sage">
+              <CheckCircle class="w-4 h-4" />
+              <span>Full compliance & documentation</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sectors & Industries Served -->
+  <section class="py-16 bg-brand-canvas border-t border-brand-border">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-5 space-y-4">
+          <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage">Client Reach</p>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark">Tailored Interventions Across Malaysian Sectors</h2>
+          <p class="text-sm text-brand-muted leading-relaxed">
+            From multinational corporations and statutory bodies to public education institutions, our consultative approach adapts directly to sector governance benchmarks.
+          </p>
+        </div>
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="p-5 bg-white rounded-lg border border-brand-border shadow-sm">
+            <Building2 class="w-6 h-6 text-brand-sage mb-3" />
+            <h4 class="font-bold text-sm text-brand-dark mb-1">Enterprises & Corporations</h4>
+            <p class="text-xs text-brand-muted">Cross-functional managerial upskilling and digital transformation.</p>
+          </div>
+          <div class="p-5 bg-white rounded-lg border border-brand-border shadow-sm">
+            <ShieldCheck class="w-6 h-6 text-brand-sage mb-3" />
+            <h4 class="font-bold text-sm text-brand-dark mb-1">Government & Statutory Bodies</h4>
+            <p class="text-xs text-brand-muted">Public service leadership, compliance, and governance alignment.</p>
+          </div>
+          <div class="p-5 bg-white rounded-lg border border-brand-border shadow-sm">
+            <GraduationCap class="w-6 h-6 text-brand-sage mb-3" />
+            <h4 class="font-bold text-sm text-brand-dark mb-1">Education & Higher Learning</h4>
+            <p class="text-xs text-brand-muted">Faculty performance, pedagogical development, and student readiness.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Corporate Enquiry Banner CTA -->
+  <section class="py-16 bg-brand-dark text-white text-center relative overflow-hidden">
+    <div class="container-custom relative z-10 max-w-4xl space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 text-brand-gold text-xs font-bold uppercase tracking-wider">
+        <Target class="w-4 h-4" />
+        <span>Consult With an Enterprise Advisor</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white">
+        Ready to Transform Your Workforce Capabilities?
+      </h2>
+      <p class="text-gray-200 text-base max-w-2xl mx-auto leading-relaxed">
+        Speak with our corporate learning team to receive customized course outlines, trainer profiles, and complete HRD Corp grant claim documentation within 1–2 business days.
+      </p>
+      <div class="pt-2 flex flex-wrap justify-center gap-4">
+        <a
+          href="/contact"
+          class="px-7 py-3.5 text-base font-bold rounded-lg text-brand-dark bg-brand-gold hover:bg-brand-gold-deep shadow-lg transition-all"
+        >
+          Submit Corporate Enquiry
+        </a>
+        <a
+          href="/corporate-solutions"
+          class="px-7 py-3.5 text-base font-bold rounded-lg text-white bg-transparent border-2 border-white/60 hover:bg-white/10 transition-all"
+        >
+          Explore Corporate Solutions
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
