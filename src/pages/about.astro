@@ -7,130 +7,299 @@ import {
   Target, 
   Users2, 
   CheckCircle2, 
-  Compass, 
   ShieldCheck, 
-  Layers,
-  ArrowRight
+  ArrowRight,
+  Cpu,
+  Globe2,
+  Briefcase,
+  GraduationCap,
+  Sparkles,
+  ExternalLink,
+  MapPin,
+  Clock,
+  Send
 } from 'lucide-astro';
 
-const pillars = [
+// 4 Core Capability Pillars documented in Company Profile Page 2-4
+const capabilityPillars = [
   {
-    title: 'Over a Decade of Industry Experience',
-    desc: 'Serving Malaysian corporate, governmental, and institutional clients since 2012 with proven capability interventions.'
+    number: '01',
+    icon: Cpu,
+    title: 'Artificial Intelligence Capacity Building',
+    tagline: 'Workforce & Institutional AI Literacy',
+    summary: 'Empowering enterprise workforces, educators, and public sector cohorts to understand, adopt, and integrate applied AI tools safely and productively into daily operations.',
+    image: '/assets/photos/ai-educator-training.jpeg',
+    imageAlt: 'Applied Artificial Intelligence capability building and workforce skilling session',
+    keyFocus: [
+      'Generative AI for Workplace Productivity',
+      'Institutional AI Literacy & Readiness',
+      'AI-Powered Education Transformation'
+    ]
   },
   {
-    title: 'Blended Learning Methodology',
-    desc: 'Combining interactive physical workshops, digital modules, and milestone-based execution for maximum knowledge retention.'
+    number: '02',
+    icon: Globe2,
+    title: 'Entrepreneurship – Cross Border Business',
+    tagline: 'Enterprise Incubation & Market Pathways',
+    summary: 'Guiding small business owners, corporate spin-offs, and entrepreneurs with practical digitalization roadmaps, international market exploration, and commercial strategies.',
+    image: '/assets/photos/cross-border-select-usa.jpeg',
+    imageAlt: 'Entrepreneurship incubation and cross-border commercial strategy session',
+    keyFocus: [
+      'Certified Digital Marketing Strategies (CDMS)',
+      'Cross-Border Market Entry & Trade Missions',
+      'Socio-Economic Development (B40 & M40)'
+    ]
   },
   {
-    title: 'International Standards Alignment',
-    desc: 'Curricula structured in accordance with globally recognized certification benchmarks (e.g. CompTIA, Microsoft, PMI).'
+    number: '03',
+    icon: ShieldCheck,
+    title: 'Global IT Certification',
+    tagline: 'Industry-Standard Credentials',
+    summary: 'Structured learning pathways aligned with internationally recognized bodies, equipping non-IT and technical personnel with validated cybersecurity and digital skills.',
+    image: '/assets/brand/comptia-cert-strip.png',
+    isBrandGraphic: true,
+    imageAlt: 'CompTIA authorized international IT certification pathways',
+    keyFocus: [
+      'CompTIA Authorized Training Pathways',
+      'Foundational Cybersecurity for Non-IT Personnel',
+      'SEGi Certified Academic Frameworks'
+    ]
   },
   {
-    title: 'Measurable Workplace ROI',
-    desc: 'Focusing on immediate on-the-job application, verified skill transfer, and demonstrative business productivity growth.'
+    number: '04',
+    icon: Award,
+    title: 'Professional Development',
+    tagline: 'Managerial & Operational Excellence',
+    summary: 'Developing critical workplace competencies across managerial leadership, root-cause problem solving, design thinking, and customer experience management.',
+    image: '/assets/photos/welcome-classroom-session.jpeg',
+    imageAlt: 'Interactive classroom workshop session on managerial capabilities and team leadership',
+    keyFocus: [
+      'Customer Experience Management (CEM)',
+      'Design Thinking & Root-Cause Problem Solving',
+      'Cross-Functional Performance & Team Alignment'
+    ]
   }
 ];
 
-const capabilities = [
+// Documented Institutional Relationships & Formal Affiliations (Pages 1, 8, 9, 26, 28)
+const institutionalAffiliations = [
   {
-    title: 'Executive & Managerial Leadership',
-    desc: 'Empowering senior executives, department managers, and supervisors with strategic decision-making, emotional intelligence, and change management tools.'
+    name: 'CompTIA Authorized Partner',
+    category: 'Authorised Delivery Partner',
+    logo: '/assets/partners/CompTIA.png',
+    scope: 'Computing Technology Industry Association endorsed partner delivering global IT and cybersecurity certifications.',
+    status: 'Authorized Curriculum & Exam Pathways'
   },
   {
-    title: 'Digital & Technical Upskilling',
-    desc: 'Modernising workforce technical competencies across digital strategy, IT infrastructure, cloud adoption, and cybersecurity hygiene.'
+    name: 'SEGi University & Colleges',
+    category: 'Academic Franchisee',
+    logo: '/assets/partners/SEGI.png',
+    scope: 'Franchisee and strategic educational partner in Malaysia delivering certified joint credentials and training modules.',
+    status: 'Formal Educational Franchise Agreement'
   },
   {
-    title: 'High-Impact Workplace Performance',
-    desc: 'Developing critical core skills including root-cause problem solving, critical thinking, customer experience management, and cross-functional team synergy.'
+    name: 'Malaysia Digital Economy Corporation (MDEC)',
+    category: 'Appointed Training Provider',
+    logo: '/assets/partners/mdec.png',
+    scope: 'Appointed training provider for MSMEs, SMEs, and corporate cohorts under Digital Up, Let’s Learn Digital, and Digital Skills Directory.',
+    status: 'Documented Initiative Appointment'
   },
   {
-    title: 'Structured On-the-Job Training (OJT)',
-    desc: 'Designing and executing workplace-embedded learning frameworks that bridge classroom concepts directly to day-to-day operational execution.'
+    name: 'Malaysia Productivity Corporation (MPC)',
+    category: 'Digital Solution Provider',
+    logo: '/assets/partners/mpc.png',
+    scope: 'Appointed Digital Solution Provider and digital transformation partner participating in national productivity workgroups.',
+    status: 'Statutory Body Appointment'
+  },
+  {
+    name: 'MATRADE Member',
+    category: 'Statutory Trade Registry',
+    logo: '/assets/partners/matrade.png',
+    scope: 'Registered member of Malaysia External Trade Development Corporation participating in international market missions.',
+    status: 'Official Trade Directory Listing'
+  },
+  {
+    name: 'HRD Corp Registered Training Provider',
+    category: 'Statutory Provider Registration',
+    logo: '/assets/partners/HRDF.png',
+    scope: 'Registered provider (LLP0019343-LGN). Validated validity date through 2 Sept 2025; active renewal documents submitted per engagement.',
+    status: 'Registered Training Provider'
+  }
+];
+
+// Documented Delivery Formats (Page 5)
+const deliveryFormats = [
+  {
+    title: 'Hands-On Physical Workshops',
+    description: 'On-site intensive sessions held at client premises or dedicated seminar venues with simulation exercises and live feedback.',
+    tag: 'Interactive & Experiential'
+  },
+  {
+    title: 'High-Engagement Online Learning',
+    description: 'Facilitator-led live virtual workshops engineered for distributed teams, shift workers, and cross-state cohorts.',
+    tag: 'Flexible Virtual Classrooms'
+  },
+  {
+    title: 'International Immersion Programmes',
+    description: 'Specialized enterprise exposure initiatives connecting local business cohorts with global trade and tech ecosystems.',
+    tag: 'Global Market Exposure'
   }
 ];
 ---
 
 <BaseLayout 
-  title="About Us — Corporate Profile & Mission"
-  description="Discover GET Academy's background since 2012, operating pillars, and human capital development approach."
+  title="About Us — Corporate Profile & Human Capital Development Partner"
+  description="Learn about GET Academy (Global Experiential Training Academy PLT), our 4 core capability pillars, documented institutional experience, and corporate mission across Malaysia."
 >
   <!-- Page Header -->
-  <section class="bg-brand-dark text-white py-16 lg:py-20 border-b border-brand-sage/40">
-    <div class="container-custom max-w-4xl">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 text-brand-gold text-xs font-bold uppercase tracking-wider mb-4">
+  <section class="relative bg-gradient-to-b from-[#244336] via-[#2D5444] to-[#244336] text-white py-16 sm:py-20 lg:py-24 border-b border-brand-sage/30 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#FADB50_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+    <div class="container-custom relative z-10 max-w-4xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-brand-gold text-xs font-bold uppercase tracking-wider mb-4 border border-brand-gold/20">
+        <Sparkles class="w-3.5 h-3.5" />
         <span>About GET Academy</span>
       </div>
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-6">
-        Dedicated to Transforming Talents & Organisations
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+        Your Unbeatable Human Capital Development Partner
       </h1>
-      <p class="text-lg text-gray-200 leading-relaxed">
-        GET Academy is a dedicated corporate training and capability development provider established in 2012. We deliver cutting-edge blended learning and tailored corporate training solutions engineered to help organisations build resilient, high-performing, and future-ready teams across Malaysia.
+      <p class="text-base sm:text-lg text-gray-200 leading-relaxed max-w-3xl">
+        Global Experiential Training Academy PLT (GET Academy) is a dedicated skills training academy delivering practitioner-led capacity building, global certification pathways, and customized talent development for enterprises, public sector bodies, and educational institutions.
       </p>
     </div>
   </section>
 
-  <!-- Corporate Profile Overview -->
+  <!-- Section 1 — Who We Are: Mission & Approach -->
   <section class="py-20 bg-white">
     <div class="container-custom">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-6 space-y-6">
-          <SectionHeader 
-            eyebrow="Our Identity"
-            title="Bridging Theoretical Knowledge with Practical Workplace Impact"
-            subtitle="We partner with enterprise corporations, statutory bodies, and educational institutions to achieve quantifiable capability improvements and sustainable operational success."
-          />
-          <p class="text-brand-muted leading-relaxed text-base">
-            In an era of rapid technological transformation and dynamic market requirements, standard off-the-shelf training often fails to bridge operational gaps. GET Academy focuses on outcome-driven learning architectures that align directly with corporate strategic priorities.
-          </p>
-          <div class="p-5 rounded-xl bg-brand-light border border-brand-border">
-            <h4 class="font-bold text-brand-dark text-sm mb-2 flex items-center gap-2">
-              <ShieldCheck class="w-5 h-5 text-brand-sage" />
-              <span>HRD Corp Registered Training Provider</span>
-            </h4>
-            <p class="text-xs text-brand-muted leading-relaxed">
-              All eligible corporate programs are fully claimable under the Human Resource Development Corporation (HRD Corp) SBL-Khas levy scheme, enabling Malaysian employers to maximize their training investments with zero cash outlay.
-            </p>
+        <!-- Visual Column -->
+        <div class="lg:col-span-5 order-2 lg:order-1">
+          <div class="rounded-2xl overflow-hidden shadow-lg border border-brand-border bg-slate-100 relative group">
+            <img 
+              src="/assets/photos/about-team.jpg" 
+              alt="GET Academy corporate capability session and practitioner facilitation" 
+              class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="text-[11px] font-bold text-brand-gold uppercase tracking-wider block mb-1">
+                Practitioner-Led Instruction
+              </span>
+              <p class="text-xs text-slate-200 leading-snug">
+                Combining interactive workshop dynamics with actionable diagnostic tools for immediate workplace execution.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {pillars.map((pillar, idx) => (
-            <div class="bg-brand-light p-6 rounded-xl border border-brand-border hover:border-brand-sage/60 transition-all flex flex-col justify-between">
-              <div>
-                <span class="text-2xl font-extrabold text-brand-sage font-mono block mb-3">0{idx + 1}</span>
-                <h3 class="font-bold text-brand-dark text-base mb-2">{pillar.title}</h3>
-                <p class="text-xs text-brand-muted leading-relaxed">{pillar.desc}</p>
-              </div>
+        <!-- Copy Column -->
+        <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
+          <div class="space-y-3">
+            <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage">Corporate Profile & Mission</p>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight leading-snug">
+              Bridging Strategic Capability Gaps Through Applied Learning
+            </h2>
+            <p class="text-sm sm:text-base text-brand-muted leading-relaxed">
+              In a rapidly evolving economic landscape driven by artificial intelligence, digital disruption, and changing market demands, standard theoretical training rarely produces sustained operational transformation.
+            </p>
+            <p class="text-sm sm:text-base text-brand-muted leading-relaxed">
+              GET Academy works collaboratively with organizations to diagnose competency requirements, formulate tailored training roadmaps, and deliver hands-on, outcome-driven programs that equip workforces to perform with confidence and measurable efficiency.
+            </p>
+          </div>
+
+          <!-- Quick Fact Pillars -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <div class="p-4 rounded-xl bg-brand-light border border-brand-border">
+              <span class="text-xs font-bold text-brand-sage uppercase block mb-1">Registered Entity</span>
+              <p class="text-xs text-brand-dark font-semibold">GET Academy PLT</p>
+              <span class="text-[10px] text-brand-muted block mt-0.5">LLP0019343-LGN</span>
             </div>
-          ))}
+            <div class="p-4 rounded-xl bg-brand-light border border-brand-border">
+              <span class="text-xs font-bold text-brand-sage uppercase block mb-1">HQ Location</span>
+              <p class="text-xs text-brand-dark font-semibold">Kuala Lumpur</p>
+              <span class="text-[10px] text-brand-muted block mt-0.5">Level 33, Ilham Tower</span>
+            </div>
+            <div class="p-4 rounded-xl bg-brand-light border border-brand-border">
+              <span class="text-xs font-bold text-brand-sage uppercase block mb-1">Focus Sectors</span>
+              <p class="text-xs text-brand-dark font-semibold">Enterprise & Public</p>
+              <span class="text-[10px] text-brand-muted block mt-0.5">Government & Education</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Core Capabilities Detailed -->
-  <section class="py-20 bg-brand-light border-y border-brand-border">
+  <!-- Section 2 — The 4 Core Capability Pillars -->
+  <section class="py-20 bg-brand-light border-y border-brand-border" id="pillars">
     <div class="container-custom">
-      <SectionHeader 
-        eyebrow="Core Competency Pillars"
-        title="What GET Academy Delivers"
-        subtitle="Our targeted training pillars are engineered to address critical workforce capability requirements across all tiers of the organization."
-        centered={true}
-      />
+      <div class="max-w-3xl mx-auto text-center mb-14">
+        <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">Core Training Specializations</p>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">
+          Our Four Capability Pillars
+        </h2>
+        <p class="text-sm sm:text-base text-brand-muted mt-3 leading-relaxed">
+          GET Academy’s curriculum and capability advisory are structured across four core pillars, designed to provide comprehensive workforce readiness from foundational skills to executive transformation.
+        </p>
+      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        {capabilities.map((cap) => (
-          <div class="bg-white p-7 rounded-xl border border-brand-border shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-start gap-4">
-              <div class="p-3 bg-brand-light rounded-lg text-brand-sage shrink-0 border border-brand-border">
-                <Target class="w-6 h-6" />
+      <!-- 4 Pillars Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        {capabilityPillars.map((pillar) => (
+          <div class="bg-white rounded-2xl border border-brand-border shadow-sm hover:border-brand-sage/60 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col justify-between group">
+            <div>
+              <!-- Prominent Image Header -->
+              <div class="relative h-52 sm:h-56 w-full bg-slate-100 overflow-hidden flex items-center justify-center">
+                {pillar.isBrandGraphic ? (
+                  <div class="w-full h-full p-8 flex items-center justify-center bg-slate-50 group-hover:bg-white transition-colors">
+                    <img 
+                      src={pillar.image} 
+                      alt={pillar.imageAlt} 
+                      class="max-h-full max-w-[280px] object-contain group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                ) : (
+                  <img 
+                    src={pillar.image} 
+                    alt={pillar.imageAlt} 
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                )}
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
+                
+                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-mono font-extrabold bg-brand-dark/90 text-brand-gold border border-brand-gold/30 shadow-xs backdrop-blur-sm">
+                  {pillar.number}
+                </span>
+                <span class="absolute bottom-3 left-3 px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/95 text-brand-dark shadow-xs backdrop-blur-sm">
+                  {pillar.tagline}
+                </span>
               </div>
-              <div>
-                <h3 class="text-lg font-bold text-brand-dark mb-2">{cap.title}</h3>
-                <p class="text-sm text-brand-muted leading-relaxed">{cap.desc}</p>
+
+              <!-- Body Copy -->
+              <div class="p-6 sm:p-7 space-y-3">
+                <h3 class="text-lg sm:text-xl font-bold text-brand-dark leading-snug group-hover:text-brand-sage transition-colors">
+                  {pillar.title}
+                </h3>
+                <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
+                  {pillar.summary}
+                </p>
               </div>
+            </div>
+
+            <!-- Bullet Focus Points -->
+            <div class="px-6 pb-6 sm:px-7 sm:pb-7 pt-3 border-t border-brand-border/60">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-brand-sage block mb-2">Key Competency Areas:</span>
+              <ul class="space-y-1.5">
+                {pillar.keyFocus.map((focus) => (
+                  <li class="flex items-center gap-2 text-xs text-brand-muted">
+                    <CheckCircle2 class="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                    <span>{focus}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         ))}
@@ -138,38 +307,127 @@ const capabilities = [
     </div>
   </section>
 
-  <!-- Corporate Registration Details Notice -->
-  <section class="py-12 bg-white">
-    <div class="container-custom max-w-4xl">
-      <div class="bg-amber-50/70 border border-amber-200/80 rounded-xl p-6 sm:p-8">
-        <h3 class="text-base font-bold text-amber-900 mb-2 uppercase tracking-wide">
-          Institutional Credentials & Verification
-        </h3>
-        <p class="text-sm text-amber-950 leading-relaxed mb-4">
-          GET Academy operates as an accredited corporate capability provider in Malaysia. Full corporate profile brochures, SSM registration cert copies, and trainer credential packs are furnished upon official corporate enquiry.
+  <!-- Section 3 — Training Delivery Formats -->
+  <section class="py-20 bg-white">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">Flexible Implementation</p>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">
+          Tailored Delivery Architectures
+        </h2>
+        <p class="text-sm sm:text-base text-brand-muted mt-2 leading-relaxed">
+          Accommodating operational shifts, distributed teams, and cross-functional corporate timelines through proven delivery modes.
         </p>
-        <div class="text-xs text-amber-800 flex flex-wrap gap-4 font-medium">
-          <span>• Incorporated in Malaysia (2012)</span>
-          <span>• HRD Corp Registered Provider</span>
-          <span>• Official proposals issued under 24–48 hours</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {deliveryFormats.map((fmt, idx) => (
+          <div class="bg-brand-light p-6 rounded-2xl border border-brand-border hover:border-brand-sage/60 hover:shadow-sm transition-all flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-brand-sage bg-brand-sage-light px-2.5 py-0.5 rounded inline-block mb-3">
+                {fmt.tag}
+              </span>
+              <h3 class="text-base font-bold text-brand-dark mb-2 leading-snug">
+                {fmt.title}
+              </h3>
+              <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
+                {fmt.description}
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-brand-border/60 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-800">
+              <CheckCircle2 class="w-3.5 h-3.5 text-emerald-700" />
+              <span>Documented Delivery Mode</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4 — Institutional Affiliations & Accreditation Notice -->
+  <section class="py-20 bg-brand-light border-y border-brand-border">
+    <div class="container-custom">
+      <SectionHeader 
+        eyebrow="Institutional Relationships"
+        title="Accreditations & Organizational Affiliations"
+        subtitle="Transparently categorized by statutory certifications, authorized delivery agreements, and institutional appointments."
+        centered={true}
+      />
+
+      <!-- Affiliations Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-10">
+        {institutionalAffiliations.map((aff) => (
+          <div class="bg-white p-5 rounded-xl border border-brand-border shadow-xs hover:border-brand-sage/60 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-full h-20 rounded-lg bg-slate-50 border border-slate-100 p-2.5 flex items-center justify-center mb-4">
+                <img 
+                  src={aff.logo} 
+                  alt={aff.name} 
+                  class="max-h-12 max-w-[140px] object-contain"
+                  loading="lazy"
+                />
+              </div>
+              <span class="inline-block px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-brand-light text-brand-sage border border-brand-border mb-2">
+                {aff.category}
+              </span>
+              <h4 class="text-xs font-bold text-brand-dark mb-1 leading-snug">
+                {aff.name}
+              </h4>
+              <p class="text-[11px] text-brand-muted leading-relaxed">
+                {aff.scope}
+              </p>
+            </div>
+
+            <div class="mt-4 pt-2.5 border-t border-brand-border/50 flex items-center gap-1.5 text-[10px] font-medium text-emerald-800">
+              <CheckCircle2 class="w-3 h-3 text-emerald-700 shrink-0" />
+              <span class="truncate">{aff.status}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Verification Notice -->
+      <div class="max-w-4xl mx-auto bg-amber-50/90 border border-amber-200/80 rounded-2xl p-5 sm:p-6 flex items-start gap-4 text-xs text-amber-950 shadow-xs">
+        <div class="w-9 h-9 rounded-xl bg-amber-100/80 text-amber-900 flex items-center justify-center shrink-0 mt-0.5">
+          <ShieldCheck class="w-5 h-5 text-amber-800" />
+        </div>
+        <div class="space-y-1.5">
+          <p class="text-xs font-bold uppercase tracking-wider text-amber-900">
+            Accreditation Verification & Governance Notice
+          </p>
+          <p class="text-xs text-amber-900/90 leading-relaxed">
+            The HRD Corp Training Provider Certificate documented in the company profile records historical registration validity through 2 September 2025 (Registration: LLP0019343-LGN). Active validity renewal certificates and individual facilitator Train-The-Trainer (TTT) credentials are submitted directly to corporate human resource and procurement teams upon request during formal training engagement proposals.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA Banner -->
-  <section class="py-16 bg-brand-dark text-white text-center">
-    <div class="container-custom max-w-3xl space-y-5">
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Partner with GET Academy Today</h2>
-      <p class="text-gray-200 text-sm sm:text-base leading-relaxed">
-        Let our advisors assist your organization in formulating a tailored human capital roadmap aligned with your business milestones and HRD Corp levy fund.
+  <!-- Section 5 — Call to Action -->
+  <section class="py-16 sm:py-20 bg-brand-dark text-white text-center relative overflow-hidden">
+    <div class="container-custom max-w-3xl space-y-6 relative z-10">
+      <span class="text-xs font-bold uppercase tracking-widest text-brand-gold block">
+        Engage With Our Advisors
+      </span>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+        Ready to Discuss Your Organization’s Training Needs?
+      </h2>
+      <p class="text-gray-200 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+        Speak with our corporate capability consultants to formulate a tailored training roadmap aligned with your business priorities, technical benchmarks, and HRD Corp levy fund.
       </p>
-      <div class="pt-2 flex justify-center gap-4">
-        <a href="/contact" class="px-6 py-3 rounded-lg font-bold bg-brand-gold text-brand-dark hover:bg-brand-gold-deep transition-all text-sm">
-          Request Company Consultation
+      <div class="pt-2 flex flex-wrap justify-center gap-4">
+        <a 
+          href="/contact" 
+          class="px-6 py-3.5 rounded-xl font-bold bg-brand-gold text-brand-dark hover:bg-brand-gold-deep transition-all duration-200 text-sm shadow-md flex items-center gap-2"
+        >
+          <span>Discuss Your Training Needs</span>
+          <ArrowRight class="w-4 h-4" />
         </a>
-        <a href="/courses" class="px-6 py-3 rounded-lg font-bold bg-transparent border border-white text-white hover:bg-white/10 transition-all text-sm">
-          Browse Course Directory
+        <a 
+          href="/courses" 
+          class="px-6 py-3.5 rounded-xl font-bold bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-all duration-200 text-sm backdrop-blur-sm"
+        >
+          <span>Explore Course Directory</span>
         </a>
       </div>
     </div>
