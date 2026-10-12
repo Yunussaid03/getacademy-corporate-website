@@ -20,7 +20,10 @@ import {
   ExternalLink, 
   Clock, 
   Send,
-  AlertCircle
+  AlertCircle,
+  ChevronLeft,
+  ChevronRight,
+  Layers
 } from 'lucide-astro';
 
 // 4 Main Capability Pillars as documented in Company Profile Page 2-4
@@ -129,28 +132,44 @@ const documentedEngagements = [
 // Accreditations & Institutional Relationships Classified by Relationship Type (Pages 1, 8, 9, 11, 26, 28)
 const relationshipCategories = [
   {
+    id: 'accreditations',
     category: 'Accreditations & Certifications',
     subtitle: 'Institutional Provider Authorisations & Credentials',
-    description: 'Statutory provider registrations, trainer credentials, and international body recognitions.',
+    description: 'Statutory provider registrations, trainer credentials, and international credentialing bodies.',
     items: [
       {
         name: 'HRD Corp Registered Training Provider',
-        badge: 'LLP0019343-LGN',
+        badge: 'Statutory Registration',
         logo: '/assets/partners/HRDF.png',
-        scope: 'Registered under Human Resources Development Corporation. Profile documents historical validity period through 2 September 2025.',
-        statusNote: 'Current renewal certificates and certified TTT trainer credentials provided upon formal inquiry.'
+        scope: 'Registered under Human Resources Development Corporation (Registration: LLP0019343-LGN). Validity period through 2 September 2025.',
+        statusNote: 'Current renewal certificates provided upon formal inquiry'
       },
       {
         name: 'HRD Corp Certified Trainers (TTT)',
         badge: 'Accredited Facilitators',
         logo: '/assets/partners/HRDF.png',
-        scope: 'Trainers holding certified Train-The-Trainer (TTT) credentials deliver claimable professional development programmes.',
-        statusNote: 'Facilitator credentials verified per engagement.'
+        scope: 'Trainers holding certified Train-The-Trainer (TTT) credentials deliver claimable corporate training programmes.',
+        statusNote: 'Facilitator credentials verified per engagement'
+      },
+      {
+        name: 'American Society for Quality (ASQ)',
+        badge: 'Professional Body Alignment',
+        logo: '/assets/partners/ASQ.png',
+        scope: 'Continuous improvement, Six Sigma, and operational quality management training frameworks.',
+        statusNote: 'Curriculum & Body of Knowledge Alignment'
+      },
+      {
+        name: 'Project Management Institute (PMI)',
+        badge: 'Professional Body Alignment',
+        logo: '/assets/partners/PMI.png',
+        scope: 'Industry-standard project leadership, agile practices, and governance methodologies.',
+        statusNote: 'Curriculum & Body of Knowledge Alignment'
       }
     ]
   },
   {
-    category: 'Authorised Partnerships',
+    id: 'partnerships',
+    category: 'Technology & Training Partners',
     subtitle: 'Official Delivery & Academic Agreements',
     description: 'Contracted agreements for certified syllabus delivery, credentialing, and academic franchisee status.',
     items: [
@@ -166,11 +185,26 @@ const relationshipCategories = [
         badge: 'Academic Franchisee',
         logo: '/assets/partners/SEGI.png',
         scope: 'Franchisee and strategic educational partner of SEGi University and Colleges in Malaysia for certified training modules.',
-        statusNote: 'Formal Franchise Agreement'
+        statusNote: 'Formal Educational Franchise Agreement'
+      },
+      {
+        name: 'Microsoft National AI Skilling Ecosystem',
+        badge: 'Ecosystem Collaborator',
+        logo: '/assets/partners/Microsoft.png',
+        scope: 'Collaborating in national AI literacy, workforce skilling, and public-sector enablement initiatives (AINSI).',
+        statusNote: 'Multi-Stakeholder Skilling Initiative'
+      },
+      {
+        name: 'AXELOS Best Practice Methodologies',
+        badge: 'Framework Delivery',
+        logo: '/assets/partners/axelos-vector-logo.png',
+        scope: 'Service management and governance frameworks aligned with internationally recognized best practices (ITIL).',
+        statusNote: 'Best-Practice Syllabus Integration'
       }
     ]
   },
   {
+    id: 'institutional',
     category: 'Institutional & Industry Relationships',
     subtitle: 'Public Agencies, Statutory Bodies & Trade Memberships',
     description: 'Documented project appointments, digitalization committee roles, and statutory trade registry memberships.',
@@ -180,13 +214,13 @@ const relationshipCategories = [
         badge: 'Appointed Training Provider',
         logo: '/assets/partners/mdec.png',
         scope: 'Appointed training provider for MSMEs, SMEs, and corporate cohorts under Digital Up, Let’s Learn Digital, and Digital Skills Training Directory.',
-        statusNote: 'Documented Initiative Appointment'
+        statusNote: 'Documented National Initiative Appointment'
       },
       {
         name: 'Malaysia Productivity Corporation (MPC)',
         badge: 'Digital Solution Provider',
         logo: '/assets/partners/mpc.png',
-        scope: 'Appointed Digital Solution Provider and digitalization transformation partner, participating in national productivity workgroups.',
+        scope: 'Appointed Digital Solution Provider and digital transformation partner, participating in national productivity workgroups.',
         statusNote: 'Statutory Body Appointment'
       },
       {
@@ -195,6 +229,13 @@ const relationshipCategories = [
         logo: '/assets/partners/matrade.png',
         scope: 'Registered member of the Malaysia External Trade Development Corporation for international trade missions and sourcing programmes.',
         statusNote: 'Official Trade Directory Listing'
+      },
+      {
+        name: 'SEDIC - MITRA (Jabatan Perdana Menteri)',
+        badge: 'Programme Delivery Partner',
+        logo: '/assets/partners/sedic.jpg',
+        scope: 'Selected to deliver entrepreneurship digitalization and business capability development for B40/M40 small business owners.',
+        statusNote: 'Documented Public Sector Coaching Programme'
       }
     ]
   }
@@ -527,59 +568,110 @@ const featuredCourses = coursesData.slice(0, 6);
         centered={true}
       />
 
-      <!-- 3 Structured Category Groups -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+      <!-- Interactive Category Filter Tabs -->
+      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10" role="tablist" aria-label="Accreditation Categories">
+        <button 
+          type="button"
+          class="category-tab-btn active px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs font-bold transition-all duration-200 border border-brand-sage bg-brand-sage text-white shadow-xs"
+          data-category="all"
+          role="tab"
+          aria-selected="true"
+        >
+          All Relationships ({relationshipCategories.reduce((acc, cat) => acc + cat.items.length, 0)})
+        </button>
         {relationshipCategories.map((cat) => (
-          <div class="bg-brand-light rounded-2xl border border-brand-border p-6 flex flex-col justify-between shadow-sm hover:border-brand-sage/50 transition-all duration-300">
-            <div>
-              <div class="border-b border-brand-border/70 pb-4 mb-5">
-                <span class="inline-block px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-sage-light text-brand-sage mb-2">
-                  {cat.category}
-                </span>
-                <h3 class="text-base font-bold text-brand-dark leading-snug">
-                  {cat.subtitle}
-                </h3>
-                <p class="text-xs text-brand-muted mt-1 leading-relaxed">
-                  {cat.description}
-                </p>
-              </div>
-
-              <div class="space-y-4">
-                {cat.items.map((item) => (
-                  <div class="bg-white p-4 rounded-xl border border-brand-border shadow-xs hover:border-brand-sage/60 transition-all">
-                    <div class="flex items-start gap-3.5">
-                      <div class="w-16 h-12 rounded-lg bg-slate-50 border border-slate-100 p-1.5 flex items-center justify-center shrink-0">
-                        <img 
-                          src={item.logo} 
-                          alt={item.name} 
-                          class="max-h-full max-w-full object-contain"
-                          loading="lazy"
-                        />
-                      </div>
-                      <div class="flex-1 min-w-0">
-                        <div class="flex flex-wrap items-center gap-1.5 mb-1">
-                          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-brand-light text-brand-sage border border-brand-border">
-                            {item.badge}
-                          </span>
-                        </div>
-                        <h4 class="text-xs font-bold text-brand-dark leading-snug">
-                          {item.name}
-                        </h4>
-                        <p class="text-[11px] text-brand-muted mt-1 leading-relaxed">
-                          {item.scope}
-                        </p>
-                      </div>
-                    </div>
-                    <div class="mt-3 pt-2.5 border-t border-brand-border/50 flex items-center gap-1.5 text-[10px] font-medium text-emerald-800">
-                      <CheckCircle2 class="w-3 h-3 text-emerald-700 shrink-0" />
-                      <span class="truncate">{item.statusNote}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <button 
+            type="button"
+            class="category-tab-btn px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs font-bold transition-all duration-200 border border-brand-border bg-brand-light text-brand-dark hover:border-brand-sage/60 hover:text-brand-sage"
+            data-category={cat.id}
+            role="tab"
+            aria-selected="false"
+          >
+            {cat.category} ({cat.items.length})
+          </button>
         ))}
+      </div>
+
+      <!-- Carousel Container with Navigation Controls -->
+      <div class="relative max-w-6xl mx-auto mb-12">
+        <!-- Prev Button -->
+        <button 
+          type="button"
+          id="partner-carousel-prev" 
+          class="absolute -left-3 sm:-left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border border-brand-border shadow-md text-brand-dark hover:bg-brand-light hover:text-brand-sage hover:border-brand-sage/60 transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-brand-sage/50"
+          aria-label="Previous relationships slide"
+        >
+          <ChevronLeft class="w-5 h-5 sm:w-6 sm:h-6" />
+        </button>
+
+        <!-- Carousel Track Wrapper (Smooth scrolling with snap) -->
+        <div 
+          id="partner-carousel-track" 
+          class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 pt-1 px-2 no-scrollbar focus:outline-none focus:ring-2 focus:ring-brand-sage/30 rounded-2xl"
+          tabindex="0"
+          aria-label="Institutional Relationships Carousel"
+        >
+          {relationshipCategories.flatMap((cat) => 
+            cat.items.map((item) => (
+              <div 
+                class="carousel-card snap-start shrink-0 w-[290px] sm:w-[340px] md:w-[350px] bg-white rounded-2xl border border-brand-border p-6 shadow-sm hover:shadow-md hover:border-brand-sage/60 transition-all duration-300 flex flex-col justify-between group"
+                data-category={cat.id}
+              >
+                <!-- Large Logo Showcase Area -->
+                <div>
+                  <div class="w-full h-32 sm:h-36 rounded-xl bg-slate-50/80 border border-slate-100 p-4 sm:p-5 flex items-center justify-center mb-5 group-hover:bg-white transition-colors">
+                    <img 
+                      src={item.logo} 
+                      alt={item.name} 
+                      class="max-h-20 sm:max-h-24 max-w-[200px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <!-- Category & Status Badge -->
+                  <div class="flex flex-wrap items-center gap-1.5 mb-2.5">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-sage-light text-brand-sage">
+                      {item.badge}
+                    </span>
+                    <span class="px-1.5 py-0.5 rounded text-[9px] font-semibold text-slate-500 bg-slate-100">
+                      {cat.category}
+                    </span>
+                  </div>
+
+                  <!-- Title & Scope -->
+                  <h4 class="text-sm sm:text-base font-bold text-brand-dark mb-2 leading-snug group-hover:text-brand-sage transition-colors">
+                    {item.name}
+                  </h4>
+                  <p class="text-xs text-brand-muted leading-relaxed line-clamp-3">
+                    {item.scope}
+                  </p>
+                </div>
+
+                <!-- Footer Verified Status -->
+                <div class="mt-5 pt-3.5 border-t border-brand-border/60 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-800">
+                  <CheckCircle2 class="w-4 h-4 text-emerald-700 shrink-0" />
+                  <span class="truncate">{item.statusNote}</span>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        <!-- Next Button -->
+        <button 
+          type="button"
+          id="partner-carousel-next" 
+          class="absolute -right-3 sm:-right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border border-brand-border shadow-md text-brand-dark hover:bg-brand-light hover:text-brand-sage hover:border-brand-sage/60 transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-brand-sage/50"
+          aria-label="Next relationships slide"
+        >
+          <ChevronRight class="w-5 h-5 sm:w-6 sm:h-6" />
+        </button>
+
+        <!-- Carousel Indicators / Position Note -->
+        <div class="flex items-center justify-center gap-2 mt-4 text-xs text-brand-muted">
+          <span class="inline-block w-2 h-2 rounded-full bg-brand-sage"></span>
+          <span class="text-[11px] font-medium">Use arrow buttons or swipe to explore all {relationshipCategories.reduce((acc, cat) => acc + cat.items.length, 0)} affiliations</span>
+        </div>
       </div>
 
       <!-- Verification Status Notice regarding HRD Corp Certificate & Renewals -->
@@ -598,6 +690,74 @@ const featuredCourses = coursesData.slice(0, 6);
       </div>
     </div>
   </section>
+
+  <!-- Interactive Client-side Script for Carousel & Category Filter -->
+  <script is:inline>
+    (function() {
+      const track = document.getElementById('partner-carousel-track');
+      const prevBtn = document.getElementById('partner-carousel-prev');
+      const nextBtn = document.getElementById('partner-carousel-next');
+      const tabBtns = document.querySelectorAll('.category-tab-btn');
+      const cards = document.querySelectorAll('.carousel-card');
+
+      if (!track || !prevBtn || !nextBtn) return;
+
+      // Scroll helpers
+      function getScrollDistance() {
+        const firstCard = track.querySelector('.carousel-card:not(.hidden)');
+        return firstCard ? firstCard.offsetWidth + 24 : 360;
+      }
+
+      prevBtn.addEventListener('click', () => {
+        track.scrollBy({ left: -getScrollDistance(), behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        track.scrollBy({ left: getScrollDistance(), behavior: 'smooth' });
+      });
+
+      // Keyboard navigation support on track
+      track.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          track.scrollBy({ left: -getScrollDistance(), behavior: 'smooth' });
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          track.scrollBy({ left: getScrollDistance(), behavior: 'smooth' });
+        }
+      });
+
+      // Category tab filtering
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const category = btn.dataset.category;
+
+          // Update active state
+          tabBtns.forEach(b => {
+            b.classList.remove('active', 'bg-brand-sage', 'text-white', 'border-brand-sage');
+            b.classList.add('bg-brand-light', 'text-brand-dark', 'border-brand-border');
+            b.setAttribute('aria-selected', 'false');
+          });
+
+          btn.classList.add('active', 'bg-brand-sage', 'text-white', 'border-brand-sage');
+          btn.classList.remove('bg-brand-light', 'text-brand-dark', 'border-brand-border');
+          btn.setAttribute('aria-selected', 'true');
+
+          // Filter cards
+          cards.forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+              card.classList.remove('hidden');
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+
+          // Reset scroll position to beginning smoothly
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+        });
+      });
+    })();
+  </script>
 
   <!-- Section 5 — Why GET Academy: Documented Differentiators -->
   <section class="py-20 bg-brand-light border-y border-brand-border">
