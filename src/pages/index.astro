@@ -887,9 +887,15 @@ const featuredCourses = coursesData.slice(0, 6);
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {featuredCourses.map((course) => (
-          <CourseCard {...course} />
-        ))}
+        {featuredCourses.map((course, idx) => {
+          const isFirstOfCategory = featuredCourses.findIndex(c => c.category === course.category) === idx;
+          const categoryId = isFirstOfCategory ? course.category : undefined;
+          return (
+            <div id={categoryId} class="flex flex-col scroll-mt-28">
+              <CourseCard {...course} />
+            </div>
+          );
+        })}
       </div>
     </div>
   </section>

@@ -18,6 +18,13 @@ const aboutSections: SubNavItem[] = [
   { label: 'Why GET Academy', href: '/#why-get-academy' },
 ];
 
+const courseCategories: SubNavItem[] = [
+  { label: 'All Programmes', href: '/#programmes' },
+  { label: 'Digital Strategy', href: '/#digital-strategy' },
+  { label: 'Workplace Performance', href: '/#workplace-performance' },
+  { label: 'Leadership & Management', href: '/#leadership-management' },
+];
+
 const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
   { 
@@ -25,9 +32,13 @@ const navItems: NavItem[] = [
     href: '/#what-we-do',
     subItems: aboutSections
   },
-  { label: 'Courses', href: '/#programmes' },
-  { label: 'Corporate Solutions', href: '/corporate-solutions' },
-  { label: 'Contact', href: '/contact' },
+  { 
+    label: 'Courses', 
+    href: '/#programmes',
+    subItems: courseCategories
+  },
+  { label: 'Corporate Solutions', href: '/#institutional-experience' },
+  { label: 'Contact', href: '/#corporate-enquiry' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -36,7 +47,6 @@ const isActive = (href: string) => {
   if (href !== '/' && !href.startsWith('/#') && currentPath.startsWith(href)) return true;
   return false;
 };
-const isAboutActive = currentPath === '/about' || currentPath.startsWith('/about');
 ---
 
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-border/80 transition-all shadow-sm">
@@ -63,33 +73,33 @@ const isAboutActive = currentPath === '/about' || currentPath.startsWith('/about
 
     <!-- Desktop Navigation Links -->
     <nav class="hidden lg:flex items-center space-x-1 xl:space-x-2" aria-label="Main Navigation">
-      {navItems.map((item) => (
+      {navItems.map((item, idx) => (
         item.subItems ? (
-          <div class="relative group">
-            <a
-              href={item.href}
-              class={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-sm font-semibold transition-all ${
-                isAboutActive
-                  ? 'text-brand-sage bg-brand-sage-light font-bold border-b-2 border-brand-sage'
-                  : 'text-brand-text hover:text-brand-sage hover:bg-brand-light'
-              }`}
+          <div class="relative nav-dropdown" data-dropdown-index={idx}>
+            <button
+              type="button"
+              id={`nav-dropdown-btn-${idx}`}
+              class="dropdown-toggle inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-sm font-semibold transition-all text-brand-text hover:text-brand-sage hover:bg-brand-light focus:outline-none focus:ring-2 focus:ring-brand-sage"
               aria-haspopup="true"
               aria-expanded="false"
+              aria-controls={`nav-dropdown-menu-${idx}`}
             >
               <span>{item.label}</span>
-              <ChevronDown class="w-3.5 h-3.5 text-brand-muted group-hover:text-brand-sage transition-transform duration-200 group-hover:rotate-180" />
-            </a>
+              <ChevronDown class="dropdown-chevron w-3.5 h-3.5 text-brand-muted transition-transform duration-200" />
+            </button>
 
             <!-- Dropdown Menu -->
             <div 
-              class="absolute left-0 top-full pt-1.5 hidden group-hover:block group-focus-within:block z-50 min-w-[320px]"
+              id={`nav-dropdown-menu-${idx}`}
+              class="dropdown-menu absolute left-0 top-full pt-1.5 hidden z-50 min-w-[300px]"
               role="menu"
+              aria-labelledby={`nav-dropdown-btn-${idx}`}
             >
               <div class="bg-white rounded-xl shadow-xl border border-brand-border p-1.5 text-sm">
                 {item.subItems.map((sub) => (
                   <a
                     href={sub.href}
-                    class="block px-3.5 py-2.5 text-xs sm:text-sm text-brand-dark hover:text-brand-sage hover:bg-brand-light font-semibold rounded-lg transition-colors leading-snug"
+                    class="dropdown-link block px-3.5 py-2.5 text-xs sm:text-sm text-brand-dark hover:text-brand-sage hover:bg-brand-light font-semibold rounded-lg transition-colors leading-snug focus:outline-none focus:bg-brand-light focus:text-brand-sage"
                     role="menuitem"
                   >
                     {sub.label}
@@ -116,7 +126,7 @@ const isAboutActive = currentPath === '/about' || currentPath.startsWith('/about
     <!-- Header Action Buttons -->
     <div class="hidden sm:flex items-center gap-3">
       <a
-        href="/contact"
+        href="/#corporate-enquiry"
         class="inline-flex items-center justify-center px-4 py-2 text-sm font-bold rounded-lg text-white bg-brand-sage hover:bg-brand-sage-dark shadow-sm hover:shadow transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-sage"
       >
         Corporate Enquiry
@@ -146,14 +156,11 @@ const isAboutActive = currentPath === '/about' || currentPath.startsWith('/about
       item.subItems ? (
         <div class="py-1">
           <div class="flex items-center justify-between px-3 py-2 rounded-md bg-brand-light/70">
-            <a
-              href={item.href}
-              class="text-base font-bold text-brand-dark hover:text-brand-sage transition-colors"
-            >
+            <span class="text-base font-bold text-brand-dark">
               {item.label}
-            </a>
+            </span>
             <span class="text-[10px] font-bold text-brand-sage uppercase tracking-wider bg-white px-2 py-0.5 rounded border border-brand-border">
-              Homepage Sections
+              {item.label === 'Courses' ? 'Categories' : 'Sections'}
             </span>
           </div>
           <div class="pl-3 mt-1.5 space-y-1 border-l-2 border-brand-sage/40 ml-3">
@@ -182,7 +189,7 @@ const isAboutActive = currentPath === '/about' || currentPath.startsWith('/about
     ))}
     <div class="pt-4 border-t border-brand-border mt-3">
       <a
-        href="/contact"
+        href="/#corporate-enquiry"
         class="block w-full text-center px-4 py-2.5 text-sm font-bold rounded-lg text-white bg-brand-sage hover:bg-brand-sage-dark shadow-xs"
       >
         Corporate Enquiry
@@ -192,6 +199,62 @@ const isAboutActive = currentPath === '/about' || currentPath.startsWith('/about
 </header>
 
 <script>
+  // Desktop dropdown controller
+  const navDropdowns = document.querySelectorAll<HTMLElement>('.nav-dropdown');
+
+  function closeAllDesktopDropdowns() {
+    navDropdowns.forEach((dd) => {
+      const toggle = dd.querySelector<HTMLButtonElement>('.dropdown-toggle');
+      const menu = dd.querySelector<HTMLElement>('.dropdown-menu');
+      const chevron = dd.querySelector<HTMLElement>('.dropdown-chevron');
+      if (menu) menu.classList.add('hidden');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      if (chevron) chevron.classList.remove('rotate-180');
+    });
+  }
+
+  navDropdowns.forEach((dd) => {
+    const toggle = dd.querySelector<HTMLButtonElement>('.dropdown-toggle');
+    const menu = dd.querySelector<HTMLElement>('.dropdown-menu');
+    const chevron = dd.querySelector<HTMLElement>('.dropdown-chevron');
+
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isCurrentlyOpen = !menu.classList.contains('hidden');
+      closeAllDesktopDropdowns();
+      if (!isCurrentlyOpen) {
+        menu.classList.remove('hidden');
+        toggle.setAttribute('aria-expanded', 'true');
+        if (chevron) chevron.classList.add('rotate-180');
+      }
+    });
+
+    // Close when any item inside this dropdown is clicked
+    const links = menu.querySelectorAll<HTMLAnchorElement>('.dropdown-link');
+    links.forEach((link) => {
+      link.addEventListener('click', () => {
+        closeAllDesktopDropdowns();
+      });
+    });
+  });
+
+  // Close desktop dropdowns on outside click
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement | null;
+    if (!target || !target.closest('.nav-dropdown')) {
+      closeAllDesktopDropdowns();
+    }
+  });
+
+  // Close desktop dropdowns on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeAllDesktopDropdowns();
+    }
+  });
+
   // Mobile navigation toggle
   const toggleBtn = document.getElementById('mobile-menu-toggle');
   const mobileNav = document.getElementById('mobile-nav-menu');
