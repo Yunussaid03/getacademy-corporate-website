@@ -77,38 +77,52 @@ const documentedEngagements = [
   {
     entity: 'Ministry of Higher Education (MOHE)',
     role: 'Public University AI Readiness',
-    scope: 'Invited by Deputy Secretary-General to present strategic AI transformation and adoption pathways to 30+ Chief Digital Officers (CDOs) across Malaysia’s public universities.',
-    category: 'Government & Higher Education'
-  },
-  {
-    entity: 'Ministry of Education (MOE)',
-    role: 'Organizational & Leadership Transformation',
-    scope: 'Awarded project to conduct organizational Gap Analysis, formulate targeted capability improvement roadmaps, and champion executive leadership transformation.',
-    category: 'Federal Ministry'
+    scope: 'Invited by the Deputy Secretary-General to present strategic AI transformation and adoption pathways to 30+ Chief Digital Officers (CDOs) across Malaysia’s public universities.',
+    category: 'Government & Higher Education',
+    image: '/assets/photos/mohe-cdo-briefing.jpeg',
+    imageAlt: 'Strategic AI transformation briefing to 30+ public university Chief Digital Officers by invitation of MOHE',
+    logo: '/assets/partners/Ministry-of-Education.png',
+    stat: '30+ CDOs Briefed'
   },
   {
     entity: 'National AI Skilling Ecosystem (AINSI)',
     role: 'Ecosystem-Wide Workforce Impact',
-    scope: 'Participated in national skilling efforts advancing AI adoption across government ministries, education bodies, and communities, contributing to ecosystem initiatives reaching 800,000+ Malaysians.',
-    category: 'National Initiative'
+    scope: 'Contributed to national multi-stakeholder initiatives advancing AI literacy and adoption across government agencies, education institutions, and industry, reaching 800,000+ Malaysians nationwide.',
+    category: 'National AI Initiative',
+    image: '/assets/photos/parliament-ai-skilling.jpeg',
+    imageAlt: 'Advancing the national AI skilling agenda at Parliament of Malaysia with government and industry leaders',
+    logo: '/assets/partners/Microsoft.png',
+    stat: '800,000+ Reached in Ecosystem'
+  },
+  {
+    entity: 'Ministry of Education (MOE)',
+    role: 'Organizational & Leadership Transformation',
+    scope: 'Awarded project to conduct organizational Gap Analysis, formulate capability roadmaps, and champion executive leadership transformation across educational administrative cohorts.',
+    category: 'Federal Ministry',
+    image: '/assets/photos/hero-training.jpg',
+    imageAlt: 'Leadership transformation workshop session conducted for education administrators',
+    logo: '/assets/partners/Ministry-of-Education.png',
+    stat: 'Gap Analysis & Transformation'
   },
   {
     entity: 'Malaysia Healthcare Travel Council (MHTC)',
-    role: 'Sectoral Digital Capability',
-    scope: 'Conducted specialized corporate training for the MHTC team on navigating digital marketing strategies and patient engagement in the healthcare travel industry.',
-    category: 'Statutory Body'
+    role: 'Healthcare Sector Digital Strategy',
+    scope: 'Conducted targeted training for the MHTC corporate team on navigating healthcare digital marketing, patient journey communication, and international positioning.',
+    category: 'Statutory Body',
+    image: '/assets/photos/mhtc-healthcare-workshop.jpeg',
+    imageAlt: 'GET Academy corporate digital training with the Malaysia Healthcare Travel Council (MHTC) team',
+    logo: '/assets/partners/Kuala-Lumpur.png',
+    stat: 'Healthcare Sector Capability'
   },
   {
     entity: 'Unit Transformasi Masyarakat India (SEDIC - MITRA)',
     role: 'Socio-Economic Development (B40 / M40)',
-    scope: 'Designed and executed end-to-end entrepreneurship development and business strategy digitalization coaching programs for 50 participating business owners.',
-    category: 'Socio-Economic Initiative'
-  },
-  {
-    entity: 'Higher Education & Educator Partnerships',
-    role: 'Academic & Institutional Capacity',
-    scope: 'Collaborated with JPN Pulau Pinang, Institut Pendidikan Guru (IPG), and Tech Dome Penang for educator AI training, alongside first-time employment programs with universities.',
-    category: 'Academic Institutions'
+    scope: 'Designed and delivered end-to-end entrepreneurship coaching and business digitalization programs empowering 50 small business owners with actionable commercial tools.',
+    category: 'Socio-Economic Initiative',
+    image: '/assets/photos/mitra-entrepreneurship-coaching.jpeg',
+    imageAlt: 'Socio-economic entrepreneurship development coaching session supported by MITRA',
+    logo: '/assets/partners/sedic.jpg',
+    stat: '50 Business Owners Coached'
   }
 ];
 
@@ -348,43 +362,114 @@ const featuredCourses = coursesData.slice(0, 6);
   <!-- Section 3 — Institutional Experience and Impact -->
   <section class="py-20 bg-brand-light border-y border-brand-border" id="institutional-experience">
     <div class="container-custom">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-12">
-        <div class="lg:col-span-7 space-y-4">
+      <!-- Section Header & Ecosystem Attribution Context -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
+        <div class="lg:col-span-7 space-y-3">
           <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage">Demonstrated Track Record</p>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">Institutional Experience & Public Sector Impact</h2>
-          <p class="text-sm sm:text-base text-brand-muted leading-relaxed">
-            GET Academy is entrusted by federal ministries, higher education councils, and statutory agencies to design and champion strategic capability roadmaps, leadership transformation, and technological readiness.
+          <p class="text-sm sm:text-base text-brand-muted leading-relaxed max-w-2xl">
+            GET Academy is entrusted by federal ministries, statutory bodies, and university leadership to design capability roadmaps, executive advisory, and technological skilling.
           </p>
         </div>
-        <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-brand-border shadow-sm">
-          <span class="text-xs font-extrabold uppercase text-brand-sage block mb-1">Ecosystem-Wide Reach Context</span>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            * Through national collaborative ecosystems (including Microsoft Malaysia’s AI National Skilling Initiative - AINSI), our leadership contributed to multi-stakeholder programs reaching <strong>800,000+ Malaysians</strong> across ministries, universities, and industry bodies.
-          </p>
+        <div class="lg:col-span-5 bg-white p-5 rounded-2xl border border-brand-border shadow-sm flex items-start gap-3.5">
+          <div class="w-9 h-9 rounded-xl bg-brand-sage-light text-brand-sage flex items-center justify-center shrink-0 mt-0.5">
+            <Globe2 class="w-5 h-5" />
+          </div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-sage block mb-1">Ecosystem-Wide Reach Context</span>
+            <p class="text-xs text-brand-muted leading-relaxed">
+              Through national collaborative ecosystems (including Microsoft Malaysia’s AI National Skilling Initiative — AINSI), our leadership contributed to multi-stakeholder programs reaching <strong class="text-brand-dark">800,000+ Malaysians</strong> across ministries, universities, and industry bodies.
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- Experience Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {documentedEngagements.map((eng) => (
-          <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm hover:border-brand-sage/60 transition-all flex flex-col justify-between">
-            <div>
-              <span class="inline-block px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-sage-light text-brand-sage mb-3">
+      <!-- Featured Engagement Showcase (MOHE Briefing) -->
+      <div class="mb-8">
+        <div class="bg-white rounded-2xl border border-brand-border shadow-sm overflow-hidden hover:border-brand-sage/50 transition-all duration-300">
+          <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+            <div class="lg:col-span-5 relative min-h-[260px] lg:min-h-[340px] bg-slate-100 overflow-hidden">
+              <img 
+                src="/assets/photos/mohe-cdo-briefing.jpeg" 
+                alt="Strategic AI transformation briefing to 30+ public university Chief Digital Officers by invitation of MOHE" 
+                class="w-full h-full object-cover object-center"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden"></div>
+              <span class="absolute bottom-3 left-3 lg:top-4 lg:left-4 lg:bottom-auto px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-brand-gold text-brand-dark shadow-sm">
+                Featured Engagement
+              </span>
+            </div>
+            <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap items-center gap-2 mb-3">
+                  <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-brand-sage-light text-brand-sage">
+                    Government & Higher Education
+                  </span>
+                  <span class="px-2.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                    30+ CDOs Briefed
+                  </span>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-bold text-brand-dark mb-2 leading-snug">
+                  Ministry of Higher Education (MOHE)
+                </h3>
+                <p class="text-sm font-semibold text-brand-sage mb-3">
+                  Public University AI Readiness Briefing
+                </p>
+                <p class="text-sm text-brand-muted leading-relaxed mb-6">
+                  Invited by the Deputy Secretary-General to present strategic AI transformation and adoption pathways to 30+ Chief Digital Officers (CDOs) across Malaysia’s public universities.
+                </p>
+              </div>
+
+              <div class="pt-4 border-t border-brand-border/70 flex flex-wrap items-center justify-between gap-3 text-xs text-brand-muted">
+                <div class="flex items-center gap-1.5 font-semibold text-emerald-800">
+                  <CheckCircle2 class="w-4 h-4 text-emerald-700" />
+                  <span>Documented Executive Advisory</span>
+                </div>
+                <span class="text-[11px] text-slate-500">Official Company Profile, Page 16</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Supporting Engagements Grid (4 Cards with Genuine Photography) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {documentedEngagements.slice(1).map((eng) => (
+          <div class="bg-white rounded-xl border border-brand-border shadow-sm hover:border-brand-sage/60 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
+            <div class="relative h-44 w-full bg-slate-100 overflow-hidden">
+              <img 
+                src={eng.image} 
+                alt={eng.imageAlt} 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+              <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/95 text-brand-dark shadow-sm backdrop-blur-sm">
                 {eng.category}
               </span>
-              <h3 class="text-base font-bold text-brand-dark mb-1 leading-snug">
-                {eng.entity}
-              </h3>
-              <p class="text-xs font-semibold text-brand-sage mb-3">
-                {eng.role}
-              </p>
-              <p class="text-xs text-brand-muted leading-relaxed">
-                {eng.scope}
-              </p>
+              <span class="absolute bottom-2 left-2.5 right-2.5 text-[11px] font-bold text-white drop-shadow truncate">
+                {eng.stat}
+              </span>
             </div>
-            <div class="mt-4 pt-3 border-t border-brand-border/60 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-800">
-              <CheckCircle2 class="w-3.5 h-3.5" />
-              <span>Documented Engagement</span>
+
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-sm font-bold text-brand-dark mb-1 leading-snug group-hover:text-brand-sage transition-colors">
+                  {eng.entity}
+                </h3>
+                <p class="text-xs font-semibold text-brand-sage mb-2.5">
+                  {eng.role}
+                </p>
+                <p class="text-xs text-brand-muted leading-relaxed line-clamp-3">
+                  {eng.scope}
+                </p>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-brand-border/60 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-800">
+                <CheckCircle2 class="w-3.5 h-3.5 shrink-0 text-emerald-700" />
+                <span class="truncate">Documented Engagement</span>
+              </div>
             </div>
           </div>
         ))}
