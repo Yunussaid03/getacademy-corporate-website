@@ -127,35 +127,75 @@ const documentedEngagements = [
 ];
 
 // Accreditations & Institutional Relationships Classified by Relationship Type (Pages 1, 8, 9, 11, 26, 28)
-const relationshipGroups = [
+const relationshipCategories = [
   {
-    type: 'Authorised Training Partnership',
-    description: 'Certified curriculum and global certification delivery',
+    category: 'Accreditations & Certifications',
+    subtitle: 'Institutional Provider Authorisations & Credentials',
+    description: 'Statutory provider registrations, trainer credentials, and international body recognitions.',
     items: [
-      { name: 'CompTIA Authorized Partner', logo: '/assets/partners/CompTIA.png', note: 'Endorsed Computing Technology Industry Association Partner' }
+      {
+        name: 'HRD Corp Registered Training Provider',
+        badge: 'LLP0019343-LGN',
+        logo: '/assets/partners/HRDF.png',
+        scope: 'Registered under Human Resources Development Corporation. Profile documents historical validity period through 2 September 2025.',
+        statusNote: 'Current renewal certificates and certified TTT trainer credentials provided upon formal inquiry.'
+      },
+      {
+        name: 'HRD Corp Certified Trainers (TTT)',
+        badge: 'Accredited Facilitators',
+        logo: '/assets/partners/HRDF.png',
+        scope: 'Trainers holding certified Train-The-Trainer (TTT) credentials deliver claimable professional development programmes.',
+        statusNote: 'Facilitator credentials verified per engagement.'
+      }
     ]
   },
   {
-    type: 'Academic & University Partnership',
-    description: 'Joint credentialing and strategic education frameworks',
+    category: 'Authorised Partnerships',
+    subtitle: 'Official Delivery & Academic Agreements',
+    description: 'Contracted agreements for certified syllabus delivery, credentialing, and academic franchisee status.',
     items: [
-      { name: 'SEGi University & Colleges', logo: '/assets/partners/SEGI.png', note: 'Strategic Educational Partner & Franchisee for certified modules' }
+      {
+        name: 'CompTIA Authorized Partner',
+        badge: 'Global IT Certification',
+        logo: '/assets/partners/CompTIA.png',
+        scope: 'Endorsed Computing Technology Industry Association partner delivering global IT and cybersecurity certifications.',
+        statusNote: 'Authorized Curriculum & Exam Pathways'
+      },
+      {
+        name: 'SEGi University & Colleges',
+        badge: 'Academic Franchisee',
+        logo: '/assets/partners/SEGI.png',
+        scope: 'Franchisee and strategic educational partner of SEGi University and Colleges in Malaysia for certified training modules.',
+        statusNote: 'Formal Franchise Agreement'
+      }
     ]
   },
   {
-    type: 'Government & Digital Agency Appointments',
-    description: 'Official capacity building and digital solution appointments',
+    category: 'Institutional & Industry Relationships',
+    subtitle: 'Public Agencies, Statutory Bodies & Trade Memberships',
+    description: 'Documented project appointments, digitalization committee roles, and statutory trade registry memberships.',
     items: [
-      { name: 'Malaysia Digital Economy Corporation (MDEC)', logo: '/assets/brand/getacademy-banner.png', note: 'Appointed Digital Training Partner (Digital Up & Let’s Learn Digital)' },
-      { name: 'Malaysia Productivity Corporation (MPC)', logo: '/assets/partners/mosti.png', note: 'Appointed Digital Solution Provider & Digitalization Committee Member' }
-    ]
-  },
-  {
-    type: 'Statutory Membership & Trade Engagements',
-    description: 'Institutional memberships and bilateral trade facilitation',
-    items: [
-      { name: 'MATRADE Member', logo: '/assets/partners/Kuala-Lumpur.png', note: 'Official member & contributor to international trade sourcing programmes' },
-      { name: 'HRD Corp Registered Provider', logo: '/assets/partners/HRDF.png', note: 'Registered training provider (LLP0019343-LGN; certificate renewal verification note applies)' }
+      {
+        name: 'Malaysia Digital Economy Corporation (MDEC)',
+        badge: 'Appointed Training Provider',
+        logo: '/assets/partners/mdec.png',
+        scope: 'Appointed training provider for MSMEs, SMEs, and corporate cohorts under Digital Up, Let’s Learn Digital, and Digital Skills Training Directory.',
+        statusNote: 'Documented Initiative Appointment'
+      },
+      {
+        name: 'Malaysia Productivity Corporation (MPC)',
+        badge: 'Digital Solution Provider',
+        logo: '/assets/partners/mpc.png',
+        scope: 'Appointed Digital Solution Provider and digitalization transformation partner, participating in national productivity workgroups.',
+        statusNote: 'Statutory Body Appointment'
+      },
+      {
+        name: 'MATRADE Member',
+        badge: 'Registered Trade Member',
+        logo: '/assets/partners/matrade.png',
+        scope: 'Registered member of the Malaysia External Trade Development Corporation for international trade missions and sourcing programmes.',
+        statusNote: 'Official Trade Directory Listing'
+      }
     ]
   }
 ];
@@ -483,30 +523,56 @@ const featuredCourses = coursesData.slice(0, 6);
       <SectionHeader 
         eyebrow="Institutional Relationships"
         title="Accreditations & Organizational Affiliations"
-        subtitle="Transparently categorized by formal partnership status, authorized training agreements, and statutory memberships."
+        subtitle="Transparently categorized by statutory certifications, authorized delivery agreements, and institutional appointments."
         centered={true}
       />
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-10">
-        {relationshipGroups.map((group) => (
-          <div class="bg-brand-light p-6 rounded-xl border border-brand-border flex flex-col justify-between">
+      <!-- 3 Structured Category Groups -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        {relationshipCategories.map((cat) => (
+          <div class="bg-brand-light rounded-2xl border border-brand-border p-6 flex flex-col justify-between shadow-sm hover:border-brand-sage/50 transition-all duration-300">
             <div>
-              <span class="text-xs font-extrabold uppercase tracking-wider text-brand-sage block mb-1">
-                {group.type}
-              </span>
-              <p class="text-xs text-brand-muted mb-4">{group.description}</p>
-              <div class="space-y-3">
-                {group.items.map((item) => (
-                  <div class="p-3 bg-white rounded-lg border border-brand-border flex items-center gap-4">
-                    <img 
-                      src={item.logo} 
-                      alt={item.name} 
-                      class="max-h-8 max-w-[90px] object-contain shrink-0" 
-                      loading="lazy"
-                    />
-                    <div>
-                      <h4 class="text-xs font-bold text-brand-dark">{item.name}</h4>
-                      <p class="text-[11px] text-brand-muted">{item.note}</p>
+              <div class="border-b border-brand-border/70 pb-4 mb-5">
+                <span class="inline-block px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-sage-light text-brand-sage mb-2">
+                  {cat.category}
+                </span>
+                <h3 class="text-base font-bold text-brand-dark leading-snug">
+                  {cat.subtitle}
+                </h3>
+                <p class="text-xs text-brand-muted mt-1 leading-relaxed">
+                  {cat.description}
+                </p>
+              </div>
+
+              <div class="space-y-4">
+                {cat.items.map((item) => (
+                  <div class="bg-white p-4 rounded-xl border border-brand-border shadow-xs hover:border-brand-sage/60 transition-all">
+                    <div class="flex items-start gap-3.5">
+                      <div class="w-16 h-12 rounded-lg bg-slate-50 border border-slate-100 p-1.5 flex items-center justify-center shrink-0">
+                        <img 
+                          src={item.logo} 
+                          alt={item.name} 
+                          class="max-h-full max-w-full object-contain"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-brand-light text-brand-sage border border-brand-border">
+                            {item.badge}
+                          </span>
+                        </div>
+                        <h4 class="text-xs font-bold text-brand-dark leading-snug">
+                          {item.name}
+                        </h4>
+                        <p class="text-[11px] text-brand-muted mt-1 leading-relaxed">
+                          {item.scope}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="mt-3 pt-2.5 border-t border-brand-border/50 flex items-center gap-1.5 text-[10px] font-medium text-emerald-800">
+                      <CheckCircle2 class="w-3 h-3 text-emerald-700 shrink-0" />
+                      <span class="truncate">{item.statusNote}</span>
                     </div>
                   </div>
                 ))}
@@ -516,13 +582,17 @@ const featuredCourses = coursesData.slice(0, 6);
         ))}
       </div>
 
-      <!-- Verification Status Notice regarding HRD Corp Certificate -->
-      <div class="max-w-4xl mx-auto bg-amber-50/80 border border-amber-200 rounded-xl p-4 sm:p-5 flex items-start gap-3 text-xs text-amber-900">
-        <ShieldCheck class="w-5 h-5 text-amber-800 shrink-0 mt-0.5" />
-        <div class="space-y-1">
-          <p class="font-bold uppercase tracking-wide">Accreditation Verification Transparency:</p>
-          <p class="leading-relaxed">
-            The HRD Corp Training Provider Certificate in the profile documents registration validity through 2 September 2025. Current active renewal certificates and individual trainer HRD Corp TTT credentials are confirmed and furnished directly to corporate procurement teams upon formal inquiry.
+      <!-- Verification Status Notice regarding HRD Corp Certificate & Renewals -->
+      <div class="max-w-4xl mx-auto bg-amber-50/90 border border-amber-200/80 rounded-2xl p-5 sm:p-6 flex items-start gap-4 text-xs text-amber-950 shadow-xs">
+        <div class="w-9 h-9 rounded-xl bg-amber-100/80 text-amber-900 flex items-center justify-center shrink-0 mt-0.5">
+          <ShieldCheck class="w-5 h-5 text-amber-800" />
+        </div>
+        <div class="space-y-1.5">
+          <p class="text-xs font-bold uppercase tracking-wider text-amber-900">
+            Accreditation Verification & Governance Notice
+          </p>
+          <p class="text-xs text-amber-900/90 leading-relaxed">
+            The HRD Corp Training Provider Certificate documented in the company profile records historical registration validity through 2 September 2025 (Registration: LLP0019343-LGN). Active validity renewal certificates and individual facilitator Train-The-Trainer (TTT) credentials are submitted directly to corporate human resource and procurement teams upon request during formal training engagement proposals.
           </p>
         </div>
       </div>
