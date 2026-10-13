@@ -4,47 +4,54 @@ import { Menu, X, ChevronDown } from 'lucide-astro';
 interface SubNavItem {
   label: string;
   href: string;
+  targetId: string;
 }
 
 interface NavItem {
+  id: string;
   label: string;
   href: string;
   subItems?: SubNavItem[];
 }
 
 const aboutSections: SubNavItem[] = [
-  { label: 'What We Do', href: '/#what-we-do' },
-  { label: 'Accreditations & Institutional Relationships', href: '/#accreditations' },
-  { label: 'Why GET Academy', href: '/#why-get-academy' },
+  { label: 'What We Do', href: '/#what-we-do', targetId: 'what-we-do' },
+  { label: 'Accreditations & Institutional Relationships', href: '/#accreditations', targetId: 'accreditations' },
+  { label: 'Why GET Academy', href: '/#why-get-academy', targetId: 'why-get-academy' },
 ];
 
 const courseCategories: SubNavItem[] = [
-  { label: 'All Programmes', href: '/#programmes' },
-  { label: 'Digital Strategy', href: '/#digital-strategy' },
-  { label: 'Workplace Performance', href: '/#workplace-performance' },
-  { label: 'Leadership & Management', href: '/#leadership-management' },
+  { label: 'All Programmes', href: '/#programmes', targetId: 'programmes' },
+  { label: 'Digital Strategy', href: '/#digital-strategy', targetId: 'digital-strategy' },
+  { label: 'Workplace Performance', href: '/#workplace-performance', targetId: 'workplace-performance' },
+  { label: 'Leadership & Management', href: '/#leadership-management', targetId: 'leadership-management' },
 ];
 
 const navItems: NavItem[] = [
-  { label: 'Home', href: '/' },
+  { id: 'home', label: 'Home', href: '/' },
   { 
+    id: 'about',
     label: 'About Us', 
     href: '/#what-we-do',
     subItems: aboutSections
   },
   { 
+    id: 'courses',
     label: 'Courses', 
     href: '/#programmes',
     subItems: courseCategories
   },
-  { label: 'Corporate Solutions', href: '/#institutional-experience' },
-  { label: 'Contact', href: '/#corporate-enquiry' },
+  { id: 'corporate-solutions', label: 'Corporate Solutions', href: '/#institutional-experience' },
+  { id: 'contact', label: 'Contact', href: '/#corporate-enquiry' },
 ];
 
 const currentPath = Astro.url.pathname;
-const isActive = (href: string) => {
-  if (href === '/' && currentPath === '/') return true;
-  if (href !== '/' && !href.startsWith('/#') && currentPath.startsWith(href)) return true;
+const isInitialActive = (id: string) => {
+  if (currentPath === '/' && id === 'home') return true;
+  if (currentPath.startsWith('/about') && id === 'about') return true;
+  if (currentPath.startsWith('/courses') && id === 'courses') return true;
+  if (currentPath.startsWith('/corporate-solutions') && id === 'corporate-solutions') return true;
+  if (currentPath.startsWith('/contact') && id === 'contact') return true;
   return false;
 };
 ---
@@ -79,13 +86,20 @@ const isActive = (href: string) => {
             <button
               type="button"
               id={`nav-dropdown-btn-${idx}`}
-              class="dropdown-toggle inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-sm font-semibold transition-all text-brand-text hover:text-brand-sage hover:bg-brand-light focus:outline-none focus:ring-2 focus:ring-brand-sage"
+              data-nav-id={item.id}
+              class={`dropdown-toggle inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-brand-sage ${
+                isInitialActive(item.id)
+                  ? 'text-brand-sage bg-brand-sage-light font-bold border-b-2 border-brand-sage'
+                  : 'text-brand-text hover:text-brand-sage hover:bg-brand-light'
+              }`}
               aria-haspopup="true"
               aria-expanded="false"
               aria-controls={`nav-dropdown-menu-${idx}`}
             >
               <span>{item.label}</span>
-              <ChevronDown class="dropdown-chevron w-3.5 h-3.5 text-brand-muted transition-transform duration-200" />
+              <ChevronDown class={`dropdown-chevron w-3.5 h-3.5 transition-transform duration-200 ${
+                isInitialActive(item.id) ? 'text-brand-sage' : 'text-brand-muted'
+              }`} />
             </button>
 
             <!-- Dropdown Menu -->
@@ -99,6 +113,8 @@ const isActive = (href: string) => {
                 {item.subItems.map((sub) => (
                   <a
                     href={sub.href}
+                    data-parent-id={item.id}
+                    data-sub-target={sub.targetId}
                     class="dropdown-link block px-3.5 py-2.5 text-xs sm:text-sm text-brand-dark hover:text-brand-sage hover:bg-brand-light font-semibold rounded-lg transition-colors leading-snug focus:outline-none focus:bg-brand-light focus:text-brand-sage"
                     role="menuitem"
                   >
@@ -111,8 +127,9 @@ const isActive = (href: string) => {
         ) : (
           <a
             href={item.href}
+            data-nav-id={item.id}
             class={`px-3.5 py-2 rounded-md text-sm font-semibold transition-all ${
-              isActive(item.href)
+              isInitialActive(item.id)
                 ? 'text-brand-sage bg-brand-sage-light font-bold border-b-2 border-brand-sage'
                 : 'text-brand-text hover:text-brand-sage hover:bg-brand-light'
             }`}
@@ -155,11 +172,14 @@ const isActive = (href: string) => {
     {navItems.map((item) => (
       item.subItems ? (
         <div class="py-1">
-          <div class="flex items-center justify-between px-3 py-2 rounded-md bg-brand-light/70">
-            <span class="text-base font-bold text-brand-dark">
+          <div 
+            class="flex items-center justify-between px-3 py-2 rounded-md bg-brand-light/70 mobile-group-header transition-colors"
+            data-mobile-group={item.id}
+          >
+            <span class="mobile-group-title text-base font-bold text-brand-dark transition-colors">
               {item.label}
             </span>
-            <span class="text-[10px] font-bold text-brand-sage uppercase tracking-wider bg-white px-2 py-0.5 rounded border border-brand-border">
+            <span class="mobile-group-badge text-[10px] font-bold text-brand-sage uppercase tracking-wider bg-white px-2 py-0.5 rounded border border-brand-border transition-colors">
               {item.label === 'Courses' ? 'Categories' : 'Sections'}
             </span>
           </div>
@@ -167,6 +187,8 @@ const isActive = (href: string) => {
             {item.subItems.map((sub) => (
               <a
                 href={sub.href}
+                data-mobile-parent={item.id}
+                data-mobile-sub-target={sub.targetId}
                 class="block px-3 py-2 text-sm text-brand-muted hover:text-brand-sage hover:bg-brand-light font-medium rounded-md transition-colors"
               >
                 {sub.label}
@@ -177,8 +199,9 @@ const isActive = (href: string) => {
       ) : (
         <a
           href={item.href}
+          data-mobile-nav-id={item.id}
           class={`block px-3 py-2.5 rounded-md text-base font-medium transition-colors ${
-            isActive(item.href)
+            isInitialActive(item.id)
               ? 'text-brand-sage bg-brand-sage-light font-bold'
               : 'text-brand-text hover:text-brand-sage hover:bg-brand-light'
           }`}
@@ -190,6 +213,7 @@ const isActive = (href: string) => {
     <div class="pt-4 border-t border-brand-border mt-3">
       <a
         href="/#corporate-enquiry"
+        data-mobile-nav-id="contact-cta"
         class="block w-full text-center px-4 py-2.5 text-sm font-bold rounded-lg text-white bg-brand-sage hover:bg-brand-sage-dark shadow-xs"
       >
         Corporate Enquiry
@@ -199,6 +223,215 @@ const isActive = (href: string) => {
 </header>
 
 <script>
+  // Unified styling classes matching the Home link standard
+  const desktopActiveClasses = ['text-brand-sage', 'bg-brand-sage-light', 'font-bold', 'border-b-2', 'border-brand-sage'];
+  const desktopInactiveClasses = ['text-brand-text', 'hover:text-brand-sage', 'hover:bg-brand-light'];
+
+  const subActiveClasses = ['text-brand-sage', 'bg-brand-sage-light', 'font-bold'];
+  const subInactiveClasses = ['text-brand-dark', 'hover:text-brand-sage', 'hover:bg-brand-light', 'font-semibold'];
+
+  const mobileActiveClasses = ['text-brand-sage', 'bg-brand-sage-light', 'font-bold'];
+  const mobileInactiveClasses = ['text-brand-text', 'hover:text-brand-sage', 'hover:bg-brand-light'];
+
+  const mobileSubActiveClasses = ['text-brand-sage', 'bg-brand-sage-light', 'font-bold'];
+  const mobileSubInactiveClasses = ['text-brand-muted', 'hover:text-brand-sage', 'hover:bg-brand-light', 'font-medium'];
+
+  // Section configuration mapping homepage IDs to navbar items
+  const sectionsConfig = [
+    { id: 'hero', parentId: 'home', subTarget: null },
+    { id: 'what-we-do', parentId: 'about', subTarget: 'what-we-do' },
+    { id: 'institutional-experience', parentId: 'corporate-solutions', subTarget: null },
+    { id: 'accreditations', parentId: 'about', subTarget: 'accreditations' },
+    { id: 'why-get-academy', parentId: 'about', subTarget: 'why-get-academy' },
+    { id: 'programmes', parentId: 'courses', subTarget: 'programmes' },
+    { id: 'digital-strategy', parentId: 'courses', subTarget: 'digital-strategy' },
+    { id: 'workplace-performance', parentId: 'courses', subTarget: 'workplace-performance' },
+    { id: 'leadership-management', parentId: 'courses', subTarget: 'leadership-management' },
+    { id: 'corporate-enquiry', parentId: 'contact', subTarget: null },
+  ];
+
+  let currentActiveParent = 'home';
+  let currentActiveSub = null;
+  let isClickScrolling = false;
+  let clickScrollTimer = null;
+
+  function setActiveNav(parentId, subTarget = null) {
+    currentActiveParent = parentId;
+    currentActiveSub = subTarget;
+
+    // 1. Update Desktop Top-Level Items
+    document.querySelectorAll('[data-nav-id]').forEach((el) => {
+      const id = el.getAttribute('data-nav-id');
+      const chevron = el.querySelector('.dropdown-chevron');
+
+      if (id === parentId) {
+        desktopInactiveClasses.forEach(c => el.classList.remove(c));
+        desktopActiveClasses.forEach(c => el.classList.add(c));
+        if (chevron) {
+          chevron.classList.remove('text-brand-muted');
+          chevron.classList.add('text-brand-sage');
+        }
+      } else {
+        desktopActiveClasses.forEach(c => el.classList.remove(c));
+        desktopInactiveClasses.forEach(c => el.classList.add(c));
+        if (chevron) {
+          chevron.classList.remove('text-brand-sage');
+          chevron.classList.add('text-brand-muted');
+        }
+      }
+    });
+
+    // 2. Update Desktop Dropdown Sub-Items
+    document.querySelectorAll('.dropdown-link').forEach((el) => {
+      const target = el.getAttribute('data-sub-target');
+      if (target && target === subTarget) {
+        subInactiveClasses.forEach(c => el.classList.remove(c));
+        subActiveClasses.forEach(c => el.classList.add(c));
+      } else {
+        subActiveClasses.forEach(c => el.classList.remove(c));
+        subInactiveClasses.forEach(c => el.classList.add(c));
+      }
+    });
+
+    // 3. Update Mobile Top-Level Items
+    document.querySelectorAll('[data-mobile-nav-id]').forEach((el) => {
+      const id = el.getAttribute('data-mobile-nav-id');
+      if (id === parentId) {
+        mobileInactiveClasses.forEach(c => el.classList.remove(c));
+        mobileActiveClasses.forEach(c => el.classList.add(c));
+      } else {
+        mobileActiveClasses.forEach(c => el.classList.remove(c));
+        mobileInactiveClasses.forEach(c => el.classList.add(c));
+      }
+    });
+
+    // 4. Update Mobile Dropdown Sub-Items
+    document.querySelectorAll('[data-mobile-sub-target]').forEach((el) => {
+      const target = el.getAttribute('data-mobile-sub-target');
+      if (target && target === subTarget) {
+        mobileSubInactiveClasses.forEach(c => el.classList.remove(c));
+        mobileSubActiveClasses.forEach(c => el.classList.add(c));
+      } else {
+        mobileSubActiveClasses.forEach(c => el.classList.remove(c));
+        mobileSubInactiveClasses.forEach(c => el.classList.add(c));
+      }
+    });
+
+    // 5. Update Mobile Group Headers
+    document.querySelectorAll('[data-mobile-group]').forEach((el) => {
+      const groupId = el.getAttribute('data-mobile-group');
+      const title = el.querySelector('.mobile-group-title');
+      const badge = el.querySelector('.mobile-group-badge');
+      if (groupId === parentId) {
+        if (title) {
+          title.classList.remove('text-brand-dark');
+          title.classList.add('text-brand-sage');
+        }
+        if (badge) {
+          badge.classList.remove('bg-white', 'text-brand-sage', 'border-brand-border');
+          badge.classList.add('bg-brand-sage', 'text-white', 'border-brand-sage');
+        }
+      } else {
+        if (title) {
+          title.classList.remove('text-brand-sage');
+          title.classList.add('text-brand-dark');
+        }
+        if (badge) {
+          badge.classList.remove('bg-brand-sage', 'text-white', 'border-brand-sage');
+          badge.classList.add('bg-white', 'text-brand-sage', 'border-brand-border');
+        }
+      }
+    });
+  }
+
+  function handleNavClick(parentId, subTarget = null, hash = null) {
+    isClickScrolling = true;
+    if (clickScrollTimer) clearTimeout(clickScrollTimer);
+    clickScrollTimer = setTimeout(() => {
+      isClickScrolling = false;
+      updateActiveOnScroll();
+    }, 900);
+
+    setActiveNav(parentId, subTarget);
+
+    if (hash && (window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '')) {
+      if (history.pushState) {
+        history.pushState(null, '', hash);
+      }
+    }
+  }
+
+  function updateActiveOnScroll() {
+    if (isClickScrolling) return;
+    if (window.location.pathname !== '/' && window.location.pathname !== '/index.html' && window.location.pathname !== '') {
+      return;
+    }
+
+    // Top of page
+    if (window.scrollY < 120) {
+      setActiveNav('home', null);
+      return;
+    }
+
+    // Near bottom of page
+    const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60;
+    if (isAtBottom) {
+      setActiveNav('contact', null);
+      return;
+    }
+
+    // Offset for sticky navbar
+    const offset = 170;
+    let currentActive = null;
+
+    for (const sec of sectionsConfig) {
+      const el = document.getElementById(sec.id);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= offset) {
+          currentActive = sec;
+        }
+      }
+    }
+
+    if (currentActive) {
+      setActiveNav(currentActive.parentId, currentActive.subTarget);
+    } else {
+      setActiveNav('home', null);
+    }
+  }
+
+  window.addEventListener('scroll', updateActiveOnScroll, { passive: true });
+
+  // Initialize active navigation state based on URL or scroll position
+  function initActiveNav() {
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '') {
+      if (window.location.hash) {
+        const hashId = window.location.hash.substring(1);
+        const match = sectionsConfig.find(s => s.id === hashId);
+        if (match) {
+          setActiveNav(match.parentId, match.subTarget);
+          return;
+        }
+      }
+      updateActiveOnScroll();
+    } else {
+      const path = window.location.pathname;
+      if (path.startsWith('/about')) {
+        setActiveNav('about', null);
+      } else if (path.startsWith('/courses')) {
+        setActiveNav('courses', null);
+      } else if (path.startsWith('/corporate-solutions')) {
+        setActiveNav('corporate-solutions', null);
+      } else if (path.startsWith('/contact')) {
+        setActiveNav('contact', null);
+      }
+    }
+  }
+
+  initActiveNav();
+  window.addEventListener('hashchange', initActiveNav);
+
   // Desktop dropdown controller
   const navDropdowns = document.querySelectorAll<HTMLElement>('.nav-dropdown');
 
@@ -288,7 +521,7 @@ const isActive = (href: string) => {
     });
   }
 
-  // Smooth scroll handler for anchor links when already on the homepage
+  // Smooth scroll handler for anchor links when on the homepage
   document.querySelectorAll('a[href^="/#"], a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', (e) => {
       const href = anchor.getAttribute('href');
@@ -299,10 +532,26 @@ const isActive = (href: string) => {
         if (targetElement) {
           e.preventDefault();
           targetElement.scrollIntoView({ behavior: 'smooth' });
-          if (history.pushState) {
-            history.pushState(null, '', hash);
+
+          const targetId = hash.startsWith('#') ? hash.slice(1) : hash;
+          const match = sectionsConfig.find(s => s.id === targetId);
+          if (match) {
+            handleNavClick(match.parentId, match.subTarget, hash);
+          } else {
+            handleNavClick('home', null, hash);
           }
         }
+      }
+    });
+  });
+
+  // Handle Home link and Logo link click
+  document.querySelectorAll('a[href="/"]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      if (window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        handleNavClick('home', null, '#');
       }
     });
   });
