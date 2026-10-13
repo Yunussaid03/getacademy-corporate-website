@@ -176,21 +176,30 @@ const isInitialActive = (id: string) => (pagesByItem[id] ?? []).includes(current
     id="mobile-nav-menu"
     class="hidden lg:hidden border-t border-brand-border bg-white px-4 pt-3 pb-6 space-y-1 shadow-lg max-h-[calc(100vh-5rem)] overflow-y-auto"
   >
-    {navItems.map((item) => (
+    {navItems.map((item, idx) => (
       item.subItems ? (
         <div class="py-1">
-          <div 
-            class="flex items-center justify-between px-3 py-2 rounded-md bg-brand-light/70 mobile-group-header transition-colors"
+          <button 
+            type="button"
+            class="w-full flex items-center justify-between px-3 py-2 rounded-md bg-brand-light/70 mobile-group-header transition-colors text-left focus:outline-none focus:ring-2 focus:ring-brand-sage"
             data-mobile-group={item.id}
+            aria-expanded="true"
+            aria-controls={`mobile-group-list-${idx}`}
           >
             <span class="mobile-group-title text-base font-bold text-brand-dark transition-colors">
               {item.label}
             </span>
-            <span class="mobile-group-badge text-[10px] font-bold text-brand-sage uppercase tracking-wider bg-white px-2 py-0.5 rounded border border-brand-border transition-colors">
-              {item.groupLabel ?? 'Pages'}
-            </span>
-          </div>
-          <div class="pl-3 mt-1.5 space-y-1 border-l-2 border-brand-sage/40 ml-3">
+            <div class="flex items-center gap-1.5">
+              <span class="mobile-group-badge text-[10px] font-bold text-brand-sage uppercase tracking-wider bg-white px-2 py-0.5 rounded border border-brand-border transition-colors">
+                {item.groupLabel ?? (item.label === 'Courses' ? 'Categories' : 'Sections')}
+              </span>
+              <ChevronDown class="mobile-group-chevron w-4 h-4 text-brand-muted transition-transform duration-200" />
+            </div>
+          </button>
+          <div 
+            id={`mobile-group-list-${idx}`} 
+            class="mobile-group-content pl-3 mt-1.5 space-y-1 border-l-2 border-brand-sage/40 ml-3"
+          >
             {item.subItems.map((sub) => (
               <a
                 href={sub.href}
@@ -535,6 +544,25 @@ const isInitialActive = (id: string) => (pagesByItem[id] ?? []).includes(current
     drawerLinks.forEach((link) => {
       link.addEventListener('click', () => {
         closeMobileNav();
+      });
+    });
+
+    // Mobile group accordion toggle
+    const groupButtons = mobileNav.querySelectorAll<HTMLButtonElement>('.mobile-group-header');
+    groupButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+        const contentId = btn.getAttribute('aria-controls');
+        const content = contentId ? document.getElementById(contentId) : null;
+        const chevron = btn.querySelector('.mobile-group-chevron');
+
+        btn.setAttribute('aria-expanded', String(!isExpanded));
+        if (content) {
+          content.classList.toggle('hidden', isExpanded);
+        }
+        if (chevron) {
+          chevron.classList.toggle('rotate-180', !isExpanded);
+        }
       });
     });
   }

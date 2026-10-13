@@ -1,5 +1,5 @@
 ---
-import { Mail, Phone, MapPin, ShieldCheck } from 'lucide-astro';
+import { Mail, MapPin, ShieldCheck } from 'lucide-astro';
 import { site, mapsUrl } from '@/data/site';
 ---
 
@@ -86,14 +86,6 @@ import { site, mapsUrl } from '@/data/site';
           <div class="flex items-center gap-2.5">
             <Mail class="w-4 h-4 text-brand-gold shrink-0" />
             <a href={`mailto:${site.email}`} class="text-xs text-gray-300 hover:text-brand-gold transition-colors">{site.email}</a>
-          </div>
-          <div class="flex items-start gap-2.5">
-            <Phone class="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
-            <span class="text-xs text-gray-300">
-              <a href={`tel:${site.phone.tel}`} class="hover:text-brand-gold transition-colors">{site.phone.display}</a>
-              <br />
-              <span class="text-gray-400">{site.pic.name} (PIC)</span>
-            </span>
           </div>
         </address>
       </div>
