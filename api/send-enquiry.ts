@@ -1,4 +1,4 @@
-import { validateEnquiryPayload, buildEnquiryEmailHtml, type EnquiryPayload } from '../src/utils/enquiry';
+import { validateEnquiryPayload, buildEnquiryEmailHtml, type EnquiryPayload } from '../src/utils/enquiry.js';
 
 declare const process: {
   env: Record<string, string | undefined>;
