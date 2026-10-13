@@ -946,66 +946,90 @@ const featuredCourses = coursesData.slice(0, 6);
             </p>
           </div>
 
-          <div class="p-3 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-900 mb-6 flex items-start gap-2">
-            <AlertCircle class="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />
-            <p class="leading-relaxed">
-              <strong>Form Status Notice:</strong> Operating in demonstration/preview mode. Submission endpoints will be activated upon client mail API configuration.
-            </p>
-          </div>
-
           <form id="hero-enquiry-form" class="space-y-4">
+            <!-- Honeypot anti-spam field (hidden from genuine users) -->
+            <div class="hidden" aria-hidden="true" style="display:none !important;">
+              <label for="org-hp">Leave this field blank</label>
+              <input type="text" id="org-hp" name="website_url" tabindex="-1" autocomplete="off" />
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label for="org-name" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Full Name *</label>
-                <input type="text" id="org-name" required placeholder="e.g. Ts. Ahmad Faizal" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage" />
+                <input type="text" id="org-name" name="name" required placeholder="e.g. Ts. Ahmad Faizal" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage" />
               </div>
               <div>
                 <label for="org-email" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Official Work Email *</label>
-                <input type="email" id="org-email" required placeholder="name@agency.gov.my" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage" />
+                <input type="email" id="org-email" name="email" required placeholder="name@agency.gov.my" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage" />
               </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label for="org-entity" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Organization / Entity *</label>
-                <input type="text" id="org-entity" required placeholder="Ministry / Corporation Name" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage" />
+                <input type="text" id="org-entity" name="organisation" required placeholder="Ministry / Corporation Name" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage" />
               </div>
               <div>
                 <label for="org-sector" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Sector Type *</label>
-                <select id="org-sector" required class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage">
-                  <option value="government">Government Body / Statutory Agency</option>
-                  <option value="enterprise">Corporate Enterprise / MNC</option>
-                  <option value="education">University / Higher Learning Institution</option>
-                  <option value="sme">SME / Private Company</option>
+                <select id="org-sector" name="sector" required class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage">
+                  <option value="Government Body / Statutory Agency">Government Body / Statutory Agency</option>
+                  <option value="Corporate Enterprise / MNC">Corporate Enterprise / MNC</option>
+                  <option value="University / Higher Learning Institution">University / Higher Learning Institution</option>
+                  <option value="SME / Private Company">SME / Private Company</option>
                 </select>
               </div>
             </div>
 
             <div>
               <label for="org-pillar" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Primary Capability Track *</label>
-              <select id="org-pillar" required class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage">
-                <option value="ai">Artificial Intelligence Capacity Building</option>
-                <option value="it">Global IT Certification (CompTIA, Cyber Security)</option>
-                <option value="leadership">Professional Development & Leadership Transformation</option>
-                <option value="entrepreneurship">Entrepreneurship & Cross-Border Business</option>
-                <option value="custom">Custom In-House Capability Outline</option>
+              <select id="org-pillar" name="track" required class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage">
+                <option value="Artificial Intelligence Capacity Building">Artificial Intelligence Capacity Building</option>
+                <option value="Global IT Certification (CompTIA, Cyber Security)">Global IT Certification (CompTIA, Cyber Security)</option>
+                <option value="Professional Development & Leadership Transformation">Professional Development & Leadership Transformation</option>
+                <option value="Entrepreneurship & Cross-Border Business">Entrepreneurship & Cross-Border Business</option>
+                <option value="Custom In-House Capability Outline">Custom In-House Capability Outline</option>
               </select>
             </div>
 
             <div>
               <label for="org-notes" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Brief Objectives or Target Schedule</label>
-              <textarea id="org-notes" rows="3" placeholder="Outline your team upskilling objectives, target month, or specific cohort requirements..." class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage"></textarea>
+              <textarea id="org-notes" name="message" rows="3" placeholder="Outline your team upskilling objectives, target month, or specific cohort requirements..." class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage"></textarea>
             </div>
 
-            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 bg-brand-sage text-white font-bold rounded-lg hover:bg-brand-sage-dark transition-all text-xs shadow-sm">
-              <Send class="w-3.5 h-3.5" />
-              <span>Submit Training Consultation Request</span>
+            <button
+              type="submit"
+              id="hero-submit-btn"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 bg-brand-sage text-white font-bold rounded-lg hover:bg-brand-sage-dark transition-all text-xs shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              <Send id="hero-submit-icon" class="w-3.5 h-3.5" />
+              <svg id="hero-submit-spinner" class="hidden animate-spin -ml-0.5 mr-1.5 h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span id="hero-submit-text">Submit Training Consultation Request</span>
             </button>
           </form>
 
-          <div id="hero-form-feedback" class="hidden mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-900">
-            <p class="font-bold">Consultation Request Recorded (Demonstration Mode)</p>
-            <p class="mt-0.5">Thank you. In production, this inquiry will route directly to GET Academy's training coordination desk at ask@geta.com.my.</p>
+          <!-- Success Feedback Banner -->
+          <div id="hero-form-feedback" class="hidden mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-900 space-y-1">
+            <p class="font-bold flex items-center gap-1.5 text-emerald-950">
+              <CheckCircle2 class="w-4 h-4 text-emerald-700 inline shrink-0" />
+              <span>Consultation Request Successfully Delivered</span>
+            </p>
+            <p class="text-emerald-800 leading-relaxed">
+              Thank you. Your enquiry has been routed directly to GET Academy's training coordination desk. An advisor will respond within 1–2 business days.
+            </p>
+          </div>
+
+          <!-- Error Alert Banner -->
+          <div id="hero-form-error" class="hidden mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-xs text-red-900 space-y-1">
+            <p class="font-bold flex items-center gap-1.5 text-red-950">
+              <AlertCircle class="w-4 h-4 text-red-700 inline shrink-0" />
+              <span>Submission Could Not Be Completed</span>
+            </p>
+            <p id="hero-error-text" class="text-red-800 leading-relaxed">
+              We encountered an issue submitting your request. Please try again or contact us directly.
+            </p>
           </div>
         </div>
       </div>
@@ -1015,13 +1039,74 @@ const featuredCourses = coursesData.slice(0, 6);
 
 <script>
   const heroForm = document.getElementById('hero-enquiry-form') as HTMLFormElement | null;
+  const heroSubmitBtn = document.getElementById('hero-submit-btn') as HTMLButtonElement | null;
+  const heroSubmitText = document.getElementById('hero-submit-text');
+  const heroSubmitIcon = document.getElementById('hero-submit-icon');
+  const heroSubmitSpinner = document.getElementById('hero-submit-spinner');
   const heroFeedback = document.getElementById('hero-form-feedback');
+  const heroError = document.getElementById('hero-form-error');
+  const heroErrorText = document.getElementById('hero-error-text');
 
-  if (heroForm && heroFeedback) {
-    heroForm.addEventListener('submit', (e) => {
+  if (heroForm && heroSubmitBtn && heroFeedback && heroError && heroErrorText) {
+    let isSubmitting = false;
+
+    heroForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      heroFeedback.classList.remove('hidden');
-      heroForm.reset();
+
+      if (isSubmitting) return;
+      isSubmitting = true;
+
+      // Reset state banners
+      heroFeedback.classList.add('hidden');
+      heroError.classList.add('hidden');
+
+      // Set UI to loading state
+      heroSubmitBtn.disabled = true;
+      if (heroSubmitText) heroSubmitText.textContent = 'Submitting Request...';
+      if (heroSubmitIcon) heroSubmitIcon.classList.add('hidden');
+      if (heroSubmitSpinner) heroSubmitSpinner.classList.remove('hidden');
+
+      const formData = new FormData(heroForm);
+      const payload = {
+        formSource: 'homepage-hero',
+        name: formData.get('name'),
+        email: formData.get('email'),
+        organisation: formData.get('organisation'),
+        sector: formData.get('sector'),
+        track: formData.get('track'),
+        message: formData.get('message'),
+        honeypot: formData.get('website_url') || '',
+      };
+
+      try {
+        const response = await fetch('/api/send-enquiry', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json().catch(() => null);
+
+        if (response.ok && data?.success) {
+          heroFeedback.classList.remove('hidden');
+          heroForm.reset();
+        } else {
+          const message = data?.error || 'Unable to submit your enquiry at this time. Please try again or contact us directly.';
+          heroErrorText.textContent = message;
+          heroError.classList.remove('hidden');
+        }
+      } catch (err) {
+        heroErrorText.textContent = 'A network connection error occurred while submitting your request. Please check your connection and try again.';
+        heroError.classList.remove('hidden');
+      } finally {
+        isSubmitting = false;
+        heroSubmitBtn.disabled = false;
+        if (heroSubmitText) heroSubmitText.textContent = 'Submit Training Consultation Request';
+        if (heroSubmitIcon) heroSubmitIcon.classList.remove('hidden');
+        if (heroSubmitSpinner) heroSubmitSpinner.classList.add('hidden');
+      }
     });
   }
 </script>

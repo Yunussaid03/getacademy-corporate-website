@@ -142,15 +142,13 @@ const sectors = [
               </p>
             </div>
 
-            <!-- Endpoint disclaimer banner -->
-            <div class="mb-8 p-3.5 bg-blue-50 border border-blue-200 rounded-xl flex items-start gap-3">
-              <AlertCircle class="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />
-              <p class="text-xs text-blue-800 leading-relaxed">
-                <strong>Notice:</strong> This form UI is currently operating in presentation preview mode. No live CRM or mail delivery endpoint has been configured until approved credentials (e.g. Resend, SendGrid, or corporate webhook) are supplied. Submitting will show a local validation preview.
-              </p>
-            </div>
-
             <form id="corporate-enquiry-form" class="space-y-5">
+              <!-- Honeypot anti-spam field (hidden from genuine users) -->
+              <div class="hidden" aria-hidden="true" style="display:none !important;">
+                <label for="contact-hp">Leave this field blank</label>
+                <input type="text" id="contact-hp" name="website_url" tabindex="-1" autocomplete="off" />
+              </div>
+
               <!-- Full Name -->
               <div>
                 <label for="contact-name" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-2">
@@ -278,26 +276,42 @@ const sectors = [
                 ></textarea>
               </div>
 
-              <!-- Submit Button -->
+              <!-- Submit Button with Loading State -->
               <div class="pt-2">
                 <button
                   type="submit"
-                  class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-brand-sage text-white font-bold rounded-xl hover:bg-brand-sage-dark transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-sage"
+                  id="contact-submit-btn"
+                  class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-brand-sage text-white font-bold rounded-xl hover:bg-brand-sage-dark transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-sage disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <Send class="w-4 h-4" />
-                  <span>Submit Training Enquiry</span>
+                  <Send id="contact-submit-icon" class="w-4 h-4" />
+                  <svg id="contact-submit-spinner" class="hidden animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span id="contact-submit-text">Submit Training Enquiry</span>
                 </button>
               </div>
             </form>
 
-            <!-- Submission Confirmation Message Banner (Client-side JS simulated) -->
+            <!-- Submission Confirmation Message Banner -->
             <div id="form-success-banner" class="hidden mt-6 p-6 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 space-y-2">
               <div class="flex items-center gap-2 font-bold text-emerald-950">
                 <CheckCircle2 class="w-5 h-5 text-emerald-700" />
-                <span>Enquiry Recorded (Demonstration Mode)</span>
+                <span>Enquiry Successfully Submitted</span>
               </div>
               <p class="text-xs text-emerald-800 leading-relaxed">
-                Thank you for your training interest. In this static preview environment, form data is validated locally. Once connected to GET Academy's live CRM/email endpoint, notifications will route directly to training coordinators.
+                Thank you for your training interest. Your consultation request has been delivered to GET Academy's training coordination desk. An advisor will review your requirements and respond within 1–2 business days.
+              </p>
+            </div>
+
+            <!-- Submission Error Alert Banner -->
+            <div id="form-error-banner" class="hidden mt-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-900 space-y-1">
+              <div class="flex items-center gap-2 font-bold text-xs text-red-950">
+                <AlertCircle class="w-4 h-4 text-red-700 shrink-0" />
+                <span>Submission Could Not Be Completed</span>
+              </div>
+              <p id="form-error-text" class="text-xs text-red-800 leading-relaxed">
+                We encountered an error delivering your enquiry. Please check your information and try again.
               </p>
             </div>
           </div>
@@ -309,9 +323,15 @@ const sectors = [
 </BaseLayout>
 
 <script>
-  // Form submission preview handling
+  // Form submission handling connected to serverless endpoint
   const form = document.getElementById('corporate-enquiry-form') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('contact-submit-btn') as HTMLButtonElement | null;
+  const submitText = document.getElementById('contact-submit-text');
+  const submitIcon = document.getElementById('contact-submit-icon');
+  const submitSpinner = document.getElementById('contact-submit-spinner');
   const successBanner = document.getElementById('form-success-banner');
+  const errorBanner = document.getElementById('form-error-banner');
+  const errorText = document.getElementById('form-error-text');
 
   // Pre-fill course from URL query parameter (e.g. ?course=Critical%20Thinking)
   const urlParams = new URLSearchParams(window.location.search);
@@ -323,13 +343,71 @@ const sectors = [
     }
   }
 
-  if (form && successBanner) {
-    form.addEventListener('submit', (e) => {
+  if (form && submitBtn && successBanner && errorBanner && errorText) {
+    let isSubmitting = false;
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      // Show preview success message
-      successBanner.classList.remove('hidden');
-      form.reset();
-      successBanner.scrollIntoView({ behavior: 'smooth' });
+
+      if (isSubmitting) return;
+      isSubmitting = true;
+
+      // Reset state banners
+      successBanner.classList.add('hidden');
+      errorBanner.classList.add('hidden');
+
+      // Set UI to loading state
+      submitBtn.disabled = true;
+      if (submitText) submitText.textContent = 'Submitting Enquiry...';
+      if (submitIcon) submitIcon.classList.add('hidden');
+      if (submitSpinner) submitSpinner.classList.remove('hidden');
+
+      const formData = new FormData(form);
+      const payload = {
+        formSource: 'contact-page',
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        organisation: formData.get('organisation'),
+        sector: formData.get('sector'),
+        track: formData.get('track'),
+        participants: formData.get('participants'),
+        message: formData.get('message'),
+        honeypot: formData.get('website_url') || '',
+      };
+
+      try {
+        const response = await fetch('/api/send-enquiry', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json().catch(() => null);
+
+        if (response.ok && data?.success) {
+          successBanner.classList.remove('hidden');
+          form.reset();
+          successBanner.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          const message = data?.error || 'Unable to submit your enquiry at this time. Please try again or contact us directly.';
+          errorText.textContent = message;
+          errorBanner.classList.remove('hidden');
+          errorBanner.scrollIntoView({ behavior: 'smooth' });
+        }
+      } catch (err) {
+        errorText.textContent = 'A network connection error occurred while submitting your enquiry. Please check your internet connection and try again.';
+        errorBanner.classList.remove('hidden');
+        errorBanner.scrollIntoView({ behavior: 'smooth' });
+      } finally {
+        isSubmitting = false;
+        submitBtn.disabled = false;
+        if (submitText) submitText.textContent = 'Submit Training Enquiry';
+        if (submitIcon) submitIcon.classList.remove('hidden');
+        if (submitSpinner) submitSpinner.classList.add('hidden');
+      }
     });
   }
 </script>
