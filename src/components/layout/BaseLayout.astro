@@ -12,6 +12,14 @@ const {
   title,
   description = 'GET Academy — Your Unbeatable Human Capital Development Partner. Practical corporate training in AI, global IT certification, entrepreneurship and professional development across Malaysia. All programmes HRDC claimable.',
 } = Astro.props;
+
+// Canonical URL resolution with production origin https://geta.com.my
+const canonicalOrigin = 'https://geta.com.my';
+let normalizedPath = Astro.url.pathname.replace(/\/index\.html$/, '');
+if (normalizedPath !== '/' && normalizedPath.endsWith('/')) {
+  normalizedPath = normalizedPath.slice(0, -1);
+}
+const canonicalURL = `${canonicalOrigin}${normalizedPath}`;
 ---
 
 <!doctype html>
@@ -20,6 +28,7 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/assets/brand/GETA-Logo-100x100.png" />
+    <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Preload local variable font for optimal Core Web Vitals (sub-second LCP) -->
