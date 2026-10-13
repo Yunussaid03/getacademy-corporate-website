@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown } from 'lucide-astro';
 interface SubNavItem {
   label: string;
   href: string;
+  /** Matches data-sub-target: a homepage section id, "page:/path" for a page, or "courses:category" for a filtered catalogue. */
   targetId: string;
 }
 
@@ -12,48 +13,54 @@ interface NavItem {
   label: string;
   href: string;
   subItems?: SubNavItem[];
+  /** Small tag shown on the mobile drawer group header. */
+  groupLabel?: string;
 }
 
 const aboutSections: SubNavItem[] = [
+  { label: 'Who We Are', href: '/about', targetId: 'page:/about' },
   { label: 'What We Do', href: '/#what-we-do', targetId: 'what-we-do' },
-  { label: 'Accreditations & Institutional Relationships', href: '/#accreditations', targetId: 'accreditations' },
-  { label: 'Why GET Academy', href: '/#why-get-academy', targetId: 'why-get-academy' },
+  { label: 'Accreditations & Affiliations', href: '/#accreditations', targetId: 'accreditations' },
+  { label: 'Why Partner With Us', href: '/#why-get-academy', targetId: 'why-get-academy' },
+  { label: 'Leadership & Trainers', href: '/trainers', targetId: 'page:/trainers' },
+];
+
+const trackRecordPages: SubNavItem[] = [
+  { label: 'Projects & Engagements', href: '/track-record', targetId: 'page:/track-record' },
+  { label: 'International Network', href: '/international', targetId: 'page:/international' },
+  { label: 'Testimonials', href: '/testimonials', targetId: 'page:/testimonials' },
 ];
 
 const courseCategories: SubNavItem[] = [
-  { label: 'All Programmes', href: '/#programmes', targetId: 'programmes' },
-  { label: 'Digital Strategy', href: '/#digital-strategy', targetId: 'digital-strategy' },
-  { label: 'Workplace Performance', href: '/#workplace-performance', targetId: 'workplace-performance' },
-  { label: 'Leadership & Management', href: '/#leadership-management', targetId: 'leadership-management' },
+  { label: 'All Programmes', href: '/courses', targetId: 'page:/courses' },
+  { label: 'Digital Strategy', href: '/courses?category=digital-strategy', targetId: 'courses:digital-strategy' },
+  { label: 'Business Incubation', href: '/courses?category=business-incubation', targetId: 'courses:business-incubation' },
+  { label: 'Technical & IT Skills', href: '/courses?category=technical-it', targetId: 'courses:technical-it' },
+  { label: 'Workplace Performance', href: '/courses?category=workplace-performance', targetId: 'courses:workplace-performance' },
+  { label: 'Leadership & Management', href: '/courses?category=leadership-management', targetId: 'courses:leadership-management' },
 ];
 
 const navItems: NavItem[] = [
   { id: 'home', label: 'Home', href: '/' },
-  { 
-    id: 'about',
-    label: 'About Us', 
-    href: '/#what-we-do',
-    subItems: aboutSections
-  },
-  { 
-    id: 'courses',
-    label: 'Courses', 
-    href: '/#programmes',
-    subItems: courseCategories
-  },
-  { id: 'corporate-solutions', label: 'Corporate Solutions', href: '/#institutional-experience' },
-  { id: 'contact', label: 'Contact', href: '/#corporate-enquiry' },
+  { id: 'about', label: 'About Us', href: '/about', subItems: aboutSections, groupLabel: 'Sections' },
+  { id: 'track-record', label: 'Track Record', href: '/track-record', subItems: trackRecordPages, groupLabel: 'Pages' },
+  { id: 'courses', label: 'Courses', href: '/courses', subItems: courseCategories, groupLabel: 'Categories' },
+  { id: 'corporate-solutions', label: 'Corporate Solutions', href: '/corporate-solutions' },
+  { id: 'contact', label: 'Contact', href: '/contact' },
 ];
 
-const currentPath = Astro.url.pathname;
-const isInitialActive = (id: string) => {
-  if (currentPath === '/' && id === 'home') return true;
-  if (currentPath.startsWith('/about') && id === 'about') return true;
-  if (currentPath.startsWith('/courses') && id === 'courses') return true;
-  if (currentPath.startsWith('/corporate-solutions') && id === 'corporate-solutions') return true;
-  if (currentPath.startsWith('/contact') && id === 'contact') return true;
-  return false;
+// Pages that belong to each top-level item (used for the server-rendered active state)
+const pagesByItem: Record<string, string[]> = {
+  home: ['/'],
+  about: ['/about', '/trainers'],
+  'track-record': ['/track-record', '/international', '/testimonials'],
+  courses: ['/courses'],
+  'corporate-solutions': ['/corporate-solutions'],
+  contact: ['/contact'],
 };
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isInitialActive = (id: string) => (pagesByItem[id] ?? []).includes(currentPath);
 ---
 
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-border/80 transition-all shadow-sm">
@@ -143,7 +150,7 @@ const isInitialActive = (id: string) => {
     <!-- Header Action Buttons -->
     <div class="hidden sm:flex items-center gap-3">
       <a
-        href="/#corporate-enquiry"
+        href="/contact"
         class="inline-flex items-center justify-center px-4 py-2 text-sm font-bold rounded-lg text-white bg-brand-sage hover:bg-brand-sage-dark shadow-sm hover:shadow transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-sage"
       >
         Corporate Enquiry
@@ -180,7 +187,7 @@ const isInitialActive = (id: string) => {
               {item.label}
             </span>
             <span class="mobile-group-badge text-[10px] font-bold text-brand-sage uppercase tracking-wider bg-white px-2 py-0.5 rounded border border-brand-border transition-colors">
-              {item.label === 'Courses' ? 'Categories' : 'Sections'}
+              {item.groupLabel ?? 'Pages'}
             </span>
           </div>
           <div class="pl-3 mt-1.5 space-y-1 border-l-2 border-brand-sage/40 ml-3">
@@ -212,7 +219,7 @@ const isInitialActive = (id: string) => {
     ))}
     <div class="pt-4 border-t border-brand-border mt-3">
       <a
-        href="/#corporate-enquiry"
+        href="/contact"
         data-mobile-nav-id="contact-cta"
         class="block w-full text-center px-4 py-2.5 text-sm font-bold rounded-lg text-white bg-brand-sage hover:bg-brand-sage-dark shadow-xs"
       >
@@ -240,14 +247,25 @@ const isInitialActive = (id: string) => {
   const sectionsConfig = [
     { id: 'hero', parentId: 'home', subTarget: null },
     { id: 'what-we-do', parentId: 'about', subTarget: 'what-we-do' },
-    { id: 'institutional-experience', parentId: 'corporate-solutions', subTarget: null },
+    { id: 'institutional-experience', parentId: 'track-record', subTarget: null },
+    { id: 'international', parentId: 'track-record', subTarget: null },
     { id: 'accreditations', parentId: 'about', subTarget: 'accreditations' },
     { id: 'why-get-academy', parentId: 'about', subTarget: 'why-get-academy' },
-    { id: 'programmes', parentId: 'courses', subTarget: 'programmes' },
-    { id: 'digital-strategy', parentId: 'courses', subTarget: 'digital-strategy' },
-    { id: 'workplace-performance', parentId: 'courses', subTarget: 'workplace-performance' },
-    { id: 'leadership-management', parentId: 'courses', subTarget: 'leadership-management' },
+    { id: 'testimonials', parentId: 'track-record', subTarget: null },
+    { id: 'programmes', parentId: 'courses', subTarget: null },
     { id: 'corporate-enquiry', parentId: 'contact', subTarget: null },
+  ];
+
+  // Standalone pages and the nav items they highlight
+  const pageConfig = [
+    { path: '/about', parentId: 'about', subTarget: 'page:/about' },
+    { path: '/trainers', parentId: 'about', subTarget: 'page:/trainers' },
+    { path: '/track-record', parentId: 'track-record', subTarget: 'page:/track-record' },
+    { path: '/international', parentId: 'track-record', subTarget: 'page:/international' },
+    { path: '/testimonials', parentId: 'track-record', subTarget: 'page:/testimonials' },
+    { path: '/courses', parentId: 'courses', subTarget: 'page:/courses' },
+    { path: '/corporate-solutions', parentId: 'corporate-solutions', subTarget: null },
+    { path: '/contact', parentId: 'contact', subTarget: null },
   ];
 
   let currentActiveParent = 'home';
@@ -416,15 +434,15 @@ const isInitialActive = (id: string) => {
       }
       updateActiveOnScroll();
     } else {
-      const path = window.location.pathname;
-      if (path.startsWith('/about')) {
-        setActiveNav('about', null);
-      } else if (path.startsWith('/courses')) {
-        setActiveNav('courses', null);
-      } else if (path.startsWith('/corporate-solutions')) {
-        setActiveNav('corporate-solutions', null);
-      } else if (path.startsWith('/contact')) {
-        setActiveNav('contact', null);
+      const path = window.location.pathname.replace(/\/$/, '') || '/';
+      const page = pageConfig.find((p) => p.path === path);
+      if (page) {
+        let subTarget = page.subTarget;
+        if (path === '/courses') {
+          const category = new URLSearchParams(window.location.search).get('category');
+          if (category) subTarget = `courses:${category}`;
+        }
+        setActiveNav(page.parentId, subTarget);
       }
     }
   }

@@ -1,5 +1,6 @@
 ---
 import { Mail, Phone, MapPin, ShieldCheck } from 'lucide-astro';
+import { site, mapsUrl } from '@/data/site';
 ---
 
 <footer class="bg-brand-dark text-white pt-16 pb-12 border-t border-brand-sage/40">
@@ -8,9 +9,9 @@ import { Mail, Phone, MapPin, ShieldCheck } from 'lucide-astro';
       <!-- Col 1: Brand Info -->
       <div class="space-y-4">
         <div class="flex items-center gap-3">
-          <img 
-            src="/assets/brand/GETA-Logo.png" 
-            alt="GET Academy" 
+          <img
+            src="/assets/brand/GETA-Logo.png"
+            alt="GET Academy"
             class="h-10 w-auto bg-white/10 rounded p-1"
             width="115"
             height="112"
@@ -20,12 +21,20 @@ import { Mail, Phone, MapPin, ShieldCheck } from 'lucide-astro';
           </span>
         </div>
         <p class="text-gray-200 text-sm leading-relaxed">
-          Your Unbeatable Human Capital Development Partner. Delivering cutting-edge blended learning and tailored corporate training solutions across Malaysia since 2012.
+          {site.tagline}. Practical skills training and capability building for enterprises, government agencies and education institutions across Malaysia.
         </p>
-        <div class="pt-2">
+        <div class="pt-2 flex items-center gap-4">
+          <img
+            src="/assets/partners/hrdc-claimable-seal.png"
+            alt="HRD Corp claimable"
+            class="w-16 h-16 shrink-0"
+            width="64"
+            height="64"
+            loading="lazy"
+          />
           <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/10 border border-white/15 text-xs text-brand-gold">
-            <ShieldCheck class="w-4 h-4 text-brand-gold" />
-            <span>Human Capital Development</span>
+            <ShieldCheck class="w-4 h-4 text-brand-gold shrink-0" />
+            <span>All programmes HRDC claimable</span>
           </div>
         </div>
       </div>
@@ -36,6 +45,10 @@ import { Mail, Phone, MapPin, ShieldCheck } from 'lucide-astro';
         <ul class="space-y-2.5 text-sm text-gray-200">
           <li><a href="/" class="hover:text-brand-gold transition-colors">Home</a></li>
           <li><a href="/about" class="hover:text-brand-gold transition-colors">About Us</a></li>
+          <li><a href="/trainers" class="hover:text-brand-gold transition-colors">Leadership & Trainers</a></li>
+          <li><a href="/track-record" class="hover:text-brand-gold transition-colors">Track Record</a></li>
+          <li><a href="/international" class="hover:text-brand-gold transition-colors">International Network</a></li>
+          <li><a href="/testimonials" class="hover:text-brand-gold transition-colors">Testimonials</a></li>
           <li><a href="/courses" class="hover:text-brand-gold transition-colors">HRD Corp Claimable Courses</a></li>
           <li><a href="/corporate-solutions" class="hover:text-brand-gold transition-colors">Corporate Solutions</a></li>
           <li><a href="/contact" class="hover:text-brand-gold transition-colors">Contact & Enquiries</a></li>
@@ -46,49 +59,53 @@ import { Mail, Phone, MapPin, ShieldCheck } from 'lucide-astro';
       <div class="space-y-4">
         <h4 class="text-sm font-bold tracking-wider uppercase text-brand-gold">Capability Areas</h4>
         <ul class="space-y-2.5 text-sm text-gray-200">
-          <li><a href="/courses?category=leadership-management" class="hover:text-brand-gold transition-colors">Leadership & Management</a></li>
-          <li><a href="/courses?category=workplace-performance" class="hover:text-brand-gold transition-colors">Workplace Performance</a></li>
-          <li><a href="/courses?category=technical-it" class="hover:text-brand-gold transition-colors">Technical & IT Skills</a></li>
           <li><a href="/courses?category=digital-strategy" class="hover:text-brand-gold transition-colors">Digital Strategy & CDMS</a></li>
-          <li><a href="/corporate-solutions" class="hover:text-brand-gold transition-colors">On-the-Job Training (OJT)</a></li>
-          <li><a href="/corporate-solutions" class="hover:text-brand-gold transition-colors">Custom In-House Interventions</a></li>
+          <li><a href="/courses?category=business-incubation" class="hover:text-brand-gold transition-colors">Business Incubation (DFY)</a></li>
+          <li><a href="/courses?category=technical-it" class="hover:text-brand-gold transition-colors">Technical & IT Skills (CompTIA)</a></li>
+          <li><a href="/courses?category=workplace-performance" class="hover:text-brand-gold transition-colors">Workplace Performance</a></li>
+          <li><a href="/courses?category=leadership-management" class="hover:text-brand-gold transition-colors">Leadership & Management</a></li>
+          <li><a href="/corporate-solutions" class="hover:text-brand-gold transition-colors">Custom In-House Programmes</a></li>
         </ul>
       </div>
 
-      <!-- Col 4: Verified Contact / Clearly Marked Placeholders -->
+      <!-- Col 4: Contact -->
       <div class="space-y-4">
         <h4 class="text-sm font-bold tracking-wider uppercase text-brand-gold">Corporate Office</h4>
-        <div class="space-y-3 text-sm text-gray-200">
+        <address class="not-italic space-y-3 text-sm text-gray-200">
           <div class="flex items-start gap-2.5">
             <MapPin class="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
-            <span class="text-xs text-gray-300">
-              Kuala Lumpur, Malaysia<br/>
-              <span class="text-[11px] text-amber-300/80 italic">[Official street address awaiting confirmation]</span>
-            </span>
+            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="text-xs text-gray-300 hover:text-brand-gold transition-colors leading-relaxed">
+              {site.address.lines.map((line, i) => (
+                <>
+                  {line}
+                  {i < site.address.lines.length - 1 && <br />}
+                </>
+              ))}
+            </a>
           </div>
           <div class="flex items-center gap-2.5">
             <Mail class="w-4 h-4 text-brand-gold shrink-0" />
+            <a href={`mailto:${site.email}`} class="text-xs text-gray-300 hover:text-brand-gold transition-colors">{site.email}</a>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <Phone class="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
             <span class="text-xs text-gray-300">
-              <span class="text-[11px] text-amber-300/80 italic">[Official enquiry email awaiting confirmation]</span>
+              <a href={`tel:${site.phone.tel}`} class="hover:text-brand-gold transition-colors">{site.phone.display}</a>
+              <br />
+              <span class="text-gray-400">{site.pic.name} (PIC)</span>
             </span>
           </div>
-          <div class="flex items-center gap-2.5">
-            <Phone class="w-4 h-4 text-brand-gold shrink-0" />
-            <span class="text-xs text-gray-300">
-              <span class="text-[11px] text-amber-300/80 italic">[Official telephone awaiting confirmation]</span>
-            </span>
-          </div>
-        </div>
+        </address>
       </div>
     </div>
 
     <!-- Bottom Bar -->
     <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-300">
-      <p>&copy; {new Date().getFullYear()} GET Academy. All rights reserved. Registered in Malaysia.</p>
+      <p class="text-center sm:text-left">
+        &copy; {new Date().getFullYear()} {site.legalName} ({site.name}) · {site.llpNumber}. All rights reserved. Registered in Malaysia.
+      </p>
       <div class="flex items-center gap-6">
-        <span>SBL-Khas Claimable</span>
-        <span>•</span>
-        <span>Established 2012</span>
+        <span>HRDC Claimable</span>
         <span>•</span>
         <a href="/contact" class="hover:text-white transition-colors">Privacy & Legal Enquiries</a>
       </div>

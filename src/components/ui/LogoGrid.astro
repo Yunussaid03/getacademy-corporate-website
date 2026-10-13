@@ -1,0 +1,26 @@
+---
+import type { LogoItem } from '@/data/clients';
+
+interface Props {
+  logos: LogoItem[];
+  /** Tailwind grid-columns classes. */
+  columns?: string;
+}
+
+const { logos, columns = 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6' } = Astro.props;
+---
+
+<ul class={`grid ${columns} gap-3 sm:gap-4 items-stretch`} role="list">
+  {logos.map((logo) => (
+    <li class="p-3 bg-white rounded-xl border border-brand-border flex items-center justify-center h-20 hover:shadow-sm hover:border-brand-sage/50 transition-all">
+      <img
+        src={logo.file}
+        alt={logo.name}
+        title={logo.name}
+        class="max-h-11 max-w-[110px] w-auto h-auto object-contain mix-blend-multiply opacity-95 hover:opacity-100 transition-opacity"
+        loading="lazy"
+        decoding="async"
+      />
+    </li>
+  ))}
+</ul>

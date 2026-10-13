@@ -1,0 +1,30 @@
+---
+import { Sparkles } from 'lucide-astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  description: string;
+}
+
+const { eyebrow, title, description } = Astro.props;
+---
+
+<section class="relative bg-gradient-to-b from-[#244336] via-[#2D5444] to-[#244336] text-white py-16 sm:py-20 lg:py-24 border-b border-brand-sage/30 overflow-hidden">
+  <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#FADB50_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+  <div class="container-custom relative z-10">
+    <div class="max-w-4xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-brand-gold text-xs font-bold uppercase tracking-wider mb-4 border border-brand-gold/20">
+        <Sparkles class="w-3.5 h-3.5" />
+        <span>{eyebrow}</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+        {title}
+      </h1>
+      <p class="text-base sm:text-lg text-gray-200 leading-relaxed max-w-3xl">
+        {description}
+      </p>
+      <slot />
+    </div>
+  </div>
+</section>

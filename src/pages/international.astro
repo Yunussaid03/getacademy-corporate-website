@@ -1,0 +1,166 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import CtaBand from '@/components/ui/CtaBand.astro';
+import { Calendar, Globe2, Plane } from 'lucide-astro';
+import { moreEngagements, regions, stories, usFormats } from '@/data/international';
+
+const selectUsa = { src: '/assets/photos/cross-border-select-usa.jpeg', alt: 'Speaker at the SelectUSA event' };
+
+const imagePosition: Record<string, string> = {
+  'unesco-ee-net-session.jpg': 'center 30%',
+  'nyc-consulate-general.jpg': 'center 28%',
+  'un-ai-governance-dialogue.jpg': 'center 60%',
+};
+const positionFor = (src: string) => imagePosition[src.split('/').pop() ?? ''] ?? 'center';
+---
+
+<BaseLayout
+  title="International Network: Global Projects & Partnerships"
+  description="GET Academy's international projects and network: UN and UNESCO dialogues, Uzbekistan, the United States, the United Kingdom and India."
+>
+  <PageHero
+    eyebrow="International Network"
+    title="Global Projects & Partnerships"
+    description="From AI governance consultations at the United Nations to startup collaboration in Uzbekistan and an academic MoU in the United Kingdom, we connect Malaysian talent and enterprises with international ecosystems."
+  >
+    <ul class="mt-8 flex flex-wrap gap-2.5" role="list" aria-label="Regions and organisations">
+      {regions.map((region) => (
+        <li class="px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-bold text-white">
+          {region}
+        </li>
+      ))}
+    </ul>
+  </PageHero>
+
+  <!-- Stories -->
+  <section class="py-20 bg-white">
+    <div class="container-custom space-y-20">
+      {stories.map((story, index) => (
+        <article id={story.id} class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center scroll-mt-32">
+          <div class={`lg:col-span-7 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+            <div class="grid grid-cols-2 gap-3 items-start">
+              {story.images.map((image, i) => (
+                <div class={`rounded-2xl overflow-hidden border border-brand-border bg-slate-100 shadow-sm ${i === 1 ? 'mt-8' : ''}`}>
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    class="w-full aspect-[4/3] object-cover"
+                    style={`object-position: ${positionFor(image.src)};`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class={`lg:col-span-5 space-y-4 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-brand-sage-light text-brand-sage">
+                <Globe2 class="w-3.5 h-3.5" aria-hidden="true" />
+                {story.region}
+              </span>
+              {story.when && (
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-brand-light border border-brand-border text-brand-dark">
+                  <Calendar class="w-3.5 h-3.5" aria-hidden="true" />
+                  {story.when}
+                </span>
+              )}
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight leading-snug">{story.title}</h2>
+            <p class="text-sm sm:text-base text-brand-muted leading-relaxed">{story.summary}</p>
+            {story.details?.map((detail) => (
+              <p class="text-sm sm:text-base text-brand-muted leading-relaxed">{detail}</p>
+            ))}
+            {story.logos && (
+              <div class="pt-2 flex flex-wrap items-center gap-4">
+                {story.logos.map((logo) => (
+                  <img src={logo.src} alt={logo.alt} class="h-14 w-auto object-contain" loading="lazy" decoding="async" />
+                ))}
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- United States formats -->
+  <section class="py-20 bg-brand-light border-y border-brand-border" id="united-states">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div class="lg:col-span-6">
+          <SectionHeader
+            eyebrow="Taking Programmes Overseas"
+            title="United States: immersion and market entry"
+            subtitle="Immersion programmes and U.S. market-entry engagements give Malaysian learners and entrepreneurs first-hand exposure."
+          />
+          <div class="space-y-4 -mt-4">
+            {usFormats.map((item) => (
+              <div class="bg-white rounded-xl border border-brand-border p-5 sm:p-6 flex items-start gap-4 shadow-sm">
+                <span class="w-11 h-11 rounded-xl bg-brand-sage-light text-brand-sage flex items-center justify-center shrink-0">
+                  <Plane class="w-5 h-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <h3 class="text-base font-bold text-brand-dark mb-1.5 leading-snug">{item.title}</h3>
+                  <p class="text-sm text-brand-muted leading-relaxed">{item.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="lg:col-span-6">
+          <figure class="rounded-2xl overflow-hidden border border-brand-border bg-white shadow-md">
+            <img
+              src={selectUsa.src}
+              alt={selectUsa.alt}
+              class="w-full aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/5] object-cover"
+              style="object-position: center 30%;"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="px-5 py-3 text-xs font-semibold text-brand-muted border-t border-brand-border">
+              SelectUSA: building cross-border business pathways
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- More engagements -->
+  <section class="py-20 bg-white">
+    <div class="container-custom">
+      <SectionHeader
+        eyebrow="Further Engagements"
+        title="UK trade programmes and ties with India"
+        subtitle="Invitations and relationships that keep our network growing."
+      />
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {moreEngagements.map((item) => (
+          <div class="p-6 rounded-xl bg-brand-light border border-brand-border">
+            <div class="flex items-center justify-between gap-3 mb-3">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white border border-brand-border text-brand-sage">
+                {item.region}
+              </span>
+              {'when' in item && item.when && <span class="text-xs font-bold text-brand-dark">{item.when}</span>}
+            </div>
+            <h3 class="text-base font-bold text-brand-dark mb-1.5 leading-snug">{item.title}</h3>
+            <p class="text-sm text-brand-muted leading-relaxed">{item.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="Global Reach"
+    title="Exploring a cross-border opportunity?"
+    text="Whether you are a Malaysian business looking abroad or an international partner looking at Malaysia and ASEAN, we would like to hear from you."
+    primary={{ label: 'Start a Conversation', href: '/contact' }}
+    secondary={{ label: 'View Track Record', href: '/track-record' }}
+  />
+</BaseLayout>

@@ -1,64 +1,163 @@
 ---
 import BaseLayout from '@/components/layout/BaseLayout.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import CtaBand from '@/components/ui/CtaBand.astro';
 import CourseCard from '@/components/ui/CourseCard.astro';
 import coursesData from '@/data/courses.json';
-import { Search, RotateCcw, CheckCircle2, FileQuestion, ArrowRight } from 'lucide-astro';
+import { pathways, audiences } from '@/data/programmes';
+import {
+  ArrowRight,
+  Briefcase,
+  Building2,
+  CheckCircle2,
+  FileQuestion,
+  GraduationCap,
+  Megaphone,
+  RotateCcw,
+  Rocket,
+  Search,
+  ShieldCheck,
+  Users2,
+} from 'lucide-astro';
 
-// Categories available across the 19 courses
+const total = coursesData.length;
+
+const categoryLabels: Record<string, string> = {
+  'digital-strategy': 'Digital Strategy',
+  'business-incubation': 'Business Incubation',
+  'technical-it': 'Technical & IT',
+  'workplace-performance': 'Workplace Performance',
+  'leadership-management': 'Leadership & Management',
+};
+
 const categories = [
-  { id: 'all', label: 'All Courses', count: coursesData.length },
-  { id: 'workplace-performance', label: 'Workplace Performance', count: coursesData.filter(c => c.category === 'workplace-performance').length },
-  { id: 'leadership-management', label: 'Leadership & Management', count: coursesData.filter(c => c.category === 'leadership-management').length },
-  { id: 'digital-strategy', label: 'Digital Strategy', count: coursesData.filter(c => c.category === 'digital-strategy').length },
-  { id: 'technical-it', label: 'Technical & IT', count: coursesData.filter(c => c.category === 'technical-it').length },
+  { id: 'all', label: 'All Programmes', count: total },
+  ...Object.entries(categoryLabels).map(([id, label]) => ({
+    id,
+    label,
+    count: coursesData.filter((c) => c.category === id).length,
+  })),
 ];
+
+const pathwayIcons = {
+  'digital-marketing': Megaphone,
+  'business-incubation': Rocket,
+  'it-certification': ShieldCheck,
+  'professional-development': Briefcase,
+} as const;
+
+const audienceIcons = {
+  organisations: Building2,
+  professionals: Briefcase,
+  students: GraduationCap,
+  'business-owners': Rocket,
+} as const;
 
 const claimSteps = [
   {
     step: '1',
     title: 'Select & Consult',
-    desc: 'Choose from the 19 approved courses or consult our advisors to customize training outlines for your team’s skill priorities.'
+    desc: `Choose from our ${total} programmes or consult our advisors to customise a programme around your team’s skill priorities.`
   },
   {
     step: '2',
-    title: 'Receive Grant Pack',
-    desc: 'GET Academy prepares official training proposals, itemized fee schedules, trainer profiles, and course outlines.'
+    title: 'Receive Your Proposal',
+    desc: 'GET Academy prepares the training proposal, fee quotation, trainer profiles and course outline you need for your application.'
   },
   {
     step: '3',
-    title: 'e-TRiS Submission',
-    desc: 'Submit the grant application via the HRD Corp e-TRiS online portal prior to training commencement with our step-by-step guidance.'
+    title: 'Apply via HRD Corp',
+    desc: 'Submit your grant application through the HRD Corp portal before training begins. Our team guides you on the documents required.'
   },
   {
     step: '4',
-    title: 'Deliver & Settle',
-    desc: 'Training is conducted on-site or in blended formats. Course fees are claimed directly from your levy account under SBL-Khas.'
+    title: 'Deliver & Claim',
+    desc: 'Training is delivered on-site or virtually, after which you complete your claim with HRD Corp.'
   }
 ];
 ---
 
 <BaseLayout
-  title="HRD Corp Claimable Courses Catalogue"
-  description="Explore GET Academy's 19 approved HRD Corp claimable courses with interactive search, category filters, and grant claiming guide."
+  title="HRD Corp Claimable Programmes Catalogue"
+  description={`Explore GET Academy's ${total} HRDC claimable programmes in digital marketing, business incubation, global IT certification and professional development, with search, category filters and a funding guide.`}
 >
-  <!-- Header Banner -->
-  <section class="bg-brand-dark text-white py-16 border-b border-brand-sage/40">
-    <div class="container-custom max-w-4xl">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 text-brand-gold text-xs font-bold uppercase tracking-wider mb-4">
-        <span>Verified Curriculum</span>
+  <PageHero
+    eyebrow="Programme Catalogue"
+    title="HRD Corp Claimable Programmes"
+    description={`Explore ${total} programmes across digital marketing, business incubation, global IT certification and professional development. All GET Academy programmes are HRDC claimable (terms and conditions apply).`}
+  >
+    <div class="mt-8 flex items-center gap-4">
+      <img src="/assets/partners/hrdc-claimable-seal.png" alt="HRD Corp claimable" class="w-16 h-16 shrink-0" width="64" height="64" />
+      <p class="text-sm text-gray-200 leading-snug max-w-sm">All programmes are claimable under HRD Corp, subject to your employer account and approval.</p>
+    </div>
+  </PageHero>
+
+  <!-- Programme pathways -->
+  <section class="py-20 bg-white border-b border-brand-border" id="pathways">
+    <div class="container-custom">
+      <SectionHeader
+        eyebrow="Programme Pathways"
+        title="Four pathways, built for different learners"
+        subtitle="Whether you are developing a team, upskilling as a professional, starting your career or growing a business, there is a route for you."
+        centered={true}
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+        {pathways.map((pathway) => {
+          const Icon = pathwayIcons[pathway.id as keyof typeof pathwayIcons] ?? Briefcase;
+          return (
+            <div class="bg-brand-light rounded-2xl border border-brand-border p-7 flex flex-col hover:border-brand-sage/60 hover:shadow-md transition-all">
+              <div class="flex items-start gap-4 mb-4">
+                <span class="w-12 h-12 rounded-xl bg-white border border-brand-border text-brand-sage flex items-center justify-center shrink-0">
+                  <Icon class="w-6 h-6" aria-hidden="true" />
+                </span>
+                <h3 class="text-lg font-bold text-brand-dark leading-snug pt-1">{pathway.title}</h3>
+              </div>
+              <p class="text-sm text-brand-muted leading-relaxed mb-5">{pathway.summary}</p>
+              <ul class="flex flex-wrap gap-2 mb-6" role="list">
+                {pathway.facts.map((fact) => (
+                  <li class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white border border-brand-border text-[11px] font-semibold text-brand-dark">
+                    <CheckCircle2 class="w-3 h-3 text-emerald-700 shrink-0" aria-hidden="true" />
+                    {fact}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={`/courses?category=${pathway.category}#catalogue`}
+                class="mt-auto inline-flex items-center gap-1.5 text-sm font-bold text-brand-sage hover:text-brand-sage-dark"
+              >
+                <span>Browse these programmes</span>
+                <ArrowRight class="w-4 h-4" />
+              </a>
+            </div>
+          );
+        })}
       </div>
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4">
-        HRD Corp Claimable Courses
-      </h1>
-      <p class="text-base sm:text-lg text-gray-200 leading-relaxed">
-        Explore 19 verified training programs designed to address organizational capability gaps in leadership, technology, operations, and management. Fully claimable by eligible Malaysian employers under HRD Corp SBL-Khas.
-      </p>
+
+      <!-- Who each pathway is for -->
+      <div class="mt-14 max-w-6xl mx-auto">
+        <h3 class="text-sm font-extrabold uppercase tracking-widest text-brand-sage mb-5 text-center">Who our programmes are for</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {audiences.map((audience) => {
+            const Icon = audienceIcons[audience.id as keyof typeof audienceIcons] ?? Users2;
+            return (
+              <a href={audience.href} class="group p-5 rounded-xl bg-white border border-brand-border hover:border-brand-sage/60 hover:shadow-sm transition-all">
+                <span class="w-10 h-10 rounded-lg bg-brand-sage-light text-brand-sage flex items-center justify-center mb-3">
+                  <Icon class="w-5 h-5" aria-hidden="true" />
+                </span>
+                <h4 class="text-sm font-bold text-brand-dark mb-1.5">{audience.title}</h4>
+                <p class="text-xs text-brand-muted leading-relaxed">{audience.text}</p>
+              </a>
+            );
+          })}
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Interactive Catalogue Section -->
-  <section class="py-16 bg-brand-light min-h-[600px]">
+  <section class="py-16 bg-brand-light min-h-[600px]" id="catalogue">
     <div class="container-custom">
       <!-- Search Bar & Controls -->
       <div class="bg-white rounded-2xl p-6 sm:p-8 border border-brand-border shadow-sm mb-10 space-y-6">
@@ -69,6 +168,7 @@ const claimSteps = [
               type="text"
               id="course-search-input"
               placeholder="Search by course title or keyword..."
+              aria-label="Search programmes"
               class="w-full pl-11 pr-10 py-3 bg-brand-light border border-brand-border rounded-xl text-sm text-brand-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all"
             />
             <button
@@ -83,7 +183,7 @@ const claimSteps = [
 
           <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end text-xs text-brand-muted font-medium">
             <span id="results-count" aria-live="polite">
-              Showing <strong class="text-brand-dark" id="count-number">{coursesData.length}</strong> of {coursesData.length} programmes
+              Showing <strong class="text-brand-dark" id="count-number">{total}</strong> of {total} programmes
             </span>
             <button
               id="reset-filters-btn"
@@ -120,15 +220,15 @@ const claimSteps = [
       </div>
 
       <!-- Course Card Grid -->
-      <div 
-        id="courses-grid" 
+      <div
+        id="courses-grid"
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
       >
         {coursesData.map((course) => (
-          <div 
+          <div
             class="course-card-wrapper"
             data-category={course.category}
-            data-title={course.title.toLowerCase()}
+            data-title={[course.title, categoryLabels[course.category] ?? '', course.certificate ?? '', (course.audience ?? []).join(' ')].join(' ').toLowerCase()}
           >
             <CourseCard {...course} />
           </div>
@@ -140,9 +240,9 @@ const claimSteps = [
         <div class="w-14 h-14 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center mx-auto mb-4">
           <FileQuestion class="w-7 h-7" />
         </div>
-        <h3 class="text-lg font-bold text-brand-dark mb-2">No Matching Courses Found</h3>
+        <h3 class="text-lg font-bold text-brand-dark mb-2">No Matching Programmes Found</h3>
         <p class="text-sm text-brand-muted leading-relaxed mb-6">
-          We could not find any HRD Corp claimable courses matching your keywords or filter. Please try a different query or reset your selection.
+          We could not find any programmes matching your keywords or filter. Please try a different query or reset your selection.
         </p>
         <button
           id="empty-reset-btn"
@@ -152,16 +252,18 @@ const claimSteps = [
           Reset All Filters
         </button>
       </div>
+
+      <p class="mt-10 text-center text-xs text-brand-muted">Terms and conditions apply. Detailed syllabus outlines, fee quotations and in-house timetable options are provided on enquiry.</p>
     </div>
   </section>
 
-  <!-- Levy Utilization Guide (4 Steps) -->
+  <!-- Funding Guide (4 Steps) -->
   <section class="py-20 bg-white border-t border-brand-border">
     <div class="container-custom">
       <SectionHeader
-        eyebrow="Levy Utilization Guide"
-        title="How Malaysian Employers Claim via SBL-Khas"
-        subtitle="A transparent 4-step workflow for HR and training managers to utilize HRD Corp levy funds with zero out-of-pocket cash requirements."
+        eyebrow="Funding Guide"
+        title="Claiming HRD Corp Funding for Your Team"
+        subtitle="All GET Academy programmes are HRDC claimable. Here is how we support your application, subject to your employer account standing and HRD Corp approval."
         centered={true}
       />
 
@@ -175,50 +277,18 @@ const claimSteps = [
               <h3 class="text-base font-bold text-brand-dark mb-2">{step.title}</h3>
               <p class="text-xs text-brand-muted leading-relaxed">{step.desc}</p>
             </div>
-            <div class="mt-4 pt-3 border-t border-brand-border/60 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-800">
-              <CheckCircle2 class="w-3.5 h-3.5" />
-              <span>Full Guidance Included</span>
-            </div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Clear Verification Status Notice -->
-  <section class="py-12 bg-amber-50/60 border-t border-amber-200">
-    <div class="container-custom max-w-4xl">
-      <div class="flex items-start gap-4">
-        <div class="p-2 bg-amber-100 rounded-lg text-amber-900 shrink-0">
-          <CheckCircle2 class="w-5 h-5" />
-        </div>
-        <div class="space-y-1.5">
-          <h4 class="text-sm font-bold text-amber-950 uppercase tracking-wide">
-            Detailed Course Syllabus & Reference Numbers
-          </h4>
-          <p class="text-xs text-amber-900 leading-relaxed">
-            Detailed interactive course syllabus downloads, official HRD Corp Scheme reference numbers, and custom in-house timetable outlines are furnished directly upon formal inquiry by our training coordinators.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Banner -->
-  <section class="py-16 bg-brand-dark text-white text-center">
-    <div class="container-custom max-w-3xl space-y-4">
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Need Assistance with an HRD Corp Grant Application?</h2>
-      <p class="text-gray-200 text-sm leading-relaxed max-w-xl mx-auto">
-        Our training advisory team assists with e-TRiS grant submission documentation, trainer profile CVs, and official fee quotations.
-      </p>
-      <div class="pt-2">
-        <a href="/contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-bold bg-brand-gold text-brand-dark hover:bg-brand-gold-deep transition-all text-sm">
-          <span>Enquire on HRDC Courses</span>
-          <ArrowRight class="w-4 h-4" />
-        </a>
-      </div>
-    </div>
-  </section>
+  <CtaBand
+    title="Need Assistance with an HRD Corp Application?"
+    text="Our training advisory team assists with proposal documents, trainer profiles and fee quotations for your HRD Corp grant application."
+    primary={{ label: 'Enquire on Programmes', href: '/contact' }}
+    secondary={{ label: 'Corporate Solutions', href: '/corporate-solutions' }}
+  />
 </BaseLayout>
 
 <script>
@@ -235,12 +305,17 @@ const claimSteps = [
   let activeCategory = 'all';
   let searchQuery = '';
 
-  // Check URL query parameters for initial filter (e.g. ?category=leadership-management)
+  // Check URL query parameters for initial filter (e.g. ?category=technical-it)
   const urlParams = new URLSearchParams(window.location.search);
   const initialCategory = urlParams.get('category');
-  if (initialCategory) {
+  const validCategories = Array.from(pills).map((pill) => pill.getAttribute('data-filter'));
+  if (initialCategory && validCategories.includes(initialCategory)) {
     activeCategory = initialCategory;
     updatePillStyles();
+    // Arrive at the filtered list rather than at the pathways above it
+    window.requestAnimationFrame(() => {
+      document.getElementById('catalogue')?.scrollIntoView({ block: 'start' });
+    });
   }
 
   function updatePillStyles() {
@@ -263,10 +338,10 @@ const claimSteps = [
 
     cardWrappers.forEach((card) => {
       const cardCategory = card.getAttribute('data-category') || '';
-      const cardTitle = card.getAttribute('data-title') || '';
+      const cardText = card.getAttribute('data-title') || '';
 
       const matchesCat = activeCategory === 'all' || cardCategory === activeCategory;
-      const matchesSearch = !query || cardTitle.includes(query);
+      const matchesSearch = !query || cardText.includes(query);
 
       if (matchesCat && matchesSearch) {
         (card as HTMLElement).style.display = 'block';

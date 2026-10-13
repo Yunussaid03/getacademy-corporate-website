@@ -1,0 +1,26 @@
+---
+// The seven CompTIA pathways GET Academy delivers (company profile slide 4).
+const certifications = ['Security+', 'CySA+', 'CASP+', 'Network+', 'Server+', 'Cloud+', 'Cloud Essentials+'];
+---
+
+<div
+  class="w-full h-full bg-white flex items-center justify-center gap-4 sm:gap-5 px-5"
+  role="img"
+  aria-label="CompTIA certification pathways: Security+, CySA+, CASP+, Network+, Server+, Cloud+ and Cloud Essentials+"
+>
+  <img
+    src="/assets/partners/CompTIA.png"
+    alt=""
+    class="w-16 h-16 sm:w-20 sm:h-20 object-contain shrink-0"
+    width="80"
+    height="80"
+    loading="lazy"
+  />
+  <ul class="flex flex-wrap gap-1.5" role="list" aria-hidden="true">
+    {certifications.map((name) => (
+      <li class="px-2 py-1 rounded bg-brand-sage-light text-brand-sage text-[10px] sm:text-[11px] font-bold leading-none">
+        {name}
+      </li>
+    ))}
+  </ul>
+</div>

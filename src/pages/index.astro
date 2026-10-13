@@ -2,31 +2,38 @@
 import BaseLayout from '@/components/layout/BaseLayout.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import CourseCard from '@/components/ui/CourseCard.astro';
+import ProjectCard from '@/components/ui/ProjectCard.astro';
+import ProjectFeature from '@/components/ui/ProjectFeature.astro';
+import TestimonialCard from '@/components/ui/TestimonialCard.astro';
+import LogoGrid from '@/components/ui/LogoGrid.astro';
+import CompTIAPanel from '@/components/ui/CompTIAPanel.astro';
+import AccreditationCarousel from '@/components/ui/AccreditationCarousel.astro';
 import coursesData from '@/data/courses.json';
-import { 
-  ArrowRight, 
-  ShieldCheck, 
-  Building2, 
-  Award, 
-  TrendingUp, 
-  CheckCircle2, 
-  Target, 
-  Sparkles, 
-  GraduationCap, 
-  Cpu, 
-  Globe2, 
-  Briefcase, 
-  Users2, 
-  ExternalLink, 
-  Clock, 
+import { projects } from '@/data/track-record';
+import { featuredTestimonials } from '@/data/testimonials';
+import { differentiators } from '@/data/why-partner';
+import { featuredLogos } from '@/data/clients';
+import { audiences } from '@/data/programmes';
+import { site, mapsUrl } from '@/data/site';
+import {
+  ArrowRight,
+  Building2,
+  Briefcase,
+  CheckCircle2,
+  Cpu,
+  Globe2,
+  GraduationCap,
+  Laptop,
+  Mail,
+  MapPin,
+  Phone,
+  Rocket,
   Send,
-  AlertCircle,
-  ChevronLeft,
-  ChevronRight,
-  Layers
+  ShieldCheck,
+  Award,
 } from 'lucide-astro';
 
-// 4 Main Capability Pillars as documented in Company Profile Page 2-4
+// 4 capability pillars (company profile, slide 2)
 const capabilityPillars = [
   {
     number: '01',
@@ -36,23 +43,33 @@ const capabilityPillars = [
     description: 'Institutional AI readiness, leadership advisory, and practical AI adoption for educators, public sector leaders, and corporate workforces.',
     image: '/assets/photos/ai-educator-training.jpeg',
     imageAlt: 'GET Academy educators and institutional leaders in an applied AI training session',
-    href: '/corporate-solutions',
+    href: '/track-record#projects',
     badge: 'Institutional & Workforce AI'
   },
   {
     number: '02',
+    icon: Globe2,
+    title: 'Entrepreneurship & Cross-Border Business',
+    subtitle: 'Incubation & Market Expansion',
+    description: 'Certified digital marketing strategies (CDMS), enterprise incubation, and market expansion pathways connecting local businesses with global ecosystems.',
+    image: '/assets/photos/cross-border-select-usa.jpeg',
+    imageAlt: 'GET Academy international cross-border business and enterprise incubation initiative',
+    href: '/international',
+    badge: 'Digital Strategy & Incubation'
+  },
+  {
+    number: '03',
     icon: ShieldCheck,
     title: 'Global IT Certification',
     subtitle: 'Industry-Aligned Credentials',
     description: 'Industry-aligned IT and cybersecurity training, including CompTIA certification pathways and foundational digital resilience for non-IT personnel.',
-    image: '/assets/brand/comptia-cert-strip.png',
     isBrandGraphic: true,
-    imageAlt: 'CompTIA authorized international certification pathways',
-    href: '/courses',
+    imageAlt: 'CompTIA international certification pathways',
+    href: '/courses?category=technical-it',
     badge: 'CompTIA Pathways'
   },
   {
-    number: '03',
+    number: '04',
     icon: Award,
     title: 'Professional Development',
     subtitle: 'Managerial & Operational Excellence',
@@ -61,247 +78,56 @@ const capabilityPillars = [
     imageAlt: 'Interactive classroom workshop session on managerial capabilities',
     href: '/courses?category=workplace-performance',
     badge: 'Leadership & Team Performance'
-  },
-  {
-    number: '04',
-    icon: Globe2,
-    title: 'Entrepreneurship & Cross-Border Business',
-    subtitle: 'Incubation & Market Expansion',
-    description: 'Certified digital marketing strategies (CDMS), enterprise incubation, and market expansion pathways connecting local businesses with global ecosystems.',
-    image: '/assets/photos/cross-border-select-usa.jpeg',
-    imageAlt: 'GET Academy international cross-border business and enterprise incubation initiative',
-    href: '/corporate-solutions',
-    badge: 'Digital Strategy & Incubation'
   }
 ];
 
-// Documented Institutional Experience & Engagements from Company Profile Pages 14-24, 26-30
-const documentedEngagements = [
+// Track-record preview: one featured engagement and six supporting projects
+const [featuredProject, ...previewProjects] = projects.filter((p) => p.home);
+
+// International teaser (see /international)
+const internationalHighlights = [
   {
-    entity: 'Building Organisational Capability',
-    role: 'Workforce & Institutional Enablement',
-    scope: 'Supporting organisations through professional development, digital skills training and capacity-building programmes.',
-    category: 'Capability Development',
-    image: '/assets/photos/staging-university-workshop.jpg',
-    imageAlt: 'Professional development and capacity-building training session',
-    logo: null,
-    stat: 'Capacity Building'
+    id: 'un-ai-governance',
+    region: 'United Nations',
+    title: 'Global Dialogue on AI Governance 2026',
+    image: '/assets/photos/un-ai-governance-dialogue.jpg',
+    position: 'center'
   },
   {
-    entity: 'National AI Skilling Ecosystem (AINSI)',
-    role: 'Ecosystem-Wide Workforce Impact',
-    scope: 'Contributed to national multi-stakeholder initiatives advancing AI literacy and adoption across government agencies, education institutions, and industry, reaching 800,000+ Malaysians nationwide.',
-    category: 'National AI Initiative',
-    image: '/assets/photos/parliament-ai-skilling.jpeg',
-    imageAlt: 'Advancing the national AI skilling agenda at Parliament of Malaysia with government and industry leaders',
-    logo: '/assets/partners/Microsoft.png',
-    stat: '800,000+ Reached in Ecosystem'
+    id: 'unesco-ee-net',
+    region: 'UNESCO · Uzbekistan',
+    title: 'Entrepreneurship Education Network (EE-Net)',
+    image: '/assets/photos/unesco-ee-net-tashkent.jpg',
+    position: 'center 30%'
   },
   {
-    entity: 'Ministry of Education (MOE)',
-    role: 'Organizational & Leadership Transformation',
-    scope: 'Awarded project to conduct organizational Gap Analysis, formulate capability roadmaps, and champion executive leadership transformation across educational administrative cohorts.',
-    category: 'Federal Ministry',
-    image: '/assets/photos/hero-training.jpg',
-    imageAlt: 'Leadership transformation workshop session conducted for education administrators',
-    logo: '/assets/partners/Ministry-of-Education.png',
-    stat: 'Gap Analysis & Transformation'
+    id: 'new-york',
+    region: 'United States',
+    title: 'Consulate General of Malaysia & MATRADE, New York',
+    image: '/assets/photos/nyc-consulate-general.jpg',
+    position: 'center 25%'
   },
   {
-    entity: 'Malaysia Healthcare Travel Council (MHTC)',
-    role: 'Healthcare Sector Digital Strategy',
-    scope: 'Conducted targeted training for the MHTC corporate team on navigating healthcare digital marketing, patient journey communication, and international positioning.',
-    category: 'Statutory Body',
-    image: '/assets/photos/mhtc-healthcare-workshop.jpeg',
-    imageAlt: 'GET Academy corporate digital training with the Malaysia Healthcare Travel Council (MHTC) team',
-    logo: '/assets/partners/Kuala-Lumpur.png',
-    stat: 'Healthcare Sector Capability'
-  },
-  {
-    entity: 'Unit Transformasi Masyarakat India (SEDIC - MITRA)',
-    role: 'Socio-Economic Development (B40 / M40)',
-    scope: 'Designed and delivered end-to-end entrepreneurship coaching and business digitalization programs empowering 50 small business owners with actionable commercial tools.',
-    category: 'Socio-Economic Initiative',
-    image: '/assets/photos/mitra-entrepreneurship-coaching.jpeg',
-    imageAlt: 'Socio-economic entrepreneurship development coaching session supported by MITRA',
-    logo: '/assets/partners/sedic.jpg',
-    stat: '50 Business Owners Coached'
+    id: 'uk-india',
+    region: 'United Kingdom',
+    title: 'Birmingham City University tripartite MoU',
+    image: '/assets/photos/mbcie-verse.jpg',
+    position: 'center'
   }
 ];
 
-// Accreditations & Institutional Relationships Classified by Relationship Type (Pages 1, 8, 9, 11, 26, 28)
-const relationshipCategories = [
-  {
-    id: 'accreditations',
-    category: 'Accreditations & Certifications',
-    subtitle: 'Institutional Provider Authorisations & Credentials',
-    description: 'Statutory provider registrations, trainer credentials, and international credentialing bodies.',
-    items: [
-      {
-        name: 'HRD Corp Registered Training Provider',
-        badge: 'Statutory Registration',
-        logo: '/assets/partners/HRDF.png',
-        scope: 'Registered under Human Resources Development Corporation (Registration: LLP0019343-LGN). Validity period through 2 September 2025.',
-        statusNote: 'Current renewal certificates provided upon formal inquiry'
-      },
-      {
-        name: 'HRD Corp Certified Trainers (TTT)',
-        badge: 'Accredited Facilitators',
-        logo: '/assets/partners/HRDF.png',
-        scope: 'Trainers holding certified Train-The-Trainer (TTT) credentials deliver claimable corporate training programmes.',
-        statusNote: 'Facilitator credentials verified per engagement'
-      },
-      {
-        name: 'American Society for Quality (ASQ)',
-        badge: 'Professional Body Alignment',
-        logo: '/assets/partners/ASQ.png',
-        scope: 'Continuous improvement, Six Sigma, and operational quality management training frameworks.',
-        statusNote: 'Curriculum & Body of Knowledge Alignment'
-      },
-      {
-        name: 'Project Management Institute (PMI)',
-        badge: 'Professional Body Alignment',
-        logo: '/assets/partners/PMI.png',
-        scope: 'Industry-standard project leadership, agile practices, and governance methodologies.',
-        statusNote: 'Curriculum & Body of Knowledge Alignment'
-      }
-    ]
-  },
-  {
-    id: 'partnerships',
-    category: 'Technology & Training Partners',
-    subtitle: 'Official Delivery & Academic Agreements',
-    description: 'Contracted agreements for certified syllabus delivery, credentialing, and academic franchisee status.',
-    items: [
-      {
-        name: 'CompTIA Authorized Partner',
-        badge: 'Global IT Certification',
-        logo: '/assets/partners/CompTIA.png',
-        scope: 'Endorsed Computing Technology Industry Association partner delivering global IT and cybersecurity certifications.',
-        statusNote: 'Authorized Curriculum & Exam Pathways'
-      },
-      {
-        name: 'SEGi University & Colleges',
-        badge: 'Academic Franchisee',
-        logo: '/assets/partners/SEGI.png',
-        scope: 'Franchisee and strategic educational partner of SEGi University and Colleges in Malaysia for certified training modules.',
-        statusNote: 'Formal Educational Franchise Agreement'
-      },
-      {
-        name: 'Microsoft National AI Skilling Ecosystem',
-        badge: 'Ecosystem Collaborator',
-        logo: '/assets/partners/Microsoft.png',
-        scope: 'Collaborating in national AI literacy, workforce skilling, and public-sector enablement initiatives (AINSI).',
-        statusNote: 'Multi-Stakeholder Skilling Initiative'
-      },
-      {
-        name: 'AXELOS Best Practice Methodologies',
-        badge: 'Framework Delivery',
-        logo: '/assets/partners/axelos-vector-logo.png',
-        scope: 'Service management and governance frameworks aligned with internationally recognized best practices (ITIL).',
-        statusNote: 'Best-Practice Syllabus Integration'
-      }
-    ]
-  },
-  {
-    id: 'institutional',
-    category: 'Institutional & Industry Relationships',
-    subtitle: 'Public Agencies, Statutory Bodies & Trade Memberships',
-    description: 'Documented project appointments, digitalization committee roles, and statutory trade registry memberships.',
-    items: [
-      {
-        name: 'Malaysia Digital Economy Corporation (MDEC)',
-        badge: 'Appointed Training Provider',
-        logo: '/assets/partners/mdec.png',
-        scope: 'Appointed training provider for MSMEs, SMEs, and corporate cohorts under Digital Up, Let’s Learn Digital, and Digital Skills Training Directory.',
-        statusNote: 'Documented National Initiative Appointment'
-      },
-      {
-        name: 'Malaysia Productivity Corporation (MPC)',
-        badge: 'Digital Solution Provider',
-        logo: '/assets/partners/mpc.png',
-        scope: 'Appointed Digital Solution Provider and digital transformation partner, participating in national productivity workgroups.',
-        statusNote: 'Statutory Body Appointment'
-      },
-      {
-        name: 'MATRADE Member',
-        badge: 'Registered Trade Member',
-        logo: '/assets/partners/matrade.png',
-        scope: 'Registered member of the Malaysia External Trade Development Corporation for international trade missions and sourcing programmes.',
-        statusNote: 'Official Trade Directory Listing'
-      },
-      {
-        name: 'SEDIC - MITRA (Jabatan Perdana Menteri)',
-        badge: 'Programme Delivery Partner',
-        logo: '/assets/partners/sedic.jpg',
-        scope: 'Selected to deliver entrepreneurship digitalization and business capability development for B40/M40 small business owners.',
-        statusNote: 'Documented Public Sector Coaching Programme'
-      }
-    ]
-  }
-];
+const audienceIcons = {
+  organisations: Building2,
+  professionals: Briefcase,
+  students: GraduationCap,
+  'business-owners': Rocket
+} as const;
 
-// Documented Enterprise & Institutional Client Logos (PDF Page 25, 31)
-const clientLogos = [
-  { name: 'Ministry of Education', file: 'Ministry-of-Education.png' },
-  { name: 'MOSTI', file: 'mosti.png' },
-  { name: 'Dewan Bandaraya Kuala Lumpur', file: 'Kuala-Lumpur.png' },
-  { name: 'SEGi University', file: 'SEGI.png' },
-  { name: 'Kings College', file: 'Kings-College.png' },
-  { name: 'Malaysia Airlines', file: 'malaysia-airlines.png' },
-  { name: 'Shopee', file: 'shopee.png' },
-  { name: 'Lazada', file: 'lazada.png' },
-  { name: 'HP', file: 'hp.png' },
-  { name: 'IBM', file: 'IBM.png' },
-  { name: 'Digi', file: 'digi.png' },
-  { name: 'Atos', file: 'ATOS.png' }
-];
-
-// Documented Differentiators — Why Choose GET Academy (PDF Pages 2, 4, 5, 6, 26-28)
-const differentiators = [
-  {
-    number: '01',
-    title: 'Experiential Learning',
-    tagline: 'Applied Workplace Practice',
-    desc: 'Interactive workshops, live simulations, diagnostic rubrics, and root-cause problem solving that empower teams to implement solutions immediately in their actual workplace.',
-    image: '/assets/photos/experiential-hands-on-workshop.jpg',
-    imageAlt: 'Corporate teams actively engaged in hands-on collaborative problem solving and experiential exercises',
-    keyAspects: ['Simulation Exercises', 'Immediate Implementation', 'Actionable Rubrics']
-  },
-  {
-    number: '02',
-    title: 'Industry-Relevant Skills',
-    tagline: 'Practitioner-Led Instruction',
-    desc: 'Curricula structured around validated industry competencies and taught by experienced sector practitioners, ensuring skills directly address current technological and operational shifts.',
-    image: '/assets/photos/staging-executive-advisory.jpg',
-    imageAlt: 'Senior practitioners delivering industry-aligned capability development',
-    keyAspects: ['Practitioner Faculty', 'Validated Competencies', 'Real-World Case Studies']
-  },
-  {
-    number: '03',
-    title: 'Tailored Corporate Programmes',
-    tagline: 'Customized Organizational Solutions',
-    desc: 'Consultative approach designing capability roadmaps, gap analyses, and delivery schedules specifically aligned with your organizational priorities, shift patterns, and workforce tiers.',
-    image: '/assets/photos/tailored-corporate-classroom.jpg',
-    imageAlt: 'Corporate executive cohort in a tailored organizational capability development session',
-    keyAspects: ['Organizational Gap Analysis', 'Customized Roadmaps', 'Flexible Scheduling']
-  },
-  {
-    number: '04',
-    title: 'Broad Training Capabilities',
-    tagline: 'Comprehensive Capability Domains',
-    desc: 'Unified development across Artificial Intelligence adoption, CompTIA global IT certification, cross-border entrepreneurship, and executive leadership development.',
-    image: '/assets/photos/broad-capability-skilling.jpg',
-    imageAlt: 'Professional learners engaging in multifaceted technology and leadership skilling',
-    keyAspects: ['Workforce AI Adoption', 'Global IT Credentials', 'Leadership & Enterprise']
-  }
-];
-
-// Curated verified course sample
-const featuredCourses = coursesData.slice(0, 6);
+// Hand-picked programmes across the four pathways
+const featuredCourses = coursesData.filter((course) => course.featured);
 ---
 
-<BaseLayout 
+<BaseLayout
   title="Global Experiential Training Academy PLT — Human Capital Development Partner"
   description="GET Academy is an established human capital development and skills training partner for enterprises, government agencies, and educational institutions across Malaysia."
 >
@@ -349,16 +175,16 @@ const featuredCourses = coursesData.slice(0, 6);
         <!-- Hero Visual: Prominent Authentic Photograph from Company Profile PDF -->
         <div class="lg:col-span-6">
           <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/20 group">
-            <img 
-              src="/assets/photos/live-workshop-facilitator-enhanced.jpg" 
-              alt="GET Academy corporate workshop facilitator conducting an interactive training session" 
+            <img
+              src="/assets/photos/live-workshop-facilitator-enhanced.jpg"
+              alt="GET Academy corporate workshop facilitator conducting an interactive training session"
               class="w-full h-80 sm:h-[420px] lg:h-[460px] object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
               width="1539"
               height="1737"
               loading="eager"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent"></div>
-            
+
             <div class="absolute bottom-4 left-4 right-4 bg-brand-dark/85 backdrop-blur-md p-4 rounded-xl border border-white/15 text-white flex items-center justify-between gap-4">
               <div class="space-y-0.5">
                 <span class="text-[11px] font-extrabold uppercase tracking-wider text-brand-gold block">
@@ -381,7 +207,7 @@ const featuredCourses = coursesData.slice(0, 6);
   <!-- Section 2 — What We Do: 4 Capability Pillars -->
   <section class="py-20 lg:py-24 bg-white" id="what-we-do">
     <div class="container-custom">
-      <SectionHeader 
+      <SectionHeader
         eyebrow="Core Capabilities"
         title="What We Do"
         subtitle="Specialized human capital and capability development structured across four distinct pillars for organizations seeking measurable operational growth."
@@ -394,23 +220,16 @@ const featuredCourses = coursesData.slice(0, 6);
             <!-- Visual Asset: Meaningful Photograph or Certified Strip from Company Profile -->
             <div class="relative h-48 w-full bg-slate-100 overflow-hidden border-b border-brand-border">
               {pillar.isBrandGraphic ? (
-                <div class="w-full h-full p-4 flex items-center justify-center bg-white group-hover:scale-105 transition-transform duration-500">
-                  <img 
-                    src={pillar.image} 
-                    alt={pillar.imageAlt}
-                    class="max-h-24 max-w-full object-contain"
-                    loading="lazy"
-                  />
-                </div>
+                <CompTIAPanel />
               ) : (
-                <img 
-                  src={pillar.image} 
+                <img
+                  src={pillar.image}
                   alt={pillar.imageAlt}
                   class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
               )}
-              
+
               <!-- Badge Overlay -->
               <div class="absolute top-3 left-3 flex items-center gap-2">
                 <span class="bg-brand-dark/90 backdrop-blur-sm text-brand-gold text-xs font-mono font-extrabold px-2.5 py-1 rounded shadow-sm">
@@ -485,325 +304,142 @@ const featuredCourses = coursesData.slice(0, 6);
 
       <!-- Featured Engagement Showcase (MOHE Briefing) -->
       <div class="mb-8">
-        <div class="bg-white rounded-2xl border border-brand-border shadow-sm overflow-hidden hover:border-brand-sage/50 transition-all duration-300">
-          <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
-            <div class="lg:col-span-5 relative min-h-[260px] lg:min-h-[340px] bg-slate-100 overflow-hidden">
-              <img 
-                src={documentedEngagements[0].image} 
-                alt={documentedEngagements[0].imageAlt} 
-                class="w-full h-full object-cover object-center"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden"></div>
-              <span class="absolute bottom-3 left-3 lg:top-4 lg:left-4 lg:bottom-auto px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-brand-gold text-brand-dark shadow-sm">
-                Featured Engagement
-              </span>
-            </div>
-            <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
-              <div>
-                <div class="flex flex-wrap items-center gap-2 mb-3">
-                  <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-brand-sage-light text-brand-sage">
-                    Capability Development
-                  </span>
-                  <span class="px-2.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
-                    Capacity Building
-                  </span>
-                </div>
-                <h3 class="text-xl sm:text-2xl font-bold text-brand-dark mb-2 leading-snug">
-                  Building Organisational Capability
-                </h3>
-                <p class="text-sm font-semibold text-brand-sage mb-3">
-                  Workforce & Institutional Enablement
-                </p>
-                <p class="text-sm text-brand-muted leading-relaxed mb-6">
-                  Supporting organisations through professional development, digital skills training and capacity-building programmes.
-                </p>
-              </div>
-
-              <div class="pt-4 border-t border-brand-border/70 flex flex-wrap items-center justify-between gap-3 text-xs text-brand-muted">
-                <div class="flex items-center gap-1.5 font-semibold text-emerald-800">
-                  <CheckCircle2 class="w-4 h-4 text-emerald-700" />
-                  <span>Strategic Capability Building</span>
-                </div>
-                <span class="text-[11px] text-slate-500">Professional Development & Digital Upskilling</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ProjectFeature
+          title={featuredProject.title}
+          organisation={featuredProject.organisation}
+          category={featuredProject.category}
+          summary={featuredProject.summary}
+          image={featuredProject.image!}
+          imageAlt={featuredProject.imageAlt!}
+          stat={featuredProject.stat}
+          note="By invitation of the Deputy Secretary-General, MOHE"
+          href="/track-record"
+        />
       </div>
 
-      <!-- Supporting Engagements Grid (4 Cards with Genuine Photography) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {documentedEngagements.slice(1).map((eng) => (
-          <div class="bg-white rounded-xl border border-brand-border shadow-sm hover:border-brand-sage/60 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
-            <div class="relative h-44 w-full bg-slate-100 overflow-hidden">
-              <img 
-                src={eng.image} 
-                alt={eng.imageAlt} 
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-              <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/95 text-brand-dark shadow-sm backdrop-blur-sm">
-                {eng.category}
-              </span>
-              <span class="absolute bottom-2 left-2.5 right-2.5 text-[11px] font-bold text-white drop-shadow truncate">
-                {eng.stat}
-              </span>
-            </div>
+      <!-- Supporting Engagements -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {previewProjects.map((project) => (
+          <ProjectCard
+            title={project.title}
+            organisation={project.organisation}
+            category={project.category}
+            summary={project.summary}
+            image={project.image}
+            imageAlt={project.imageAlt}
+            stat={project.stat}
+            clamp={true}
+          />
+        ))}
+      </div>
 
-            <div class="p-5 flex-1 flex flex-col justify-between">
-              <div>
-                <h3 class="text-sm font-bold text-brand-dark mb-1 leading-snug group-hover:text-brand-sage transition-colors">
-                  {eng.entity}
-                </h3>
-                <p class="text-xs font-semibold text-brand-sage mb-2.5">
-                  {eng.role}
-                </p>
-                <p class="text-xs text-brand-muted leading-relaxed line-clamp-3">
-                  {eng.scope}
-                </p>
-              </div>
+      <div class="mt-10 text-center">
+        <a
+          href="/track-record"
+          class="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold rounded-lg text-white bg-brand-sage hover:bg-brand-sage-dark transition-colors shadow-sm"
+        >
+          <span>View the Full Track Record</span>
+          <ArrowRight class="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+  </section>
 
-              <div class="mt-4 pt-3 border-t border-brand-border/60 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-800">
-                <CheckCircle2 class="w-3.5 h-3.5 shrink-0 text-emerald-700" />
-                <span class="truncate">Documented Engagement</span>
-              </div>
+  <!-- Section 4 — International Network teaser -->
+  <section class="py-20 bg-brand-dark text-white" id="international">
+    <div class="container-custom">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div class="max-w-2xl">
+          <p class="text-xs font-extrabold uppercase tracking-widest text-brand-gold mb-2.5">International Network</p>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight">Global projects & partnerships</h2>
+          <p class="mt-3.5 text-base text-gray-300 leading-relaxed">
+            From AI governance consultations at the United Nations to startup collaboration in Uzbekistan and an academic MoU in the United Kingdom, we connect Malaysian talent and enterprises with international ecosystems.
+          </p>
+        </div>
+        <a
+          href="/international"
+          class="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold rounded-lg text-brand-dark bg-brand-gold hover:bg-brand-gold-deep transition-colors shadow-md"
+        >
+          <span>Explore the International Network</span>
+          <ArrowRight class="w-4 h-4" />
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {internationalHighlights.map((item) => (
+          <a
+            href={`/international#${item.id}`}
+            class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-white/5 border border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+          >
+            <img
+              src={item.image}
+              alt=""
+              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              style={`object-position: ${item.position};`}
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-0 inset-x-0 p-5">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-brand-gold block mb-1">{item.region}</span>
+              <span class="text-base font-bold leading-snug block">{item.title}</span>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Section 4 — Accreditations and Institutional Relationships -->
+  <!-- Section 5 — Accreditations and Institutional Relationships -->
   <section class="py-20 bg-white" id="accreditations">
     <div class="container-custom">
-      <SectionHeader 
-        eyebrow="Institutional Relationships"
+      <SectionHeader
+        eyebrow="Academia | Certification Provider | Government | Industry Experts"
         title="Accreditations & Organizational Affiliations"
-        subtitle="Transparently categorized by statutory certifications, authorized delivery agreements, and institutional appointments."
+        subtitle="Franchise, certification and appointment relationships with academic, government and industry bodies."
         centered={true}
       />
 
-      <!-- Interactive Category Filter Tabs -->
-      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10" role="tablist" aria-label="Accreditation Categories">
-        <button 
-          type="button"
-          class="category-tab-btn active px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs font-bold transition-all duration-200 border border-brand-sage bg-brand-sage text-white shadow-xs"
-          data-category="all"
-          role="tab"
-          aria-selected="true"
-        >
-          All Relationships ({relationshipCategories.reduce((acc, cat) => acc + cat.items.length, 0)})
-        </button>
-        {relationshipCategories.map((cat) => (
-          <button 
-            type="button"
-            class="category-tab-btn px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs font-bold transition-all duration-200 border border-brand-border bg-brand-light text-brand-dark hover:border-brand-sage/60 hover:text-brand-sage"
-            data-category={cat.id}
-            role="tab"
-            aria-selected="false"
-          >
-            {cat.category} ({cat.items.length})
-          </button>
-        ))}
-      </div>
-
-      <!-- Carousel Container with Navigation Controls -->
-      <div class="relative max-w-6xl mx-auto mb-12">
-        <!-- Prev Button -->
-        <button 
-          type="button"
-          id="partner-carousel-prev" 
-          class="absolute -left-3 sm:-left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border border-brand-border shadow-md text-brand-dark hover:bg-brand-light hover:text-brand-sage hover:border-brand-sage/60 transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-brand-sage/50"
-          aria-label="Previous relationships slide"
-        >
-          <ChevronLeft class="w-5 h-5 sm:w-6 sm:h-6" />
-        </button>
-
-        <!-- Carousel Track Wrapper (Smooth scrolling with snap) -->
-        <div 
-          id="partner-carousel-track" 
-          class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 pt-1 px-2 no-scrollbar focus:outline-none focus:ring-2 focus:ring-brand-sage/30 rounded-2xl"
-          tabindex="0"
-          aria-label="Institutional Relationships Carousel"
-        >
-          {relationshipCategories.flatMap((cat) => 
-            cat.items.map((item) => (
-              <div 
-                class="carousel-card snap-start shrink-0 w-[290px] sm:w-[340px] md:w-[350px] bg-white rounded-2xl border border-brand-border p-6 shadow-sm hover:shadow-md hover:border-brand-sage/60 transition-all duration-300 flex flex-col justify-between group"
-                data-category={cat.id}
-              >
-                <!-- Large Logo Showcase Area -->
-                <div>
-                  <div class="w-full h-32 sm:h-36 rounded-xl bg-slate-50/80 border border-slate-100 p-4 sm:p-5 flex items-center justify-center mb-5 group-hover:bg-white transition-colors">
-                    <img 
-                      src={item.logo} 
-                      alt={item.name} 
-                      class="max-h-20 sm:max-h-24 max-w-[200px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  </div>
-
-                  <!-- Category & Status Badge -->
-                  <div class="flex flex-wrap items-center gap-1.5 mb-2.5">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-sage-light text-brand-sage">
-                      {item.badge}
-                    </span>
-                    <span class="px-1.5 py-0.5 rounded text-[9px] font-semibold text-slate-500 bg-slate-100">
-                      {cat.category}
-                    </span>
-                  </div>
-
-                  <!-- Title & Scope -->
-                  <h4 class="text-sm sm:text-base font-bold text-brand-dark mb-2 leading-snug group-hover:text-brand-sage transition-colors">
-                    {item.name}
-                  </h4>
-                  <p class="text-xs text-brand-muted leading-relaxed line-clamp-3">
-                    {item.scope}
-                  </p>
-                </div>
-
-                <!-- Footer Verified Status -->
-                <div class="mt-5 pt-3.5 border-t border-brand-border/60 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-800">
-                  <CheckCircle2 class="w-4 h-4 text-emerald-700 shrink-0" />
-                  <span class="truncate">{item.statusNote}</span>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-
-        <!-- Next Button -->
-        <button 
-          type="button"
-          id="partner-carousel-next" 
-          class="absolute -right-3 sm:-right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border border-brand-border shadow-md text-brand-dark hover:bg-brand-light hover:text-brand-sage hover:border-brand-sage/60 transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-brand-sage/50"
-          aria-label="Next relationships slide"
-        >
-          <ChevronRight class="w-5 h-5 sm:w-6 sm:h-6" />
-        </button>
-
-        <!-- Carousel Indicators / Position Note -->
-        <div class="flex items-center justify-center gap-2 mt-4 text-xs text-brand-muted">
-          <span class="inline-block w-2 h-2 rounded-full bg-brand-sage"></span>
-          <span class="text-[11px] font-medium">Use arrow buttons or swipe to explore all {relationshipCategories.reduce((acc, cat) => acc + cat.items.length, 0)} affiliations</span>
-        </div>
-      </div>
-
-      <!-- Verification Status Notice regarding HRD Corp Certificate & Renewals -->
-      <div class="max-w-4xl mx-auto bg-amber-50/90 border border-amber-200/80 rounded-2xl p-5 sm:p-6 flex items-start gap-4 text-xs text-amber-950 shadow-xs">
-        <div class="w-9 h-9 rounded-xl bg-amber-100/80 text-amber-900 flex items-center justify-center shrink-0 mt-0.5">
-          <ShieldCheck class="w-5 h-5 text-amber-800" />
-        </div>
-        <div class="space-y-1.5">
-          <p class="text-xs font-bold uppercase tracking-wider text-amber-900">
-            Accreditation Verification & Governance Notice
-          </p>
-          <p class="text-xs text-amber-900/90 leading-relaxed">
-            The HRD Corp Training Provider Certificate documented in the company profile records historical registration validity through 2 September 2025 (Registration: LLP0019343-LGN). Active validity renewal certificates and individual facilitator Train-The-Trainer (TTT) credentials are submitted directly to corporate human resource and procurement teams upon request during formal training engagement proposals.
-          </p>
-        </div>
-      </div>
+      <AccreditationCarousel />
     </div>
   </section>
 
-  <!-- Interactive Client-side Script for Carousel & Category Filter -->
-  <script is:inline>
-    (function() {
-      const track = document.getElementById('partner-carousel-track');
-      const prevBtn = document.getElementById('partner-carousel-prev');
-      const nextBtn = document.getElementById('partner-carousel-next');
-      const tabBtns = document.querySelectorAll('.category-tab-btn');
-      const cards = document.querySelectorAll('.carousel-card');
-
-      if (!track || !prevBtn || !nextBtn) return;
-
-      // Scroll helpers
-      function getScrollDistance() {
-        const firstCard = track.querySelector('.carousel-card:not(.hidden)');
-        return firstCard ? firstCard.offsetWidth + 24 : 360;
-      }
-
-      prevBtn.addEventListener('click', () => {
-        track.scrollBy({ left: -getScrollDistance(), behavior: 'smooth' });
-      });
-
-      nextBtn.addEventListener('click', () => {
-        track.scrollBy({ left: getScrollDistance(), behavior: 'smooth' });
-      });
-
-      // Keyboard navigation support on track
-      track.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          track.scrollBy({ left: -getScrollDistance(), behavior: 'smooth' });
-        } else if (e.key === 'ArrowRight') {
-          e.preventDefault();
-          track.scrollBy({ left: getScrollDistance(), behavior: 'smooth' });
-        }
-      });
-
-      // Category tab filtering
-      tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const category = btn.dataset.category;
-
-          // Update active state
-          tabBtns.forEach(b => {
-            b.classList.remove('active', 'bg-brand-sage', 'text-white', 'border-brand-sage');
-            b.classList.add('bg-brand-light', 'text-brand-dark', 'border-brand-border');
-            b.setAttribute('aria-selected', 'false');
-          });
-
-          btn.classList.add('active', 'bg-brand-sage', 'text-white', 'border-brand-sage');
-          btn.classList.remove('bg-brand-light', 'text-brand-dark', 'border-brand-border');
-          btn.setAttribute('aria-selected', 'true');
-
-          // Filter cards
-          cards.forEach(card => {
-            if (category === 'all' || card.dataset.category === category) {
-              card.classList.remove('hidden');
-            } else {
-              card.classList.add('hidden');
-            }
-          });
-
-          // Reset scroll position to beginning smoothly
-          track.scrollTo({ left: 0, behavior: 'smooth' });
-        });
-      });
-    })();
-  </script>
-
-  <!-- Section 5 — Why GET Academy: Documented Differentiators -->
+  <!-- Section 6 — Why Partner With Us -->
   <section class="py-20 bg-brand-light border-y border-brand-border" id="why-get-academy">
     <div class="container-custom">
       <div class="max-w-3xl mx-auto text-center mb-14">
         <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">The Strategic Advantage</p>
         <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">
-          Why Organisations Choose GET Academy
+          Why Partner With Us?
         </h2>
         <p class="text-sm sm:text-base text-brand-muted mt-3 leading-relaxed">
-          We bridge theoretical frameworks and operational execution through practitioner-led instruction, customized curricula, and cross-disciplinary capability domains.
+          Five reasons organisations choose GET Academy to build practical, certified and measurable capability in their teams.
         </p>
       </div>
 
-      <!-- 4 Differentiator Cards Grid with Prominent Photography -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-        {differentiators.map((diff) => (
-          <div class="bg-white rounded-2xl border border-brand-border shadow-sm hover:border-brand-sage/60 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col group">
-            <!-- Prominent Visual Area -->
-            <div class="relative h-52 sm:h-56 w-full bg-slate-100 overflow-hidden">
-              <img 
-                src={diff.image} 
-                alt={diff.imageAlt} 
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-              
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 max-w-6xl mx-auto">
+        {differentiators.map((diff, index) => (
+          <div class={`bg-white rounded-2xl border border-brand-border shadow-sm hover:border-brand-sage/60 hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col group ${index < 3 ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
+            <!-- Visual: photograph or accreditation logos -->
+            <div class="relative h-48 w-full bg-slate-100 overflow-hidden">
+              {diff.image ? (
+                <>
+                  <img
+                    src={diff.image}
+                    alt={diff.imageAlt ?? ''}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                </>
+              ) : (
+                <div class="w-full h-full bg-white flex items-center justify-center gap-6 px-6">
+                  {diff.logos?.map((logo) => (
+                    <img src={logo.src} alt={logo.alt} class="max-h-20 max-w-[30%] w-auto object-contain" loading="lazy" />
+                  ))}
+                </div>
+              )}
+
               <!-- Number & Tagline Badges -->
               <div class="absolute top-3 left-3 flex items-center gap-2">
                 <span class="px-2.5 py-1 rounded-full text-xs font-extrabold font-mono bg-brand-dark/90 text-brand-gold border border-brand-gold/30 backdrop-blur-sm shadow-xs">
@@ -826,7 +462,6 @@ const featuredCourses = coursesData.slice(0, 6);
                 </p>
               </div>
 
-              <!-- Key Capabilities Tag Strip -->
               <div class="pt-4 border-t border-brand-border/60">
                 <div class="flex flex-wrap items-center gap-1.5">
                   {diff.keyAspects.map((aspect) => (
@@ -844,37 +479,67 @@ const featuredCourses = coursesData.slice(0, 6);
     </div>
   </section>
 
-  <!-- Client Logos Showcase -->
-  <section class="py-14 bg-white border-b border-brand-border">
+  <!-- Section 7 — Testimonials -->
+  <section class="py-20 bg-white" id="testimonials">
     <div class="container-custom">
-      <div class="text-center max-w-2xl mx-auto mb-8">
-        <span class="text-xs font-extrabold uppercase tracking-widest text-brand-sage block mb-1">Ecosystem & Client Reach</span>
-        <h3 class="text-xl font-extrabold text-brand-dark">Trusted Across Corporate & Public Sectors</h3>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+        <div class="max-w-2xl">
+          <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">Participant Feedback</p>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">What Our Trainees Say</h2>
+          <p class="text-sm sm:text-base text-brand-muted mt-2">
+            Founders and marketers describe learning with Coach GK in their own words.
+          </p>
+        </div>
+        <a
+          href="/testimonials"
+          class="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold rounded-lg text-white bg-brand-sage hover:bg-brand-sage-dark transition-colors shadow-sm"
+        >
+          <span>Read All Testimonials</span>
+          <ArrowRight class="w-4 h-4" />
+        </a>
       </div>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 items-center">
-        {clientLogos.map((client) => (
-          <div class="p-3 bg-brand-light rounded-xl border border-brand-border flex items-center justify-center h-16 hover:bg-white hover:shadow-sm transition-all">
-            <img 
-              src={`/assets/partners/${client.file}`} 
-              alt={client.name} 
-              class="max-h-9 max-w-[100px] object-contain grayscale hover:grayscale-0 opacity-80 hover:opacity-100 transition-all"
-              loading="lazy"
-            />
-          </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        {featuredTestimonials.map((t, i) => (
+          <TestimonialCard
+            name={t.name}
+            role={t.role}
+            programme={t.programme}
+            paragraphs={[t.highlight]}
+            accent={i % 2 === 0 ? 'green' : 'gold'}
+            href={`/testimonials#${t.id}`}
+          />
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Section 6 — Training Programmes (Curated Portfolio) -->
-  <section class="py-20 bg-brand-light border-b border-brand-border" id="programmes">
+  <!-- Client Logos Showcase -->
+  <section class="py-14 bg-brand-light border-y border-brand-border">
+    <div class="container-custom">
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-brand-sage block mb-1">Our Engagements</span>
+        <h3 class="text-xl font-extrabold text-brand-dark">Organisations We Have Engaged With</h3>
+      </div>
+      <LogoGrid logos={featuredLogos} />
+      <div class="mt-8 text-center">
+        <a href="/track-record#ecosystem" class="inline-flex items-center gap-1.5 text-sm font-bold text-brand-sage hover:text-brand-sage-dark">
+          <span>See all partners and ecosystem organisations</span>
+          <ArrowRight class="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 8 — Training Programmes (Curated Portfolio) -->
+  <section class="py-20 bg-white border-b border-brand-border" id="programmes">
     <div class="container-custom">
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
         <div>
           <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">Curriculum Offerings</p>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">Structured Corporate Training Programmes</h2>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">Programmes for Every Learner</h2>
           <p class="text-sm sm:text-base text-brand-muted mt-2 max-w-xl">
-            Choose from comprehensive programs spanning artificial intelligence, IT infrastructure, digital marketing strategy (CDMS), and organizational leadership.
+            Programmes spanning digital marketing (CDMS), business incubation, global IT certification and professional development. All HRDC claimable.
           </p>
         </div>
         <div>
@@ -888,21 +553,38 @@ const featuredCourses = coursesData.slice(0, 6);
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {featuredCourses.map((course, idx) => {
-          const isFirstOfCategory = featuredCourses.findIndex(c => c.category === course.category) === idx;
-          const categoryId = isFirstOfCategory ? course.category : undefined;
+      <!-- Learner pathways -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
+        {audiences.map((audience) => {
+          const Icon = audienceIcons[audience.id as keyof typeof audienceIcons] ?? Laptop;
           return (
-            <div id={categoryId} class="flex flex-col scroll-mt-28">
-              <CourseCard {...course} />
-            </div>
+            <a
+              href={audience.href}
+              class="group p-6 rounded-2xl bg-brand-light border border-brand-border hover:border-brand-sage/60 hover:shadow-md transition-all flex flex-col"
+            >
+              <span class="w-11 h-11 rounded-xl bg-white border border-brand-border text-brand-sage flex items-center justify-center mb-4">
+                <Icon class="w-5 h-5" aria-hidden="true" />
+              </span>
+              <h3 class="text-base font-bold text-brand-dark mb-2 leading-snug">{audience.title}</h3>
+              <p class="text-xs text-brand-muted leading-relaxed flex-1">{audience.text}</p>
+              <span class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-brand-sage group-hover:text-brand-sage-dark">
+                <span>{audience.cta}</span>
+                <ArrowRight class="w-3.5 h-3.5" />
+              </span>
+            </a>
           );
         })}
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {featuredCourses.map((course) => (
+          <CourseCard {...course} />
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Section 7 — Corporate and Government Enquiries -->
+  <!-- Section 9 — Corporate and Government Enquiries -->
   <section class="py-20 bg-brand-dark text-white" id="corporate-enquiry">
     <div class="container-custom">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
@@ -915,59 +597,66 @@ const featuredCourses = coursesData.slice(0, 6);
           </p>
 
           <div class="p-6 bg-white/5 rounded-2xl border border-white/10 space-y-4 text-xs text-gray-300">
-            <h4 class="text-brand-gold font-bold uppercase tracking-wider">Official Corporate Desk (Profile Reference)</h4>
-            <div class="space-y-3">
-              <div>
-                <span class="block font-bold text-white uppercase text-[11px]">Corporate Entity</span>
-                <span class="text-gray-200">Global Experiential Training Academy PLT (LLP0019343-LGN)</span>
+            <h4 class="text-brand-gold font-bold uppercase tracking-wider">Official Corporate Desk</h4>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <Building2 class="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                <div>
+                  <span class="block font-bold text-white uppercase text-[11px]">Corporate Entity</span>
+                  <span class="text-gray-200">{site.legalName} ({site.llpNumber})</span>
+                </div>
               </div>
-              <div>
-                <span class="block font-bold text-white uppercase text-[11px]">Registered Corporate Office</span>
-                <span class="text-gray-200">Level 33, Ilham Tower, No. 8, Jalan Binjai, 50450 Kuala Lumpur</span>
+              <div class="flex items-start gap-3">
+                <MapPin class="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                <div>
+                  <span class="block font-bold text-white uppercase text-[11px]">Registered Corporate Office</span>
+                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="text-gray-200 hover:text-brand-gold transition-colors">{site.address.singleLine}</a>
+                </div>
               </div>
-              <div>
-                <span class="block font-bold text-white uppercase text-[11px]">Enquiry Email</span>
-                <span class="text-gray-200">ask@geta.com.my</span>
+              <div class="flex items-start gap-3">
+                <Mail class="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                <div>
+                  <span class="block font-bold text-white uppercase text-[11px]">Enquiry Email</span>
+                  <a href={`mailto:${site.email}`} class="text-gray-200 hover:text-brand-gold transition-colors">{site.email}</a>
+                </div>
               </div>
-              <div>
-                <span class="block font-bold text-white uppercase text-[11px]">Coordinator Contact (PIC)</span>
-                <span class="text-gray-200">+60 16-328 8684 (Ganesh Kumar Manokara, COO)</span>
+              <div class="flex items-start gap-3">
+                <Phone class="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
+                <div>
+                  <span class="block font-bold text-white uppercase text-[11px]">Coordinator Contact (PIC)</span>
+                  <a href={`tel:${site.phone.tel}`} class="text-gray-200 hover:text-brand-gold transition-colors">{site.phone.display}</a>
+                  <span class="text-gray-300"> ({site.pic.name}, COO)</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Right: Inquiry Form with Clear Notice -->
+        <!-- Right: Inquiry Form -->
         <div class="lg:col-span-7 bg-white text-brand-dark p-8 sm:p-10 rounded-2xl border border-brand-border shadow-xl">
           <div class="mb-6">
             <h3 class="text-xl font-extrabold text-brand-dark">Request an Enterprise or Institutional Proposal</h3>
             <p class="text-xs text-brand-muted mt-1">
-              Submit your departmental requirements below and our advisory team will respond within 1–2 business days.
+              Submit your departmental requirements below and our advisory team will respond within {site.responseTime}.
             </p>
           </div>
 
           <form id="hero-enquiry-form" class="space-y-4">
-            <!-- Honeypot anti-spam field (hidden from genuine users) -->
-            <div class="hidden" aria-hidden="true" style="display:none !important;">
-              <label for="org-hp">Leave this field blank</label>
-              <input type="text" id="org-hp" name="website_url" tabindex="-1" autocomplete="off" />
-            </div>
-
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label for="org-name" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Full Name *</label>
-                <input type="text" id="org-name" name="name" required placeholder="e.g. Ts. Ahmad Faizal" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage" />
+                <input type="text" id="org-name" name="name" required autocomplete="name" placeholder="e.g. Ts. Ahmad Faizal" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage" />
               </div>
               <div>
                 <label for="org-email" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Official Work Email *</label>
-                <input type="email" id="org-email" name="email" required placeholder="name@agency.gov.my" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage" />
+                <input type="email" id="org-email" name="email" required autocomplete="email" placeholder="name@agency.gov.my" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage" />
               </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label for="org-entity" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Organization / Entity *</label>
-                <input type="text" id="org-entity" name="organisation" required placeholder="Ministry / Corporation Name" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage" />
+                <input type="text" id="org-entity" name="organisation" required autocomplete="organization" placeholder="Ministry / Corporation Name" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage" />
               </div>
               <div>
                 <label for="org-sector" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Sector Type *</label>
@@ -984,53 +673,31 @@ const featuredCourses = coursesData.slice(0, 6);
               <label for="org-pillar" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Primary Capability Track *</label>
               <select id="org-pillar" name="track" required class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage">
                 <option value="Artificial Intelligence Capacity Building">Artificial Intelligence Capacity Building</option>
+                <option value="Entrepreneurship & Cross-Border Business">Entrepreneurship & Cross-Border Business</option>
                 <option value="Global IT Certification (CompTIA, Cyber Security)">Global IT Certification (CompTIA, Cyber Security)</option>
                 <option value="Professional Development & Leadership Transformation">Professional Development & Leadership Transformation</option>
-                <option value="Entrepreneurship & Cross-Border Business">Entrepreneurship & Cross-Border Business</option>
                 <option value="Custom In-House Capability Outline">Custom In-House Capability Outline</option>
               </select>
             </div>
 
             <div>
               <label for="org-notes" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Brief Objectives or Target Schedule</label>
-              <textarea id="org-notes" name="message" rows="3" placeholder="Outline your team upskilling objectives, target month, or specific cohort requirements..." class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage"></textarea>
+              <textarea id="org-notes" name="notes" rows="3" placeholder="Outline your team upskilling objectives, target month, or specific cohort requirements..." class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage"></textarea>
             </div>
 
-            <button
-              type="submit"
-              id="hero-submit-btn"
-              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 bg-brand-sage text-white font-bold rounded-lg hover:bg-brand-sage-dark transition-all text-xs shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              <Send id="hero-submit-icon" class="w-3.5 h-3.5" />
-              <svg id="hero-submit-spinner" class="hidden animate-spin -ml-0.5 mr-1.5 h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              <span id="hero-submit-text">Submit Training Consultation Request</span>
+            <!-- Honeypot: hidden from visitors, catches automated submissions -->
+            <div class="hidden" aria-hidden="true">
+              <label for="org-website">Website</label>
+              <input type="text" id="org-website" name="website_url" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 bg-brand-sage text-white font-bold rounded-lg hover:bg-brand-sage-dark transition-all text-xs shadow-sm disabled:opacity-60">
+              <Send class="w-3.5 h-3.5" />
+              <span>Submit Training Consultation Request</span>
             </button>
           </form>
 
-          <!-- Success Feedback Banner -->
-          <div id="hero-form-feedback" class="hidden mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-lg text-xs text-emerald-900 space-y-1">
-            <p class="font-bold flex items-center gap-1.5 text-emerald-950">
-              <CheckCircle2 class="w-4 h-4 text-emerald-700 inline shrink-0" />
-              <span>Consultation Request Accepted</span>
-            </p>
-            <p class="text-emerald-800 leading-relaxed">
-              Thank you. Your enquiry has been accepted by our email delivery system for transmission to GET Academy's training coordination desk. An advisor will review your requirements and follow up accordingly.
-            </p>
-          </div>
-
-          <!-- Error Alert Banner -->
-          <div id="hero-form-error" class="hidden mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-xs text-red-900 space-y-1">
-            <p class="font-bold flex items-center gap-1.5 text-red-950">
-              <AlertCircle class="w-4 h-4 text-red-700 inline shrink-0" />
-              <span>Submission Could Not Be Completed</span>
-            </p>
-            <p id="hero-error-text" class="text-red-800 leading-relaxed">
-              We encountered an issue submitting your request. Please try again or contact us directly.
-            </p>
-          </div>
+          <div id="hero-form-status" class="hidden" role="status" aria-live="polite"></div>
         </div>
       </div>
     </div>
@@ -1038,75 +705,19 @@ const featuredCourses = coursesData.slice(0, 6);
 </BaseLayout>
 
 <script>
+  import { initEnquiryForm } from '@/lib/enquiry-form';
+  import { site } from '@/data/site';
+
   const heroForm = document.getElementById('hero-enquiry-form') as HTMLFormElement | null;
-  const heroSubmitBtn = document.getElementById('hero-submit-btn') as HTMLButtonElement | null;
-  const heroSubmitText = document.getElementById('hero-submit-text');
-  const heroSubmitIcon = document.getElementById('hero-submit-icon');
-  const heroSubmitSpinner = document.getElementById('hero-submit-spinner');
-  const heroFeedback = document.getElementById('hero-form-feedback');
-  const heroError = document.getElementById('hero-form-error');
-  const heroErrorText = document.getElementById('hero-error-text');
+  const heroStatus = document.getElementById('hero-form-status');
 
-  if (heroForm && heroSubmitBtn && heroFeedback && heroError && heroErrorText) {
-    let isSubmitting = false;
-
-    heroForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      if (isSubmitting) return;
-      isSubmitting = true;
-
-      // Reset state banners
-      heroFeedback.classList.add('hidden');
-      heroError.classList.add('hidden');
-
-      // Set UI to loading state
-      heroSubmitBtn.disabled = true;
-      if (heroSubmitText) heroSubmitText.textContent = 'Submitting Request...';
-      if (heroSubmitIcon) heroSubmitIcon.classList.add('hidden');
-      if (heroSubmitSpinner) heroSubmitSpinner.classList.remove('hidden');
-
-      const formData = new FormData(heroForm);
-      const payload = {
-        formSource: 'homepage-hero',
-        name: formData.get('name'),
-        email: formData.get('email'),
-        organisation: formData.get('organisation'),
-        sector: formData.get('sector'),
-        track: formData.get('track'),
-        message: formData.get('message'),
-        honeypot: formData.get('website_url') || '',
-      };
-
-      try {
-        const response = await fetch('/api/send-enquiry', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        });
-
-        const data = await response.json().catch(() => null);
-
-        if (response.ok && data?.success) {
-          heroFeedback.classList.remove('hidden');
-          heroForm.reset();
-        } else {
-          const message = data?.error || 'Unable to submit your enquiry at this time. Please try again or contact us directly.';
-          heroErrorText.textContent = message;
-          heroError.classList.remove('hidden');
-        }
-      } catch (err) {
-        heroErrorText.textContent = 'A network connection error occurred while submitting your request. Please check your connection and try again.';
-        heroError.classList.remove('hidden');
-      } finally {
-        isSubmitting = false;
-        heroSubmitBtn.disabled = false;
-        if (heroSubmitText) heroSubmitText.textContent = 'Submit Training Consultation Request';
-        if (heroSubmitIcon) heroSubmitIcon.classList.remove('hidden');
-        if (heroSubmitSpinner) heroSubmitSpinner.classList.add('hidden');
-      }
+  if (heroForm && heroStatus) {
+    initEnquiryForm({
+      form: heroForm,
+      status: heroStatus,
+      formSource: 'homepage-hero',
+      fallbackEmail: site.email,
+      responseTime: site.responseTime,
     });
   }
 </script>

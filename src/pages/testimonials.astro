@@ -1,0 +1,86 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import TestimonialCard from '@/components/ui/TestimonialCard.astro';
+import CtaBand from '@/components/ui/CtaBand.astro';
+import { Quote } from 'lucide-astro';
+import { featuredTestimonials, itilTestimonials } from '@/data/testimonials';
+---
+
+<BaseLayout
+  title="Testimonials: What Our Trainees Say"
+  description="Participant feedback on GET Academy's Digital Marketing programme and ITIL Foundation training, in their own words."
+>
+  <PageHero
+    eyebrow="Participant Feedback"
+    title="What Our Trainees Say"
+    description="Founders, marketers and IT professionals describe learning with Coach GK (Mr. Ganesh Kumar Manokara, GET Academy’s COO) in their own words."
+  />
+
+  <!-- Digital marketing participants -->
+  <section class="py-20 bg-white">
+    <div class="container-custom">
+      <SectionHeader
+        eyebrow="Digital Marketing"
+        title="Founders on applying marketing from day one"
+        subtitle="Three participants of our Digital Marketing programme share what changed for them and their businesses."
+      />
+
+      <div class="space-y-8">
+        {featuredTestimonials.map((t, i) => (
+          <article
+            id={t.id}
+            class="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-brand-light rounded-2xl border border-brand-border overflow-hidden scroll-mt-32"
+          >
+            <div class={`lg:col-span-4 p-7 sm:p-8 ${i % 2 === 0 ? 'bg-brand-dark' : 'bg-brand-sage'} text-white flex flex-col justify-between gap-8`}>
+              <Quote class="w-10 h-10 text-brand-gold" aria-hidden="true" />
+              <div class="space-y-3">
+                <h3 class="text-xl font-extrabold leading-snug">{t.name}</h3>
+                <p class="text-sm text-gray-200 leading-relaxed">{t.role}</p>
+                <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-brand-dark bg-brand-gold px-2.5 py-1 rounded">
+                  {t.programme}
+                </span>
+              </div>
+            </div>
+            <blockquote class="lg:col-span-8 p-7 sm:p-10 space-y-4 text-sm sm:text-base leading-relaxed text-brand-text">
+              {t.paragraphs.map((text) => <p>{text}</p>)}
+            </blockquote>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ITIL Foundation -->
+  <section class="py-20 bg-brand-light border-y border-brand-border">
+    <div class="container-custom">
+      <SectionHeader
+        eyebrow="ITIL Foundation"
+        title="ITIL Foundation training with Mr. Ganesh Kumar (GK)"
+        subtitle="Seven trainees share feedback on their ITIL Foundation training."
+        centered={true}
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {itilTestimonials.map((t, i) => (
+          <TestimonialCard
+            id={t.id}
+            name={t.name}
+            programme={t.programme}
+            paragraphs={[t.quote]}
+            accent={i % 2 === 0 ? 'green' : 'gold'}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="Learn With Us"
+    title="Ready to build your team’s capabilities?"
+    text="Tell us about your organisation’s goals and our team will propose a programme and fee quotation, delivered on-site or virtually."
+    primary={{ label: 'Discuss Your Training Needs', href: '/contact' }}
+    secondary={{ label: 'Explore Programmes', href: '/courses' }}
+  />
+</BaseLayout>

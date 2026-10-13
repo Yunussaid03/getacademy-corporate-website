@@ -5,8 +5,19 @@
     "category": "digital-strategy",
     "faculty": "Professional",
     "title": "Certified Digital Marketing Strategist – CDMS",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
-    "image": "/assets/courses/Untitled-design-2.png"
+    "description": "Six-day Certified Digital Marketing Strategist programme with a SEGi certificate. A fully hands-on capstone project route adds an employment opportunity for students and job seekers.",
+    "image": "/assets/courses/Untitled-design-2.png",
+    "duration": "6 days",
+    "audience": [
+      "Working professionals",
+      "Students & job seekers"
+    ],
+    "certificate": "SEGi certificate",
+    "highlights": [
+      "Capstone project (fully hands-on)",
+      "Employment opportunity"
+    ],
+    "featured": true
   },
   {
     "id": 2,
@@ -14,8 +25,9 @@
     "category": "workplace-performance",
     "faculty": "Professional",
     "title": "Problem Solving",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
-    "image": "/assets/courses/PROBLEM-SOLVING.png"
+    "description": "Professional development programme. HRD Corp claimable; syllabus outline and fee quotation on request.",
+    "image": "/assets/courses/PROBLEM-SOLVING.png",
+    "featured": true
   },
   {
     "id": 3,
@@ -23,7 +35,7 @@
     "category": "workplace-performance",
     "faculty": "Professional",
     "title": "Critical Thinking",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "description": "Professional development programme. HRD Corp claimable; syllabus outline and fee quotation on request.",
     "image": "/assets/courses/3-1.png"
   },
   {
@@ -32,7 +44,7 @@
     "category": "leadership-management",
     "faculty": "Professional",
     "title": "Corporate Culture and Team Building",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "description": "Professional development programme. HRD Corp claimable; syllabus outline and fee quotation on request.",
     "image": "/assets/courses/4-1.png"
   },
   {
@@ -41,8 +53,9 @@
     "category": "workplace-performance",
     "faculty": "Professional",
     "title": "Customer Experience Management",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
-    "image": "/assets/courses/5-1.png"
+    "description": "Professional development programme. HRD Corp claimable; syllabus outline and fee quotation on request.",
+    "image": "/assets/courses/5-1.png",
+    "featured": true
   },
   {
     "id": 6,
@@ -50,7 +63,7 @@
     "category": "workplace-performance",
     "faculty": "Professional",
     "title": "Sales and Sales Management",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "description": "Professional development programme. HRD Corp claimable; syllabus outline and fee quotation on request.",
     "image": "/assets/courses/6.png"
   },
   {
@@ -59,7 +72,7 @@
     "category": "workplace-performance",
     "faculty": "Professional",
     "title": "Event Management",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "description": "Professional development programme. HRD Corp claimable; syllabus outline and fee quotation on request.",
     "image": "/assets/courses/7.png"
   },
   {
@@ -68,7 +81,7 @@
     "category": "digital-strategy",
     "faculty": "Professional",
     "title": "Leverage Outsourcing to Scale Up Business",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "description": "Business growth programme on using outsourcing to scale up. HRD Corp claimable; syllabus outline on request.",
     "image": "/assets/courses/8.png"
   },
   {
@@ -77,8 +90,9 @@
     "category": "digital-strategy",
     "faculty": "Professional",
     "title": "Revolutionize Business Using ChatGPT",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
-    "image": "/assets/courses/9.png"
+    "description": "Practical programme on using ChatGPT to transform how your business operates. HRD Corp claimable; syllabus outline on request.",
+    "image": "/assets/courses/9.png",
+    "featured": true
   },
   {
     "id": 10,
@@ -86,7 +100,7 @@
     "category": "leadership-management",
     "faculty": "Professional",
     "title": "Managing Millennial and Gen Z",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "description": "Professional development programme. HRD Corp claimable; syllabus outline and fee quotation on request.",
     "image": "/assets/courses/10.png"
   },
   {
@@ -95,7 +109,7 @@
     "category": "leadership-management",
     "faculty": "Professional",
     "title": "Local Breed Internationally Skilled Manager",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "description": "Professional development programme. HRD Corp claimable; syllabus outline and fee quotation on request.",
     "image": "/assets/courses/11.png"
   },
   {
@@ -104,7 +118,7 @@
     "category": "leadership-management",
     "faculty": "Professional",
     "title": "The Ugly Truth About Meetings and Secret Methods",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
+    "description": "Professional development programme. HRD Corp claimable; syllabus outline and fee quotation on request.",
     "image": "/assets/courses/12.png"
   },
   {
@@ -113,8 +127,9 @@
     "category": "technical-it",
     "faculty": "Professional",
     "title": "CompTIA Network+",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
-    "image": "/assets/courses/13.png"
+    "description": "CompTIA global IT certification pathway leading to an international certification. HRD Corp claimable.",
+    "image": "/assets/courses/13.png",
+    "certificate": "International certification"
   },
   {
     "id": 14,
@@ -122,8 +137,10 @@
     "category": "technical-it",
     "faculty": "Professional",
     "title": "CompTIA Security+",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
-    "image": "/assets/courses/14.png"
+    "description": "CompTIA global IT certification pathway leading to an international certification. HRD Corp claimable.",
+    "image": "/assets/courses/14.png",
+    "certificate": "International certification",
+    "featured": true
   },
   {
     "id": 15,
@@ -131,8 +148,9 @@
     "category": "technical-it",
     "faculty": "Professional",
     "title": "CompTIA CySA+",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
-    "image": "/assets/courses/15.png"
+    "description": "CompTIA global IT certification pathway leading to an international certification. HRD Corp claimable.",
+    "image": "/assets/courses/15.png",
+    "certificate": "International certification"
   },
   {
     "id": 16,
@@ -140,8 +158,9 @@
     "category": "technical-it",
     "faculty": "Professional",
     "title": "CompTIA CASP+",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
-    "image": "/assets/courses/16.png"
+    "description": "CompTIA global IT certification pathway leading to an international certification. HRD Corp claimable.",
+    "image": "/assets/courses/16.png",
+    "certificate": "International certification"
   },
   {
     "id": 17,
@@ -149,8 +168,9 @@
     "category": "technical-it",
     "faculty": "Professional",
     "title": "CompTIA Server+",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
-    "image": "/assets/courses/17.png"
+    "description": "CompTIA global IT certification pathway leading to an international certification. HRD Corp claimable.",
+    "image": "/assets/courses/17.png",
+    "certificate": "International certification"
   },
   {
     "id": 18,
@@ -158,8 +178,9 @@
     "category": "technical-it",
     "faculty": "Professional",
     "title": "CompTIA Cloud+",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
-    "image": "/assets/courses/18.png"
+    "description": "CompTIA global IT certification pathway leading to an international certification. HRD Corp claimable.",
+    "image": "/assets/courses/18.png",
+    "certificate": "International certification"
   },
   {
     "id": 19,
@@ -167,7 +188,64 @@
     "category": "technical-it",
     "faculty": "Professional",
     "title": "CompTIA Cloud Essentials+",
-    "description": "Professional HRD Corp claimable course outline tailored for corporate workforces.",
-    "image": "/assets/courses/19.png"
+    "description": "CompTIA global IT certification pathway leading to an international certification. HRD Corp claimable.",
+    "image": "/assets/courses/19.png",
+    "certificate": "International certification"
+  },
+  {
+    "id": 20,
+    "number": "#20",
+    "category": "workplace-performance",
+    "faculty": "Professional",
+    "title": "Design Thinking",
+    "description": "Professional development programme. HRD Corp claimable; syllabus outline and fee quotation on request.",
+    "image": "/assets/courses/design-thinking.png"
+  },
+  {
+    "id": 21,
+    "number": "#21",
+    "category": "workplace-performance",
+    "faculty": "Professional",
+    "title": "Customer Service",
+    "description": "Professional development programme. HRD Corp claimable; syllabus outline and fee quotation on request.",
+    "image": "/assets/courses/customer-service.png"
+  },
+  {
+    "id": 22,
+    "number": "#22",
+    "category": "workplace-performance",
+    "faculty": "Professional",
+    "title": "Customer Service for BPO",
+    "description": "Professional development programme. HRD Corp claimable; syllabus outline and fee quotation on request.",
+    "image": "/assets/courses/customer-service-bpo.png"
+  },
+  {
+    "id": 23,
+    "number": "#23",
+    "category": "technical-it",
+    "faculty": "Professional",
+    "title": "ITIL Foundation",
+    "description": "ITIL Foundation training led by Mr. Ganesh Kumar (GK), with feedback from past trainees on our testimonials page. HRD Corp claimable; syllabus outline and fee quotation on request.",
+    "image": "/assets/courses/itil-foundation.png"
+  },
+  {
+    "id": 24,
+    "number": "#24",
+    "category": "business-incubation",
+    "faculty": "Programme",
+    "title": "Business Incubation: Done For You (DFY)",
+    "description": "A 3-month programme for business owners where we teach and do it for clients, with a customised solution and a SEGi certificate.",
+    "image": "/assets/courses/business-incubation-dfy.png",
+    "kind": "programme",
+    "duration": "3 months",
+    "audience": [
+      "Business owners"
+    ],
+    "certificate": "SEGi certificate",
+    "highlights": [
+      "We teach & do it for clients",
+      "Customised solution"
+    ],
+    "featured": true
   }
 ]

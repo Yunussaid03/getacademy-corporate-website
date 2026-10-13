@@ -1,115 +1,120 @@
 ---
 import BaseLayout from '@/components/layout/BaseLayout.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Send, 
-  ShieldCheck, 
-  Clock, 
-  CheckCircle2, 
+import PageHero from '@/components/ui/PageHero.astro';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  ShieldCheck,
+  Clock,
   ExternalLink,
-  HelpCircle,
-  AlertCircle
+  Building2
 } from 'lucide-astro';
+import { site, mapsUrl } from '@/data/site';
 
 const trainingTracks = [
-  '19 HRDC Claimable Courses',
-  'Leadership & Management',
-  'Workplace Performance & Essential Skills',
-  'Digital Strategy (CDMS)',
-  'Technical & IT Skills',
-  'On-the-Job Training (OJT)',
-  'Custom In-House Enterprise Package'
+  'Digital Marketing & E-Commerce (CDMS)',
+  'Business Incubation: Done For You (DFY)',
+  'Global IT Certification (CompTIA, ITIL)',
+  'Professional Development & Leadership',
+  'Artificial Intelligence Capacity Building',
+  'Custom In-House Programme'
 ];
 
 const sectors = [
   'Private Enterprise / Corporation',
   'Government / Statutory Body',
   'School / College / University',
-  'Individual Professional'
+  'Business Owner / SME',
+  'Individual Professional / Student'
 ];
 ---
 
 <BaseLayout
   title="Contact Us — Corporate Training Consultation"
-  description="Connect with GET Academy corporate training advisors for tailored training proposals, course outlines, and HRD Corp grant assistance."
+  description="Connect with GET Academy's training advisors for tailored training proposals, course outlines and HRDC claimable programmes. Level 33, Ilham Tower, Kuala Lumpur."
 >
-  <!-- Header Banner -->
-  <section class="bg-brand-dark text-white py-16 lg:py-20 border-b border-brand-sage/40">
-    <div class="container-custom max-w-4xl">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 text-brand-gold text-xs font-bold uppercase tracking-wider mb-4">
-        <span>Get in Touch</span>
-      </div>
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-6">
-        Contact GET Academy
-      </h1>
-      <p class="text-lg text-gray-200 leading-relaxed">
-        Connect with our corporate training advisors for tailored training proposals, course outlines, trainer CVs, and HRD Corp SBL-Khas grant assistance.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Get in Touch"
+    title="Contact GET Academy"
+    description="Connect with our training advisors for tailored proposals, course outlines, trainer profiles and HRD Corp application support."
+  />
 
   <!-- Main Content Grid -->
   <section class="py-20 bg-brand-light">
     <div class="container-custom">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        
-        <!-- Left Column: Direct Consultation Channels & Decoupled Portal Card -->
+
+        <!-- Left Column: Direct Consultation Channels -->
         <div class="lg:col-span-5 space-y-8">
           <div>
             <SectionHeader
               eyebrow="Direct Enquiry Channels"
               title="We Are Ready to Assist Your Organisation"
-              subtitle="Whether you represent an enterprise requiring customized team upskilling, a statutory body seeking institutional governance transformation, or an HR professional exploring HRD Corp levy claims, our training team is ready to consult with you."
+              subtitle="Whether you represent an enterprise requiring customized team upskilling, a statutory body seeking institutional transformation, or an HR professional exploring HRD Corp funding, our training team is ready to consult with you."
             />
           </div>
 
-          <!-- Official Channels Card with Awaiting Confirmation Disclaimers -->
+          <!-- Official Channels Card -->
           <div class="bg-white rounded-2xl p-7 border border-brand-border shadow-sm space-y-5">
             <h3 class="font-bold text-brand-dark text-base border-b border-brand-border pb-3">
               Official Corporate Desk
             </h3>
 
-            <div class="space-y-4 text-sm">
+            <address class="not-italic space-y-5 text-sm">
+              <div class="flex items-start gap-3.5">
+                <Building2 class="w-5 h-5 text-brand-sage shrink-0 mt-0.5" />
+                <div>
+                  <span class="font-bold block text-xs uppercase tracking-wider text-brand-muted">Corporate Entity</span>
+                  <p class="text-brand-dark font-medium mt-0.5">{site.legalName}</p>
+                  <span class="text-[11px] text-brand-muted">{site.llpNumber}</span>
+                </div>
+              </div>
+
               <div class="flex items-start gap-3.5">
                 <MapPin class="w-5 h-5 text-brand-sage shrink-0 mt-0.5" />
                 <div>
-                  <span class="font-bold text-brand-dark block text-xs uppercase tracking-wider text-brand-muted">Registered Office Address</span>
-                  <p class="text-brand-dark font-medium mt-0.5">Kuala Lumpur, Malaysia</p>
-                  <span class="inline-block mt-1 text-[11px] bg-amber-50 text-amber-800 border border-amber-200 rounded px-2 py-0.5">
-                    Specific street address awaiting client sign-off
-                  </span>
+                  <span class="font-bold block text-xs uppercase tracking-wider text-brand-muted">Registered Office Address</span>
+                  <p class="text-brand-dark font-medium mt-0.5 leading-relaxed">
+                    {site.address.lines.map((line, i) => (
+                      <>
+                        {line}
+                        {i < site.address.lines.length - 1 && <br />}
+                      </>
+                    ))}
+                  </p>
+                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="mt-1.5 inline-flex items-center gap-1 text-xs font-bold text-brand-sage hover:text-brand-sage-dark">
+                    <span>Open in Google Maps</span>
+                    <ExternalLink class="w-3 h-3" />
+                  </a>
                 </div>
               </div>
 
               <div class="flex items-start gap-3.5">
                 <Mail class="w-5 h-5 text-brand-sage shrink-0 mt-0.5" />
                 <div>
-                  <span class="font-bold text-brand-dark block text-xs uppercase tracking-wider text-brand-muted">Enquiry Email</span>
-                  <span class="inline-block mt-1 text-[11px] bg-amber-50 text-amber-800 border border-amber-200 rounded px-2 py-0.5">
-                    Official inbox address awaiting client sign-off
-                  </span>
+                  <span class="font-bold block text-xs uppercase tracking-wider text-brand-muted">Enquiry Email</span>
+                  <a href={`mailto:${site.email}`} class="text-brand-dark font-medium mt-0.5 inline-block hover:text-brand-sage transition-colors">{site.email}</a>
                 </div>
               </div>
 
               <div class="flex items-start gap-3.5">
                 <Phone class="w-5 h-5 text-brand-sage shrink-0 mt-0.5" />
                 <div>
-                  <span class="font-bold text-brand-dark block text-xs uppercase tracking-wider text-brand-muted">Office Telephone & WhatsApp</span>
-                  <span class="inline-block mt-1 text-[11px] bg-amber-50 text-amber-800 border border-amber-200 rounded px-2 py-0.5">
-                    Direct phone lines awaiting client sign-off
-                  </span>
+                  <span class="font-bold block text-xs uppercase tracking-wider text-brand-muted">Telephone (PIC)</span>
+                  <a href={`tel:${site.phone.tel}`} class="text-brand-dark font-medium mt-0.5 inline-block hover:text-brand-sage transition-colors">{site.phone.display}</a>
+                  <p class="text-xs text-brand-muted">{site.pic.name}, {site.pic.role}</p>
                 </div>
               </div>
-            </div>
+            </address>
 
             <!-- Response Commitment Badge -->
             <div class="p-4 bg-brand-light rounded-xl border border-brand-border flex items-center gap-3">
               <Clock class="w-5 h-5 text-brand-sage shrink-0" />
               <p class="text-xs text-brand-muted leading-relaxed">
-                <strong>Response Commitment:</strong> Custom proposals, syllabus details, and HRDC grant documentation are provided within <strong>1–2 business days</strong> upon inquiry.
+                <strong>Response Commitment:</strong> Custom proposals, syllabus details and HRD Corp application documents are provided within <strong>{site.responseTime}</strong> upon enquiry.
               </p>
             </div>
           </div>
@@ -124,31 +129,25 @@ const sectors = [
             <p class="text-xs text-gray-100 leading-relaxed">
               Our capability advisors work alongside corporate HR directors and training coordinators to structure tailored learning calendars, custom course syllabi, and itemized proposals.
             </p>
-            <div class="pt-1 text-xs text-brand-gold font-semibold flex items-center gap-1.5">
+            <div class="pt-1 text-xs text-brand-gold font-semibold flex flex-wrap items-center gap-x-4 gap-y-1">
               <span>• Custom syllabus preparation</span>
               <span>• Transparent proposal schedules</span>
             </div>
           </div>
         </div>
 
-        <!-- Right Column: Corporate Enquiry Form UI -->
+        <!-- Right Column: Corporate Enquiry Form -->
         <div class="lg:col-span-7">
           <div class="bg-white rounded-2xl p-8 sm:p-10 border border-brand-border shadow-sm">
-            <div class="mb-6">
+            <div class="mb-8">
               <span class="text-xs font-extrabold uppercase tracking-widest text-brand-sage block mb-1">Corporate Enquiry</span>
               <h2 class="text-2xl font-extrabold text-brand-dark">Send a Training Enquiry</h2>
               <p class="text-sm text-brand-muted mt-1">
-                Complete the form below and our corporate training consultants will respond to your requirements.
+                Complete the form below and our training consultants will respond to your requirements.
               </p>
             </div>
 
             <form id="corporate-enquiry-form" class="space-y-5">
-              <!-- Honeypot anti-spam field (hidden from genuine users) -->
-              <div class="hidden" aria-hidden="true" style="display:none !important;">
-                <label for="contact-hp">Leave this field blank</label>
-                <input type="text" id="contact-hp" name="website_url" tabindex="-1" autocomplete="off" />
-              </div>
-
               <!-- Full Name -->
               <div>
                 <label for="contact-name" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-2">
@@ -159,6 +158,7 @@ const sectors = [
                   id="contact-name"
                   name="name"
                   required
+                  autocomplete="name"
                   placeholder="e.g. Sarah Jenkins"
                   class="w-full px-4 py-3 bg-brand-light border border-brand-border rounded-xl text-sm text-brand-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all"
                 />
@@ -175,6 +175,7 @@ const sectors = [
                     id="contact-email"
                     name="email"
                     required
+                    autocomplete="email"
                     placeholder="name@company.com.my"
                     class="w-full px-4 py-3 bg-brand-light border border-brand-border rounded-xl text-sm text-brand-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all"
                   />
@@ -188,6 +189,7 @@ const sectors = [
                     id="contact-phone"
                     name="phone"
                     required
+                    autocomplete="tel"
                     placeholder="+60 12-345 6789"
                     class="w-full px-4 py-3 bg-brand-light border border-brand-border rounded-xl text-sm text-brand-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all"
                   />
@@ -205,6 +207,7 @@ const sectors = [
                     id="contact-org"
                     name="organisation"
                     required
+                    autocomplete="organization"
                     placeholder="e.g. Apex Logistics Sdn Bhd"
                     class="w-full px-4 py-3 bg-brand-light border border-brand-border rounded-xl text-sm text-brand-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all"
                   />
@@ -271,49 +274,30 @@ const sectors = [
                   id="contact-message"
                   name="message"
                   rows="4"
-                  placeholder="Outline your departmental objectives, target training month, or questions regarding HRD Corp SBL-Khas claim procedures..."
+                  placeholder="Outline your departmental objectives, target training month, or questions about HRD Corp claims..."
                   class="w-full px-4 py-3 bg-brand-light border border-brand-border rounded-xl text-sm text-brand-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all"
                 ></textarea>
               </div>
 
-              <!-- Submit Button with Loading State -->
+              <!-- Honeypot: hidden from visitors, catches automated submissions -->
+              <div class="hidden" aria-hidden="true">
+                <label for="contact-website">Website</label>
+                <input type="text" id="contact-website" name="website_url" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <!-- Submit Button -->
               <div class="pt-2">
                 <button
                   type="submit"
-                  id="contact-submit-btn"
-                  class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-brand-sage text-white font-bold rounded-xl hover:bg-brand-sage-dark transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-sage disabled:opacity-60 disabled:cursor-not-allowed"
+                  class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-brand-sage text-white font-bold rounded-xl hover:bg-brand-sage-dark transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-sage disabled:opacity-60"
                 >
-                  <Send id="contact-submit-icon" class="w-4 h-4" />
-                  <svg id="contact-submit-spinner" class="hidden animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  <span id="contact-submit-text">Submit Training Enquiry</span>
+                  <Send class="w-4 h-4" />
+                  <span>Submit Training Enquiry</span>
                 </button>
               </div>
             </form>
 
-            <!-- Submission Confirmation Message Banner -->
-            <div id="form-success-banner" class="hidden mt-6 p-6 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 space-y-2">
-              <div class="flex items-center gap-2 font-bold text-emerald-950">
-                <CheckCircle2 class="w-5 h-5 text-emerald-700" />
-                <span>Enquiry Submitted Successfully</span>
-              </div>
-              <p class="text-xs text-emerald-800 leading-relaxed">
-                Thank you for your training interest. Your consultation request has been accepted by our email delivery system for transmission to GET Academy's training coordination desk. An advisor will review your requirements and follow up accordingly.
-              </p>
-            </div>
-
-            <!-- Submission Error Alert Banner -->
-            <div id="form-error-banner" class="hidden mt-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-900 space-y-1">
-              <div class="flex items-center gap-2 font-bold text-xs text-red-950">
-                <AlertCircle class="w-4 h-4 text-red-700 shrink-0" />
-                <span>Submission Could Not Be Completed</span>
-              </div>
-              <p id="form-error-text" class="text-xs text-red-800 leading-relaxed">
-                We encountered an error delivering your enquiry. Please check your information and try again.
-              </p>
-            </div>
+            <div id="form-status" class="hidden" role="status" aria-live="polite"></div>
           </div>
         </div>
 
@@ -323,15 +307,11 @@ const sectors = [
 </BaseLayout>
 
 <script>
-  // Form submission handling connected to serverless endpoint
+  import { initEnquiryForm } from '@/lib/enquiry-form';
+  import { site } from '@/data/site';
+
   const form = document.getElementById('corporate-enquiry-form') as HTMLFormElement | null;
-  const submitBtn = document.getElementById('contact-submit-btn') as HTMLButtonElement | null;
-  const submitText = document.getElementById('contact-submit-text');
-  const submitIcon = document.getElementById('contact-submit-icon');
-  const submitSpinner = document.getElementById('contact-submit-spinner');
-  const successBanner = document.getElementById('form-success-banner');
-  const errorBanner = document.getElementById('form-error-banner');
-  const errorText = document.getElementById('form-error-text');
+  const status = document.getElementById('form-status');
 
   // Pre-fill course from URL query parameter (e.g. ?course=Critical%20Thinking)
   const urlParams = new URLSearchParams(window.location.search);
@@ -339,75 +319,17 @@ const sectors = [
   if (courseParam) {
     const messageBox = document.getElementById('contact-message') as HTMLTextAreaElement | null;
     if (messageBox) {
-      messageBox.value = `Enquiring about the course: "${courseParam}". Please furnish official syllabus, fee schedule, and HRD Corp claim details.`;
+      messageBox.value = `Enquiring about the course: "${courseParam}". Please furnish the syllabus outline, fee quotation and HRD Corp claim details.`;
     }
   }
 
-  if (form && submitBtn && successBanner && errorBanner && errorText) {
-    let isSubmitting = false;
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      if (isSubmitting) return;
-      isSubmitting = true;
-
-      // Reset state banners
-      successBanner.classList.add('hidden');
-      errorBanner.classList.add('hidden');
-
-      // Set UI to loading state
-      submitBtn.disabled = true;
-      if (submitText) submitText.textContent = 'Submitting Enquiry...';
-      if (submitIcon) submitIcon.classList.add('hidden');
-      if (submitSpinner) submitSpinner.classList.remove('hidden');
-
-      const formData = new FormData(form);
-      const payload = {
-        formSource: 'contact-page',
-        name: formData.get('name'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        organisation: formData.get('organisation'),
-        sector: formData.get('sector'),
-        track: formData.get('track'),
-        participants: formData.get('participants'),
-        message: formData.get('message'),
-        honeypot: formData.get('website_url') || '',
-      };
-
-      try {
-        const response = await fetch('/api/send-enquiry', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        });
-
-        const data = await response.json().catch(() => null);
-
-        if (response.ok && data?.success) {
-          successBanner.classList.remove('hidden');
-          form.reset();
-          successBanner.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          const message = data?.error || 'Unable to submit your enquiry at this time. Please try again or contact us directly.';
-          errorText.textContent = message;
-          errorBanner.classList.remove('hidden');
-          errorBanner.scrollIntoView({ behavior: 'smooth' });
-        }
-      } catch (err) {
-        errorText.textContent = 'A network connection error occurred while submitting your enquiry. Please check your internet connection and try again.';
-        errorBanner.classList.remove('hidden');
-        errorBanner.scrollIntoView({ behavior: 'smooth' });
-      } finally {
-        isSubmitting = false;
-        submitBtn.disabled = false;
-        if (submitText) submitText.textContent = 'Submit Training Enquiry';
-        if (submitIcon) submitIcon.classList.remove('hidden');
-        if (submitSpinner) submitSpinner.classList.add('hidden');
-      }
+  if (form && status) {
+    initEnquiryForm({
+      form,
+      status,
+      formSource: 'contact-page',
+      fallbackEmail: site.email,
+      responseTime: site.responseTime,
     });
   }
 </script>

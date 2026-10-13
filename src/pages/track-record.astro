@@ -1,0 +1,260 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import ProjectCard from '@/components/ui/ProjectCard.astro';
+import ProjectFeature from '@/components/ui/ProjectFeature.astro';
+import LogoGrid from '@/components/ui/LogoGrid.astro';
+import CtaBand from '@/components/ui/CtaBand.astro';
+import { Award, BadgeCheck, CheckCircle2, Landmark, Users2 } from 'lucide-astro';
+import {
+  contributions,
+  ecosystemPartners,
+  engagements,
+  highlightStats,
+  mediaPartner,
+  projects,
+  recognitions,
+} from '@/data/track-record';
+import { corporateLogos, institutionLogos } from '@/data/clients';
+
+const [featuredProject, ...otherProjects] = projects;
+const recognitionIcons = { futurelab: Award, talentcorp: Users2, prpsm: BadgeCheck } as const;
+---
+
+<BaseLayout
+  title="Track Record: Projects, Appointments & Engagements"
+  description="Selected GET Academy projects with government agencies, ministries and institutions, strategic contributions, engagements and ecosystem partners across Malaysia."
+>
+  <PageHero
+    eyebrow="Track Record"
+    title="Projects, Appointments & Engagements"
+    description="A record of capability-building projects, public-sector appointments and partnerships across Malaysia, from national AI skilling to entrepreneurship coaching."
+  />
+
+  <!-- Headline numbers -->
+  <section class="py-12 bg-white border-b border-brand-border">
+    <div class="container-custom">
+      <dl class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        {highlightStats.map((stat) => (
+          <div class="p-5 sm:p-6 rounded-2xl bg-brand-light border border-brand-border">
+            <dt class="text-3xl sm:text-4xl font-extrabold text-brand-sage tracking-tight">{stat.value}</dt>
+            <dd class="mt-2 text-xs sm:text-sm text-brand-muted leading-snug">{stat.label}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- Selected projects -->
+  <section class="py-20 bg-brand-light border-b border-brand-border" id="projects">
+    <div class="container-custom">
+      <SectionHeader
+        eyebrow="Selected Projects"
+        title="Capability building with government, education and industry"
+        subtitle="Projects delivered with ministries, statutory bodies, universities and communities."
+      />
+
+      <div class="mb-8">
+        <ProjectFeature
+          title={featuredProject.title}
+          organisation={featuredProject.organisation}
+          category={featuredProject.category}
+          summary={featuredProject.summary}
+          image={featuredProject.image!}
+          imageAlt={featuredProject.imageAlt!}
+          stat={featuredProject.stat}
+          note="By invitation of the Deputy Secretary-General, MOHE"
+        />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {otherProjects.map((project) => (
+          <ProjectCard
+            title={project.title}
+            organisation={project.organisation}
+            category={project.category}
+            summary={project.summary}
+            image={project.image}
+            imageAlt={project.imageAlt}
+            stat={project.stat}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Strategic contributions -->
+  <section class="py-20 bg-white border-b border-brand-border" id="strategic-contributions">
+    <div class="container-custom">
+      <SectionHeader
+        eyebrow="Strategic Contributions"
+        title="Appointments and invitations from national bodies"
+        subtitle="Our work with ministries and agencies goes beyond training: we have been appointed, invited and consulted on national initiatives."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {contributions.map((item) => (
+          <div class="bg-brand-light rounded-2xl border border-brand-border p-6 sm:p-7 flex flex-col gap-4 hover:border-brand-sage/60 transition-colors">
+            <div class="flex items-center justify-between gap-4">
+              <div class="h-14 flex items-center">
+                {item.logo ? (
+                  <img
+                    src={item.logo}
+                    alt={`${item.organisation} logo`}
+                    class="max-h-12 max-w-[170px] w-auto object-contain mix-blend-multiply"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <span class="w-12 h-12 rounded-xl bg-white border border-brand-border text-brand-sage flex items-center justify-center">
+                    <Landmark class="w-6 h-6" aria-hidden="true" />
+                  </span>
+                )}
+              </div>
+              {item.period && (
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-white border border-brand-border text-brand-dark shrink-0">
+                  {item.period}
+                </span>
+              )}
+            </div>
+            <h3 class="text-lg font-bold text-brand-dark leading-snug">{item.organisation}</h3>
+            <ul class="space-y-2.5">
+              {item.points.map((point) => (
+                <li class="flex items-start gap-2.5 text-sm text-brand-muted leading-relaxed">
+                  <CheckCircle2 class="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" aria-hidden="true" />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <!-- Recognitions -->
+      <div class="mt-14">
+        <h3 class="text-sm font-extrabold uppercase tracking-widest text-brand-sage mb-5">Recognitions & memberships</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {recognitions.map((item) => {
+            const Icon = recognitionIcons[item.id as keyof typeof recognitionIcons] ?? Award;
+            return (
+              <div class="p-5 rounded-xl bg-white border border-brand-border flex items-start gap-4">
+                <span class="w-10 h-10 rounded-lg bg-brand-sage-light text-brand-sage flex items-center justify-center shrink-0">
+                  <Icon class="w-5 h-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <p class="text-sm font-bold text-brand-dark">{item.title}</p>
+                  <p class="text-[11px] font-semibold text-brand-sage mb-1">{item.year}</p>
+                  <p class="text-xs text-brand-muted leading-relaxed">{item.detail}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Engagements -->
+  <section class="py-20 bg-brand-light border-b border-brand-border" id="engagements">
+    <div class="container-custom">
+      <SectionHeader
+        eyebrow="Engagements"
+        title="Meetings and partnerships in the field"
+        subtitle="Conversations with ministers, universities, banks and trade bodies that shape our programmes."
+      />
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {engagements.map((item) => (
+          <article class="bg-white rounded-xl border border-brand-border shadow-sm hover:shadow-md hover:border-brand-sage/60 transition-all overflow-hidden flex flex-col">
+            {item.image ? (
+              <div class="relative h-52 bg-slate-100 overflow-hidden">
+                <img
+                  src={item.image}
+                  alt={item.imageAlt ?? item.title}
+                  class="w-full h-full object-cover"
+                  style={item.id === 'selectusa' ? 'object-position: center 35%;' : undefined}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            ) : (
+              <div class="h-52 bg-white border-b border-brand-border flex items-center justify-center p-8">
+                {item.logo && (
+                  <img src={item.logo} alt={`${item.title} logo`} class="max-h-24 max-w-[220px] object-contain" loading="lazy" decoding="async" />
+                )}
+              </div>
+            )}
+            <div class="p-5 flex-1">
+              {item.when && (
+                <span class="inline-block mb-2 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-sage-light text-brand-sage">
+                  {item.when}
+                </span>
+              )}
+              <h3 class="text-base font-bold text-brand-dark mb-1.5 leading-snug">{item.title}</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">{item.detail}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Ecosystem partners -->
+  <section class="py-20 bg-white border-b border-brand-border" id="ecosystem">
+    <div class="container-custom">
+      <SectionHeader
+        eyebrow="Our Ecosystem"
+        title="Ecosystem partners"
+        subtitle="Agencies, corporates and startup communities we work alongside."
+        centered={true}
+      />
+      <ul class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto" role="list">
+        {ecosystemPartners.map((name) => (
+          <li class="px-4 py-2 rounded-full bg-brand-light border border-brand-border text-sm font-semibold text-brand-dark">
+            {name}
+          </li>
+        ))}
+        <li class="px-4 py-2 rounded-full bg-brand-sage text-white text-sm font-bold">and more</li>
+      </ul>
+
+      <div class="mt-16 space-y-12">
+        <div>
+          <h3 class="text-sm font-extrabold uppercase tracking-widest text-brand-sage mb-5">Government, statutory bodies & institutions</h3>
+          <LogoGrid logos={institutionLogos} columns="grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6" />
+        </div>
+        <div>
+          <h3 class="text-sm font-extrabold uppercase tracking-widest text-brand-sage mb-5">Corporate clients & ecosystem partners</h3>
+          <LogoGrid logos={corporateLogos} columns="grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Media agency partner -->
+  <section class="py-20 bg-brand-light border-b border-brand-border" id="media-partner">
+    <div class="container-custom">
+      <SectionHeader
+        eyebrow="Media & Technology Partners"
+        title={mediaPartner.title}
+        subtitle={mediaPartner.description}
+      />
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <div class="lg:col-span-7 rounded-2xl overflow-hidden border border-brand-border bg-white shadow-sm">
+          <img src={mediaPartner.networkImage} alt={mediaPartner.networkAlt} class="w-full h-auto" loading="lazy" decoding="async" />
+        </div>
+        <div class="lg:col-span-5 rounded-2xl overflow-hidden border border-brand-border bg-white shadow-sm">
+          <img src={mediaPartner.platformImage} alt={mediaPartner.platformAlt} class="w-full h-auto" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="Work With Us"
+    title="Planning a programme for your organisation?"
+    text="Talk to our team about a capability programme built around your goals, or read about our work beyond Malaysia."
+    primary={{ label: 'Discuss Your Training Needs', href: '/contact' }}
+    secondary={{ label: 'International Network', href: '/international' }}
+  />
+</BaseLayout>

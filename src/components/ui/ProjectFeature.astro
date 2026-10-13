@@ -1,0 +1,69 @@
+---
+import { ArrowRight, CheckCircle2 } from 'lucide-astro';
+
+interface Props {
+  title: string;
+  organisation: string;
+  category: string;
+  summary: string;
+  image: string;
+  imageAlt: string;
+  stat?: string;
+  /** Short verification line shown in the card footer. */
+  note?: string;
+  href?: string;
+  linkLabel?: string;
+}
+
+const { title, organisation, category, summary, image, imageAlt, stat, note, href, linkLabel = 'View full track record' } = Astro.props;
+---
+
+<div class="bg-white rounded-2xl border border-brand-border shadow-sm overflow-hidden hover:border-brand-sage/50 transition-all duration-300">
+  <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+    <div class="lg:col-span-5 relative min-h-[260px] lg:min-h-[340px] bg-slate-100 overflow-hidden">
+      <img
+        src={image}
+        alt={imageAlt}
+        class="absolute inset-0 w-full h-full object-cover object-center"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden"></div>
+      <span class="absolute bottom-3 left-3 lg:top-4 lg:left-4 lg:bottom-auto px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-brand-gold text-brand-dark shadow-sm">
+        Featured Engagement
+      </span>
+    </div>
+    <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
+      <div>
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-brand-sage-light text-brand-sage">
+            {category}
+          </span>
+          {stat && (
+            <span class="px-2.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+              {stat}
+            </span>
+          )}
+        </div>
+        <p class="text-sm font-semibold text-brand-sage mb-1.5">{organisation}</p>
+        <h3 class="text-xl sm:text-2xl font-bold text-brand-dark mb-3 leading-snug">{title}</h3>
+        <p class="text-sm text-brand-muted leading-relaxed mb-6">{summary}</p>
+      </div>
+
+      <div class="pt-4 border-t border-brand-border/70 flex flex-wrap items-center justify-between gap-3 text-xs text-brand-muted">
+        {note ? (
+          <div class="flex items-center gap-1.5 font-semibold text-emerald-800">
+            <CheckCircle2 class="w-4 h-4 text-emerald-700 shrink-0" />
+            <span>{note}</span>
+          </div>
+        ) : <span></span>}
+        {href && (
+          <a href={href} class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-sage hover:text-brand-sage-dark">
+            <span>{linkLabel}</span>
+            <ArrowRight class="w-3.5 h-3.5" />
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</div>

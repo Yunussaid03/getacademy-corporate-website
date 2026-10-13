@@ -1,88 +1,154 @@
 ---
 import BaseLayout from '@/components/layout/BaseLayout.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
-import { 
-  Users2, 
-  Award, 
-  CheckCircle2, 
-  ArrowRight, 
-  ShieldCheck, 
-  Briefcase, 
-  FileText,
-  HelpCircle,
-  Clock
-} from 'lucide-astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import CtaBand from '@/components/ui/CtaBand.astro';
+import TestimonialCard from '@/components/ui/TestimonialCard.astro';
+import { ArrowRight, BadgeCheck, Briefcase, Cpu, Globe2, Quote, ShieldCheck, Target } from 'lucide-astro';
+import { featuredTestimonials, itilTestimonials } from '@/data/testimonials';
 
+// Trainer standards (company profile slide 6, “Expertise” and “Measurable”; participant feedback slides 44–46)
 const trainerStandards = [
   {
-    title: 'Extensive Industry Experience',
-    desc: 'Our facilitators possess real-world sector backgrounds spanning corporate leadership, IT engineering, supply chain, and organizational development, translating theoretical models into actionable tools.'
+    title: 'Industry Experts',
+    desc: 'Our trainers are industry experts with a deep understanding of the latest trends and best practices, and bring real workplace experience into every session.'
   },
   {
-    title: 'Certified Adult Learning Methodologies',
-    desc: 'Trained and accredited in high-engagement facilitation techniques, simulation exercises, and interactive adult education frameworks.'
+    title: 'Application-Focused Delivery',
+    desc: 'Participants describe sessions built around real examples, bite-sized summaries and on-the-spot practice, so new ideas can be used in their own work straight away.'
   },
   {
-    title: 'Outcome-Driven Performance Coaching',
-    desc: 'Focused on measurable post-training progress, behavioral transfer, and measurable productivity improvements in the participant’s actual work environment.'
+    title: 'Tangible, Measurable Results',
+    desc: 'We believe in delivering tangible results. Our programmes are designed to boost productivity, efficiency and employee satisfaction.'
   }
 ];
 
-const faculties = [
+// Programme areas our trainers cover (company profile slides 2 and 4)
+const programmeAreas = [
   {
-    title: 'Leadership & Management Faculty',
-    icon: Award,
-    description: 'Subject matter practitioners specializing in managerial capability, executive transformation, employee relations, supervisory coaching, and ethics & governance.',
-    topics: ['Strategic Leadership', 'Supervisory Coaching', 'Performance Management', 'Change Execution']
+    title: 'AI Capacity Building',
+    icon: Cpu,
+    description: 'Practical AI capability for educators, public-sector leaders, agricultural entrepreneurs and corporate workforces.',
+    topics: ['Educator AI capability', 'Institutional AI readiness', 'AI for agritech', 'ChatGPT for business']
   },
   {
-    title: 'Workplace Performance & Essential Skills',
-    icon: Briefcase,
-    description: 'Specialists in high-performing team dynamics, root-cause problem solving, critical thinking, customer experience management, and commercial sales optimization.',
-    topics: ['Root-Cause Problem Solving', 'Critical Thinking', 'Customer Experience', 'Cross-Functional Synergy']
+    title: 'Digital Marketing & Entrepreneurship',
+    icon: Globe2,
+    description: 'Hands-on digital marketing, incubation and cross-border business pathways for professionals and business owners.',
+    topics: ['Certified Digital Marketing Strategist (CDMS)', 'Google Ads and content strategy', 'Business incubation (DFY)', 'Cross-border market entry']
   },
   {
-    title: 'Technical & Digital Transformation Faculty',
+    title: 'Global IT Certification',
     icon: ShieldCheck,
-    description: 'Industry-certified engineers and strategists delivering cutting-edge modules across digital marketing strategy (CDMS), IT operations, and technology adoption.',
-    topics: ['Digital Marketing Strategist (CDMS)', 'IT Operations & Infrastructure', 'Digital Workplace Tools']
+    description: 'CompTIA certification pathways and ITIL Foundation for technical teams and non-IT personnel.',
+    topics: ['CompTIA Security+, CySA+, CASP+', 'CompTIA Network+, Server+, Cloud+', 'CompTIA Cloud Essentials+', 'ITIL Foundation']
+  },
+  {
+    title: 'Professional Development',
+    icon: Briefcase,
+    description: 'Leadership, customer experience and workplace performance programmes for teams and managers.',
+    topics: ['Corporate culture and team building', 'Customer experience management', 'Design thinking and problem solving', 'Sales, events and customer service']
   }
 ];
 ---
 
 <BaseLayout
-  title="Our Trainers & Expert Faculty"
-  description="Learn about GET Academy's practitioner-led faculty selection standards and specialized corporate training domains across Malaysia."
+  title="Our Trainers & Lead Facilitator"
+  description="Meet GET Academy's lead facilitator Ganesh Kumar Manokara and the industry-expert trainers behind our digital marketing, IT certification and professional development programmes."
 >
-  <!-- Header Banner -->
-  <section class="bg-brand-dark text-white py-16 lg:py-20 border-b border-brand-sage/40">
-    <div class="container-custom max-w-4xl">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 text-brand-gold text-xs font-bold uppercase tracking-wider mb-4">
-        <span>Expert Faculty & Facilitators</span>
+  <PageHero
+    eyebrow="Expert Faculty & Facilitators"
+    title="Our Trainers"
+    description="Industry-experienced practitioners dedicated to delivering practical, measurable and engaging training for Malaysian enterprises, government agencies and learners."
+  />
+
+  <!-- Lead facilitator -->
+  <section class="py-20 bg-white">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        <div class="lg:col-span-5">
+          <div class="bg-brand-light rounded-2xl border border-brand-border p-8 flex flex-col items-center text-center">
+            <img
+              src="/assets/photos/ganesh-kumar-manokara.jpg"
+              alt="Ganesh Kumar Manokara, Co-founder and Chief Operating Officer of GET Academy"
+              class="w-52 h-52 rounded-full object-cover border-4 border-white shadow-xl ring-4 ring-brand-gold/70"
+              width="600"
+              height="600"
+              loading="lazy"
+            />
+            <p class="mt-6 text-xs font-extrabold uppercase tracking-widest text-brand-sage">Lead Facilitator</p>
+            <h2 class="mt-1 text-2xl font-extrabold text-brand-dark">Ganesh Kumar Manokara</h2>
+            <p class="text-sm font-semibold text-brand-sage mt-1">Co-founder & Chief Operating Officer, “Coach GK”</p>
+            <ul class="mt-5 space-y-2.5 text-left w-full">
+              <li class="flex items-start gap-2.5 text-xs text-brand-dark leading-snug">
+                <BadgeCheck class="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" aria-hidden="true" />
+                <span>Member, Digitalization Committee, Malaysia Productivity Corporation (MPC)</span>
+              </li>
+              <li class="flex items-start gap-2.5 text-xs text-brand-dark leading-snug">
+                <BadgeCheck class="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" aria-hidden="true" />
+                <span>Mentor, AIC RAISE business incubation programme (Government of India)</span>
+              </li>
+              <li class="flex items-start gap-2.5 text-xs text-brand-dark leading-snug">
+                <BadgeCheck class="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" aria-hidden="true" />
+                <span>Represented Malaysia at the UNESCO Entrepreneurship Education Network (EE-Net)</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-6">
+          <SectionHeader
+            eyebrow="Facilitation Standards"
+            title="Practitioner-Led Training for Real Workplace Results"
+            subtitle="Ganesh leads our Digital Marketing and ITIL Foundation programmes and is the face of GET Academy’s hands-on approach. As a C-level strategist with decades of experience in entrepreneurship, marketing and the e-commerce ecosystem, he teaches from practice, not theory."
+          />
+
+          <div class="space-y-4">
+            <figure class="p-6 rounded-2xl bg-brand-sage text-white relative">
+              <Quote class="w-7 h-7 text-brand-gold mb-3" aria-hidden="true" />
+              <blockquote class="text-sm sm:text-base leading-relaxed">
+                {featuredTestimonials[0].highlight}
+              </blockquote>
+              <figcaption class="mt-4 text-xs font-bold text-brand-gold">
+                {featuredTestimonials[0].name}, {featuredTestimonials[0].role}
+              </figcaption>
+            </figure>
+            <figure class="p-6 rounded-2xl bg-brand-light border border-brand-border">
+              <Quote class="w-7 h-7 text-brand-gold mb-3" aria-hidden="true" />
+              <blockquote class="text-sm sm:text-base leading-relaxed text-brand-text">
+                {itilTestimonials[0].quote}
+              </blockquote>
+              <figcaption class="mt-4 text-xs font-bold text-brand-sage">
+                {itilTestimonials[0].name}, ITIL Foundation trainee
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="flex flex-wrap gap-3 pt-1">
+            <a href="/testimonials" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold rounded-lg text-white bg-brand-sage hover:bg-brand-sage-dark transition-colors shadow-sm">
+              <span>Read All Testimonials</span>
+              <ArrowRight class="w-4 h-4" />
+            </a>
+            <a href="/about#leadership" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold rounded-lg text-brand-dark bg-white border border-brand-border hover:border-brand-sage/60 transition-colors">
+              <span>Leadership Profile</span>
+            </a>
+          </div>
+        </div>
       </div>
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-6">
-        Our Trainers
-      </h1>
-      <p class="text-lg text-gray-200 leading-relaxed">
-        Industry-experienced practitioners dedicated to delivering practical, measurable, and engaging corporate training programs for Malaysian enterprises.
-      </p>
     </div>
   </section>
 
-  <!-- Faculty Standards Overview -->
-  <section class="py-20 bg-white">
+  <!-- Standards -->
+  <section class="py-20 bg-brand-light border-y border-brand-border">
     <div class="container-custom">
-      <div class="max-w-3xl mb-12">
-        <SectionHeader
-          eyebrow="Facilitation Standards"
-          title="Practitioner-Led Training for Real Workplace Results"
-          subtitle="GET Academy facilitators are selected for their extensive corporate experience, deep domain knowledge, and certified adult learning methodologies. We believe high-impact training requires practitioners who have navigated real workplace challenges and can guide learners with actionable insights."
-        />
-      </div>
-
+      <SectionHeader
+        eyebrow="How We Teach"
+        title="What You Can Expect From Our Trainers"
+        centered={true}
+      />
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {trainerStandards.map((std, idx) => (
-          <div class="p-7 rounded-xl bg-brand-light border border-brand-border flex flex-col justify-between">
+          <div class="p-7 rounded-xl bg-white border border-brand-border shadow-sm flex flex-col justify-between">
             <div>
               <span class="text-2xl font-mono font-extrabold text-brand-sage block mb-4">0{idx + 1}</span>
               <h3 class="text-lg font-bold text-brand-dark mb-2.5">{std.title}</h3>
@@ -94,30 +160,30 @@ const faculties = [
     </div>
   </section>
 
-  <!-- Faculty Domains -->
-  <section class="py-20 bg-brand-light border-y border-brand-border">
+  <!-- Programme areas -->
+  <section class="py-20 bg-white">
     <div class="container-custom">
       <SectionHeader
         eyebrow="Domain Expertise"
-        title="Trainer Faculty by Capability Area"
-        subtitle="Our training network comprises certified trainers and subject matter experts across key corporate development domains."
+        title="Programme Areas Our Trainers Cover"
+        subtitle="Training across our four capability pillars, delivered on-site or virtually."
         centered={true}
       />
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {faculties.map((fac) => (
-          <div class="bg-white p-8 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        {programmeAreas.map((area) => (
+          <div class="bg-brand-light p-8 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
             <div>
-              <div class="w-12 h-12 rounded-lg bg-brand-light text-brand-sage flex items-center justify-center mb-5 border border-brand-border">
-                <fac.icon class="w-6 h-6" />
+              <div class="w-12 h-12 rounded-lg bg-white text-brand-sage flex items-center justify-center mb-5 border border-brand-border">
+                <area.icon class="w-6 h-6" />
               </div>
-              <h3 class="text-lg font-bold text-brand-dark mb-3 leading-snug">{fac.title}</h3>
-              <p class="text-sm text-brand-muted leading-relaxed mb-6">{fac.description}</p>
-              
+              <h3 class="text-lg font-bold text-brand-dark mb-3 leading-snug">{area.title}</h3>
+              <p class="text-sm text-brand-muted leading-relaxed mb-6">{area.description}</p>
+
               <div class="space-y-2 border-t border-brand-border/60 pt-4">
                 <span class="text-xs font-bold text-brand-sage uppercase tracking-wider block">Key Focus Areas:</span>
                 <ul class="text-xs text-brand-dark space-y-1.5 font-medium">
-                  {fac.topics.map((t) => (
+                  {area.topics.map((t) => (
                     <li class="flex items-center gap-2">
                       <span class="w-1.5 h-1.5 rounded-full bg-brand-gold shrink-0"></span>
                       <span>{t}</span>
@@ -126,56 +192,21 @@ const faculties = [
                 </ul>
               </div>
             </div>
-
-            <div class="mt-6 pt-4 border-t border-brand-border/60">
-              <a
-                href="/contact"
-                class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-sage hover:underline"
-              >
-                <span>Request Detailed Trainer CV</span>
-                <ArrowRight class="w-3.5 h-3.5" />
-              </a>
-            </div>
           </div>
         ))}
       </div>
-    </div>
-  </section>
 
-  <!-- Clear Verification Notice: Individual Trainer Biographies -->
-  <section class="py-14 bg-white">
-    <div class="container-custom max-w-4xl">
-      <div class="bg-amber-50/70 border border-amber-200/80 rounded-xl p-6 sm:p-8">
-        <div class="flex items-start gap-4">
-          <Clock class="w-6 h-6 text-amber-800 shrink-0 mt-0.5" />
-          <div class="space-y-2">
-            <h3 class="text-base font-bold text-amber-950 uppercase tracking-wide">
-              Individual Trainer Biographies & Credentials
-            </h3>
-            <p class="text-sm text-amber-900 leading-relaxed">
-              In accordance with our strict data protection and corporate verification policy, complete trainer credentials, HRD Corp TTT (Train-the-Trainer) certification numbers, and bespoke facilitation profiles are matched and provided directly to client HR teams upon proposal request.
-            </p>
-            <p class="text-xs text-amber-800 font-medium pt-1">
-              * To review certified trainer CVs for your organization’s scheduled dates, please contact our training advisory desk.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Bottom CTA -->
-  <section class="py-16 bg-brand-dark text-white text-center">
-    <div class="container-custom max-w-3xl space-y-4">
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Need a Specific Trainer Profile for an Upcoming Intake?</h2>
-      <p class="text-gray-200 text-sm max-w-xl mx-auto leading-relaxed">
-        Let us match your exact departmental competency requirements with accredited senior facilitators from our nationwide network.
+      <p class="mt-10 text-center text-sm text-brand-muted flex items-center justify-center gap-2">
+        <Target class="w-4 h-4 text-brand-sage" aria-hidden="true" />
+        <span>Trainer profiles for your programme dates are shared with HR teams on request.</span>
       </p>
-      <div class="pt-2">
-        <a href="/contact" class="px-6 py-3 rounded-lg font-bold bg-brand-gold text-brand-dark hover:bg-brand-gold-deep transition-all text-sm inline-block">
-          Request Faculty Profiles
-        </a>
-      </div>
     </div>
   </section>
+
+  <CtaBand
+    title="Need a Specific Trainer Profile for an Upcoming Intake?"
+    text="Tell us about your cohort and programme dates and we will match the right facilitators and share their profiles."
+    primary={{ label: 'Request Trainer Profiles', href: '/contact' }}
+    secondary={{ label: 'Explore Programmes', href: '/courses' }}
+  />
 </BaseLayout>
