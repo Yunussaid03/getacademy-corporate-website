@@ -6,7 +6,6 @@ import ProjectCard from '@/components/ui/ProjectCard.astro';
 import ProjectFeature from '@/components/ui/ProjectFeature.astro';
 import TestimonialCard from '@/components/ui/TestimonialCard.astro';
 import LogoGrid from '@/components/ui/LogoGrid.astro';
-import CompTIAPanel from '@/components/ui/CompTIAPanel.astro';
 import AccreditationCarousel from '@/components/ui/AccreditationCarousel.astro';
 import coursesData from '@/data/courses.json';
 import { projects } from '@/data/track-record';
@@ -20,64 +19,114 @@ import {
   Building2,
   Briefcase,
   CheckCircle2,
+  Clock,
+  Compass,
   Cpu,
   Globe2,
   GraduationCap,
+  HeartPulse,
   Laptop,
+  Layers,
   Mail,
   MapPin,
   Rocket,
   Send,
   ShieldCheck,
+  Sparkles,
+  TrendingUp,
   Award,
 } from 'lucide-astro';
 
-// 4 capability pillars (company profile, slide 2)
-const capabilityPillars = [
+// 3 Core Service Pillars: Consulting, Implementation, Training
+const servicePillars = [
   {
     number: '01',
-    icon: Cpu,
-    title: 'Artificial Intelligence Capacity Building',
-    subtitle: 'Institutional & Workforce AI Adoption',
-    description: 'Institutional AI readiness, leadership advisory, and practical AI adoption for educators, public sector leaders, and corporate workforces.',
-    image: '/assets/photos/ai-educator-training.jpeg',
-    imageAlt: 'GET Academy educators and institutional leaders in an applied AI training session',
-    href: '/track-record#projects',
-    badge: 'Institutional & Workforce AI'
+    icon: Compass,
+    title: 'Consulting',
+    subtitle: 'Strategic Advisory & Roadmapping',
+    description: 'We guide enterprise leaders and government agencies through digital maturity assessments, institutional AI readiness frameworks, and sustainable technology transformation roadmaps.',
+    image: '/assets/photos/staging-executive-advisory.jpg',
+    imageAlt: 'Executive digital transformation advisory and roadmapping session',
+    badge: 'Advisory & Strategy',
+    features: [
+      'Digital Maturity & Readiness Assessments',
+      'Institutional AI Strategy & Governance',
+      'Enterprise Technology Roadmaps',
+    ],
+    href: '/corporate-solutions',
+    ctaText: 'Explore Consulting Solutions',
   },
   {
     number: '02',
-    icon: Globe2,
-    title: 'Entrepreneurship & Cross-Border Business',
-    subtitle: 'Incubation & Market Expansion',
-    description: 'Certified digital marketing strategies (CDMS), enterprise incubation, and market expansion pathways connecting local businesses with global ecosystems.',
-    image: '/assets/photos/cross-border-select-usa.jpeg',
-    imageAlt: 'GET Academy international cross-border business and enterprise incubation initiative',
-    href: '/international',
-    badge: 'Digital Strategy & Incubation'
+    icon: Layers,
+    title: 'Implementation',
+    subtitle: 'Technology Integration & Execution',
+    description: 'We execute digital transformation by integrating modern software systems, automating mission-critical workflows, and architecting scalable digital tools tailored to operational needs.',
+    image: '/assets/photos/corporate-solutions.jpg',
+    imageAlt: 'Enterprise digital implementation, workflow automation, and systems integration',
+    badge: 'Integration & Deployment',
+    features: [
+      'Digital Workflow & Process Automation',
+      'AI & Cloud Systems Integration',
+      'Scalable Solution Architecture',
+    ],
+    href: '/corporate-solutions',
+    ctaText: 'Explore Implementation Track',
   },
   {
     number: '03',
-    icon: ShieldCheck,
-    title: 'Global IT Certification',
-    subtitle: 'Industry-Aligned Credentials',
-    description: 'Industry-aligned IT and cybersecurity training, including CompTIA certification pathways and foundational digital resilience for non-IT personnel.',
-    isBrandGraphic: true,
-    imageAlt: 'CompTIA international certification pathways',
-    href: '/courses?category=technical-it',
-    badge: 'CompTIA Pathways'
+    icon: GraduationCap,
+    title: 'Training',
+    subtitle: 'Workforce Capability Building',
+    description: 'Practitioner-led corporate training, certified IT career pathways, and applied AI masterclasses to equip teams with the practical skills required to succeed in modern digital environments.',
+    image: '/assets/photos/ai-educator-training.jpeg',
+    imageAlt: 'Workforce capability development and applied AI training workshop',
+    badge: 'Upskilling & Certification',
+    features: [
+      'Applied AI & Digital Literacy Programmes',
+      'Global IT Certifications (CompTIA, Cyber Security)',
+      'Leadership & Operational Excellence',
+    ],
+    href: '#programmes',
+    ctaText: 'View Training Portfolio',
+  },
+];
+
+// Innovation & Group Ventures
+const groupVentures = [
+  {
+    id: 'llw',
+    name: 'Long Life Wellness (LLW)',
+    sector: 'HealthTech',
+    status: 'Active Venture',
+    statusVariant: 'active',
+    icon: HeartPulse,
+    tagline: 'Modernizing Preventative Healthcare & Wellness',
+    description: 'A health technology initiative focused on modernizing wellness ecosystems through digital health solutions, health data analytics, and accessible preventative care technologies.',
+    focusAreas: ['Digital Health Solutions', 'Wellness Analytics', 'Preventative Care Tech'],
   },
   {
-    number: '04',
-    icon: Award,
-    title: 'Professional Development',
-    subtitle: 'Managerial & Operational Excellence',
-    description: 'Applied leadership development, customer experience management, design thinking, root-cause problem solving, and cross-functional team performance.',
-    image: '/assets/photos/welcome-classroom-session.jpeg',
-    imageAlt: 'Interactive classroom workshop session on managerial capabilities',
-    href: '/courses?category=workplace-performance',
-    badge: 'Leadership & Team Performance'
-  }
+    id: 'sea-ai',
+    name: 'SEA AI Academy',
+    sector: 'EdTech / Skilling',
+    status: 'Active Venture',
+    statusVariant: 'active',
+    icon: Sparkles,
+    tagline: 'Empowering Southeast Asia’s AI-Ready Workforce',
+    description: 'A regional EdTech and skilling venture delivering applied artificial intelligence curricula, institutional AI readiness frameworks, and hands-on digital capabilities across Southeast Asia.',
+    focusAreas: ['Applied AI Frameworks', 'Institutional Readiness', 'Regional Workforce Skilling'],
+  },
+  {
+    id: 'fintech',
+    name: 'FinTech Venture',
+    sector: 'FinTech',
+    status: 'Coming Soon',
+    statusVariant: 'upcoming',
+    icon: TrendingUp,
+    tagline: 'Enterprise Financial Innovation',
+    description: 'An upcoming financial technology initiative currently in research and development, designed to deliver next-generation enterprise digital transaction tools and fintech infrastructure.',
+    focusAreas: ['Enterprise Financial Tools', 'Digital Transaction Infrastructure', 'In R&D Stage'],
+  },
 ];
 
 // Track-record preview: one featured engagement and six supporting projects
@@ -127,10 +176,10 @@ const featuredCourses = coursesData.filter((course) => course.featured);
 ---
 
 <BaseLayout
-  title="Global Experiential Training Academy PLT — Human Capital Development Partner"
-  description="GET Academy is an established human capital development and skills training partner for enterprises, government agencies, and educational institutions across Malaysia."
+  title="Digital Transformation Centre — Consulting, Implementation & Training"
+  description="Korporatly Group is a Digital Transformation Centre & Agency delivering enterprise consulting, technology implementation, and workforce capability development across Malaysia."
 >
-  <!-- Section 1 — Hero: Who We Are (Visual-First Modern Corporate Design) -->
+  <!-- Section 1 — Hero: Korporatly Group Digital Transformation Positioning -->
   <section id="hero" class="relative bg-gradient-to-b from-[#244336] via-[#2D5444] to-[#244336] text-white overflow-hidden py-14 sm:py-20 lg:py-24 border-b border-brand-sage/30">
     <!-- Subtle Background Texture -->
     <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#FADB50_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
@@ -142,15 +191,15 @@ const featuredCourses = coursesData.filter((course) => course.featured);
         <div class="lg:col-span-6 space-y-5">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-brand-gold/30 text-brand-gold text-xs font-bold tracking-wide">
             <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
-            <span>Human Capital Development Partner</span>
+            <span>Digital Transformation Centre & Agency</span>
           </div>
 
           <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight sm:leading-tight text-white">
-            Your Unbeatable <span class="text-brand-gold">Human Capital</span> Development Partner
+            Accelerating Enterprise <span class="text-brand-gold">Digital Transformation</span>
           </h1>
 
           <p class="text-base sm:text-lg text-gray-200 leading-relaxed max-w-xl">
-            We partner with enterprises, government agencies, and educational institutions across Malaysia to build practical capabilities in artificial intelligence, technology, leadership, and operational excellence.
+            Korporatly Group partners with enterprises, government bodies, and institutions across Malaysia to drive modern digital modernization through strategic Consulting, technology Implementation, and specialized workforce Training.
           </p>
 
           <!-- Two Clear Actions -->
@@ -159,24 +208,24 @@ const featuredCourses = coursesData.filter((course) => course.featured);
               href="#corporate-enquiry"
               class="inline-flex items-center justify-center px-6 py-3.5 text-sm sm:text-base font-bold rounded-lg text-brand-dark bg-brand-gold hover:bg-brand-gold-deep shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
             >
-              <span>Discuss Your Training Needs</span>
+              <span>Consult Our Advisory Team</span>
               <ArrowRight class="w-4 h-4 ml-2" />
             </a>
             <a
-              href="#what-we-do"
+              href="#services"
               class="inline-flex items-center justify-center px-6 py-3.5 text-sm sm:text-base font-bold rounded-lg text-white bg-transparent border-2 border-white/70 hover:bg-white/10 hover:border-white transition-all"
             >
-              Explore Our Capabilities
+              Explore Services & Ventures
             </a>
           </div>
         </div>
 
-        <!-- Hero Visual: Prominent Authentic Photograph from Company Profile PDF -->
+        <!-- Hero Visual: Authentic Strategic Advisory Photograph -->
         <div class="lg:col-span-6">
           <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/20 group">
             <img
               src="/assets/photos/live-workshop-facilitator-enhanced.jpg"
-              alt="GET Academy corporate workshop facilitator conducting an interactive training session"
+              alt="Korporatly Group advisory facilitator conducting an executive capability session"
               class="w-full h-80 sm:h-[420px] lg:h-[460px] object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
               width="1539"
               height="1737"
@@ -187,14 +236,14 @@ const featuredCourses = coursesData.filter((course) => course.featured);
             <div class="absolute bottom-4 left-4 right-4 bg-brand-dark/85 backdrop-blur-md p-4 rounded-xl border border-white/15 text-white flex items-center justify-between gap-4">
               <div class="space-y-0.5">
                 <span class="text-[11px] font-extrabold uppercase tracking-wider text-brand-gold block">
-                  Interactive Adult Learning
+                  Strategic Advisory & Implementation
                 </span>
                 <p class="text-xs text-gray-200 font-medium">
-                  Practitioner-led workshop delivery for corporate and institutional cohorts
+                  Guiding organizations through technology adoption and capability building
                 </p>
               </div>
               <span class="shrink-0 px-2.5 py-1 rounded bg-brand-sage text-[10px] font-bold text-white uppercase tracking-wider">
-                GET Academy
+                Korporatly Group
               </span>
             </div>
           </div>
@@ -203,31 +252,27 @@ const featuredCourses = coursesData.filter((course) => course.featured);
     </div>
   </section>
 
-  <!-- Section 2 — What We Do: 4 Capability Pillars -->
-  <section class="py-20 lg:py-24 bg-white" id="what-we-do">
+  <!-- Section 2 — Core Service Pillars: Consulting, Implementation, Training -->
+  <section class="py-20 lg:py-24 bg-white" id="services">
     <div class="container-custom">
       <SectionHeader
-        eyebrow="Core Capabilities"
-        title="What We Do"
-        subtitle="Specialized human capital and capability development structured across four distinct pillars for organizations seeking measurable operational growth."
+        eyebrow="Core Service Pillars"
+        title="Consulting, Implementation & Training"
+        subtitle="A tripartite capability framework designed to bridge executive strategy, technology integration, and human workforce readiness."
         centered={true}
       />
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-        {capabilityPillars.map((pillar) => (
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {servicePillars.map((pillar) => (
           <div class="bg-brand-light rounded-2xl border border-brand-border hover:border-brand-sage/60 hover:shadow-lg transition-all duration-300 flex flex-col overflow-hidden group">
-            <!-- Visual Asset: Meaningful Photograph or Certified Strip from Company Profile -->
+            <!-- Visual Asset: Authentic Photography -->
             <div class="relative h-48 w-full bg-slate-100 overflow-hidden border-b border-brand-border">
-              {pillar.isBrandGraphic ? (
-                <CompTIAPanel />
-              ) : (
-                <img
-                  src={pillar.image}
-                  alt={pillar.imageAlt}
-                  class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-              )}
+              <img
+                src={pillar.image}
+                alt={pillar.imageAlt}
+                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
 
               <!-- Badge Overlay -->
               <div class="absolute top-3 left-3 flex items-center gap-2">
@@ -241,7 +286,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
             </div>
 
             <!-- Card Content -->
-            <div class="p-6 flex-grow flex flex-col justify-between">
+            <div class="p-6 sm:p-7 flex-grow flex flex-col justify-between">
               <div>
                 <div class="flex items-center gap-2 mb-2 text-brand-sage">
                   <pillar.icon class="w-4 h-4 shrink-0" />
@@ -250,13 +295,24 @@ const featuredCourses = coursesData.filter((course) => course.featured);
                   </span>
                 </div>
 
-                <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-sage transition-colors leading-snug mb-3">
+                <h3 class="text-xl font-extrabold text-brand-dark group-hover:text-brand-sage transition-colors leading-snug mb-3">
                   {pillar.title}
                 </h3>
 
-                <p class="text-xs text-brand-muted leading-relaxed mb-4">
+                <p class="text-xs sm:text-sm text-brand-muted leading-relaxed mb-5">
                   {pillar.description}
                 </p>
+
+                <!-- Core Capabilities List -->
+                <div class="space-y-2 mb-6 pt-2">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-brand-muted block">Capabilities</span>
+                  {pillar.features.map((feature) => (
+                    <div class="flex items-center gap-2 text-xs text-brand-dark font-medium">
+                      <CheckCircle2 class="w-3.5 h-3.5 text-brand-sage shrink-0" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <!-- Action Link -->
@@ -265,7 +321,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
                   href={pillar.href}
                   class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-sage group-hover:text-brand-sage-dark group-hover:translate-x-0.5 transition-all"
                 >
-                  <span>Explore Track</span>
+                  <span>{pillar.ctaText}</span>
                   <ArrowRight class="w-3.5 h-3.5 text-brand-sage" />
                 </a>
               </div>
@@ -276,8 +332,79 @@ const featuredCourses = coursesData.filter((course) => course.featured);
     </div>
   </section>
 
-  <!-- Section 3 — Institutional Experience and Impact -->
-  <section class="py-20 bg-brand-light border-y border-brand-border" id="institutional-experience">
+  <!-- Section 3 — Group Ventures & Innovation Ecosystem -->
+  <section class="py-20 lg:py-24 bg-brand-light border-y border-brand-border" id="ventures">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto text-center mb-14">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-sage-light text-brand-sage text-xs font-bold tracking-wide uppercase mb-3">
+          <Rocket class="w-3.5 h-3.5 text-brand-sage" />
+          <span>Innovation Ecosystem</span>
+        </span>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-brand-dark tracking-tight">
+          Specialized Technology Ventures
+        </h2>
+        <p class="text-sm sm:text-base text-brand-muted mt-3 leading-relaxed">
+          In addition to client services, Korporatly Group incubates and accelerates specialized technology ventures addressing high-growth sectors across Southeast Asia.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        {groupVentures.map((venture) => (
+          <div class="bg-white rounded-2xl border border-brand-border p-7 shadow-sm hover:border-brand-sage/60 hover:shadow-lg transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between gap-3 mb-5">
+                <div class="w-12 h-12 rounded-xl bg-brand-light border border-brand-border text-brand-sage flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <venture.icon class="w-6 h-6 text-brand-sage" />
+                </div>
+                {venture.statusVariant === 'active' ? (
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+                    <span>{venture.status}</span>
+                  </span>
+                ) : (
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                    <Clock class="w-3 h-3 text-amber-600" />
+                    <span>{venture.status}</span>
+                  </span>
+                )}
+              </div>
+
+              <div class="space-y-1 mb-3">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-brand-sage block">
+                  {venture.sector}
+                </span>
+                <h3 class="text-xl font-extrabold text-brand-dark tracking-tight">
+                  {venture.name}
+                </h3>
+                <p class="text-xs font-semibold text-brand-gold-deep">
+                  {venture.tagline}
+                </p>
+              </div>
+
+              <p class="text-xs sm:text-sm text-brand-muted leading-relaxed mb-6">
+                {venture.description}
+              </p>
+            </div>
+
+            <div class="pt-5 border-t border-brand-border/70">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-brand-muted block mb-2">Key Focus Areas</span>
+              <div class="flex flex-wrap gap-1.5">
+                {venture.focusAreas.map((area) => (
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium bg-brand-light text-brand-dark border border-brand-border">
+                    <CheckCircle2 class="w-3 h-3 text-brand-sage shrink-0" />
+                    <span>{area}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4 — Institutional Experience and Impact -->
+  <section class="py-20 bg-white border-b border-brand-border" id="institutional-experience">
     <div class="container-custom">
       <!-- Section Header & Ecosystem Attribution Context -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
@@ -285,7 +412,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
           <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage">Demonstrated Track Record</p>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">Institutional Experience & Public Sector Impact</h2>
           <p class="text-sm sm:text-base text-brand-muted leading-relaxed max-w-2xl">
-            GET Academy is entrusted by federal ministries, statutory bodies, and university leadership to design capability roadmaps, executive advisory, and technological skilling.
+            Our leadership and advisory practice are entrusted by federal ministries, statutory bodies, and university leadership to design capability roadmaps, executive advisory, and technological skilling.
           </p>
         </div>
         <div class="lg:col-span-5 bg-white p-5 rounded-2xl border border-brand-border shadow-sm flex items-start gap-3.5">
@@ -404,7 +531,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
   </section>
 
   <!-- Section 6 — Why Partner With Us -->
-  <section class="py-20 bg-brand-light border-y border-brand-border" id="why-get-academy">
+  <section class="py-20 bg-brand-light border-y border-brand-border" id="why-partner">
     <div class="container-custom">
       <div class="max-w-3xl mx-auto text-center mb-14">
         <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">The Strategic Advantage</p>
@@ -412,7 +539,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
           Why Partner With Us?
         </h2>
         <p class="text-sm sm:text-base text-brand-muted mt-3 leading-relaxed">
-          Five reasons organisations choose GET Academy to build practical, certified and measurable capability in their teams.
+          Five reasons organisations choose Korporatly Group to guide digital transformation and build practical, certified and measurable capability in their teams.
         </p>
       </div>
 
@@ -484,9 +611,9 @@ const featuredCourses = coursesData.filter((course) => course.featured);
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
         <div class="max-w-2xl">
           <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">Participant Feedback</p>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">What Our Trainees Say</h2>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">What Our Participants Say</h2>
           <p class="text-sm sm:text-base text-brand-muted mt-2">
-            Founders and marketers describe learning with Coach GK in their own words.
+            Founders, executives, and marketers describe learning with Coach GK in their own words.
           </p>
         </div>
         <a
@@ -518,7 +645,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
     <div class="container-custom">
       <div class="text-center max-w-2xl mx-auto mb-8">
         <span class="text-xs font-extrabold uppercase tracking-widest text-brand-sage block mb-1">Our Engagements</span>
-        <h3 class="text-xl font-extrabold text-brand-dark">Organisations We Have Engaged With</h3>
+        <h3 class="text-xl font-extrabold text-brand-dark">Organisations Engaged by Our Leadership & Practice Teams</h3>
       </div>
       <LogoGrid logos={featuredLogos} />
       <div class="mt-8 text-center">
@@ -535,10 +662,10 @@ const featuredCourses = coursesData.filter((course) => course.featured);
     <div class="container-custom">
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
         <div>
-          <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">Curriculum Offerings</p>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">Programmes for Every Learner</h2>
+          <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">Service Pillar 03: Training & Skilling</p>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">Workforce Capability Building Programmes</h2>
           <p class="text-sm sm:text-base text-brand-muted mt-2 max-w-xl">
-            Programmes spanning digital marketing (CDMS), business incubation, global IT certification and professional development. All HRDC claimable.
+            Comprehensive training tracks spanning applied AI, global IT certification (CompTIA), digital strategies, and leadership transformation. All programmes HRDC claimable.
           </p>
         </div>
         <div>
@@ -590,9 +717,9 @@ const featuredCourses = coursesData.filter((course) => course.featured);
         <!-- Left: Official Contact Desk -->
         <div class="lg:col-span-5 space-y-6">
           <span class="text-xs font-extrabold uppercase tracking-widest text-brand-gold block">B2B & Institutional Engagement</span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Discuss Your Training Needs</h2>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Discuss Your Digital Transformation Needs</h2>
           <p class="text-gray-200 text-sm leading-relaxed">
-            We partner with corporate HR directors, government training coordinators, and higher education leaders to formulate tailored capability frameworks and proposal schedules.
+            We partner with corporate executives, government leaders, and higher education directors to formulate tailored consulting frameworks, implementation plans, and workforce training schedules.
           </p>
 
           <div class="p-6 bg-white/5 rounded-2xl border border-white/10 space-y-4 text-xs text-gray-300">
@@ -626,9 +753,9 @@ const featuredCourses = coursesData.filter((course) => course.featured);
         <!-- Right: Inquiry Form -->
         <div class="lg:col-span-7 bg-white text-brand-dark p-8 sm:p-10 rounded-2xl border border-brand-border shadow-xl">
           <div class="mb-6">
-            <h3 class="text-xl font-extrabold text-brand-dark">Request an Enterprise or Institutional Proposal</h3>
+            <h3 class="text-xl font-extrabold text-brand-dark">Request a Consultation or Proposal</h3>
             <p class="text-xs text-brand-muted mt-1">
-              Submit your departmental requirements below and our advisory team will respond within {site.responseTime}.
+              Submit your departmental or organizational requirements below and our advisory team will respond within {site.responseTime}.
             </p>
           </div>
 
@@ -661,19 +788,19 @@ const featuredCourses = coursesData.filter((course) => course.featured);
             </div>
 
             <div>
-              <label for="org-pillar" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Primary Capability Track *</label>
+              <label for="org-pillar" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Primary Focus Area *</label>
               <select id="org-pillar" name="track" required class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage">
-                <option value="Artificial Intelligence Capacity Building">Artificial Intelligence Capacity Building</option>
-                <option value="Entrepreneurship & Cross-Border Business">Entrepreneurship & Cross-Border Business</option>
+                <option value="Digital Transformation Consulting & Strategy">Digital Transformation Consulting & Strategy</option>
+                <option value="Software & Technology Implementation">Software & Technology Implementation</option>
+                <option value="Workforce AI & Technology Training">Workforce AI & Technology Training</option>
                 <option value="Global IT Certification (CompTIA, Cyber Security)">Global IT Certification (CompTIA, Cyber Security)</option>
-                <option value="Professional Development & Leadership Transformation">Professional Development & Leadership Transformation</option>
-                <option value="Custom In-House Capability Outline">Custom In-House Capability Outline</option>
+                <option value="Custom Enterprise Capability Framework">Custom Enterprise Capability Framework</option>
               </select>
             </div>
 
             <div>
               <label for="org-notes" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Brief Objectives or Target Schedule</label>
-              <textarea id="org-notes" name="message" rows="3" placeholder="Outline your team upskilling objectives, target month, or specific cohort requirements..." class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage"></textarea>
+              <textarea id="org-notes" name="message" rows="3" placeholder="Outline your transformation objectives, target month, or specific cohort requirements..." class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage"></textarea>
             </div>
 
             <!-- Honeypot: hidden from visitors, catches automated submissions -->
@@ -684,7 +811,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
 
             <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 bg-brand-sage text-white font-bold rounded-lg hover:bg-brand-sage-dark transition-all text-xs shadow-sm disabled:opacity-60">
               <Send class="w-3.5 h-3.5" />
-              <span>Submit Training Consultation Request</span>
+              <span>Submit Consultation Request</span>
             </button>
           </form>
 

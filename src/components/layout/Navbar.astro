@@ -19,9 +19,9 @@ interface NavItem {
 
 const aboutSections: SubNavItem[] = [
   { label: 'Who We Are', href: '/about', targetId: 'page:/about' },
-  { label: 'What We Do', href: '/#what-we-do', targetId: 'what-we-do' },
+  { label: 'What We Do', href: '/#services', targetId: 'services' },
   { label: 'Accreditations & Affiliations', href: '/#accreditations', targetId: 'accreditations' },
-  { label: 'Why Partner With Us', href: '/#why-get-academy', targetId: 'why-get-academy' },
+  { label: 'Why Partner With Us', href: '/#why-partner', targetId: 'why-partner' },
   { label: 'Leadership & Trainers', href: '/trainers', targetId: 'page:/trainers' },
 ];
 
@@ -67,20 +67,13 @@ const isInitialActive = (id: string) => (pagesByItem[id] ?? []).includes(current
   <!-- Main Navigation -->
   <div class="container-custom py-3.5 flex items-center justify-between">
     <!-- Logo and Identity -->
-    <a href="/" class="flex items-center gap-4 sm:gap-5 group focus:outline-none focus:ring-2 focus:ring-brand-sage rounded-lg py-1">
-      <img 
-        src="/assets/brand/GETA-Logo-HQ.png" 
-        alt="GET Academy Logo" 
-        class="h-20 sm:h-24 w-auto object-contain rounded-sm shadow-[0_4px_10px_rgba(0,0,0,0.22)] transform transition duration-200 group-hover:scale-105"
-        width="150"
-        height="150"
-      />
-      <div class="flex flex-col justify-center leading-[1.15]">
-        <span class="font-bold text-xl sm:text-2xl text-neutral-900 tracking-tight">
-          GET
+    <a href="/" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand-sage rounded-lg py-1">
+      <div class="flex flex-col justify-center leading-tight">
+        <span class="font-extrabold text-xl sm:text-2xl text-brand-dark tracking-tight group-hover:text-brand-sage transition-colors">
+          KORPORATLY <span class="text-brand-gold">GROUP</span>
         </span>
-        <span class="font-bold text-xl sm:text-2xl text-neutral-900 tracking-tight">
-          Academy
+        <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-muted">
+          Digital Transformation Centre
         </span>
       </div>
     </a>
@@ -255,11 +248,12 @@ const isInitialActive = (id: string) => (pagesByItem[id] ?? []).includes(current
   // Section configuration mapping homepage IDs to navbar items
   const sectionsConfig = [
     { id: 'hero', parentId: 'home', subTarget: null },
-    { id: 'what-we-do', parentId: 'about', subTarget: 'what-we-do' },
+    { id: 'services', parentId: 'about', subTarget: 'services' },
+    { id: 'ventures', parentId: 'about', subTarget: null },
     { id: 'institutional-experience', parentId: 'track-record', subTarget: null },
     { id: 'international', parentId: 'track-record', subTarget: null },
     { id: 'accreditations', parentId: 'about', subTarget: 'accreditations' },
-    { id: 'why-get-academy', parentId: 'about', subTarget: 'why-get-academy' },
+    { id: 'why-partner', parentId: 'about', subTarget: 'why-partner' },
     { id: 'testimonials', parentId: 'track-record', subTarget: null },
     { id: 'programmes', parentId: 'courses', subTarget: null },
     { id: 'corporate-enquiry', parentId: 'contact', subTarget: null },

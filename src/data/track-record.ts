@@ -80,7 +80,7 @@ export const projects: Project[] = [
     summary:
       'Successfully proposed a solution to the Ministry and was awarded the project to conduct a Gap Analysis, derive an improvement plan and champion its implementation. Also delivered an organisational transformation project for the Prime Minister’s Department and the Ministry of Education.',
     image: '/assets/photos/hero-training.jpg',
-    imageAlt: 'GET Academy leadership workshop session',
+    imageAlt: 'Leadership workshop and transformation session',
     stat: 'Gap analysis & transformation',
     home: true,
   },
@@ -90,9 +90,9 @@ export const projects: Project[] = [
     organisation: 'Malaysia Healthcare Travel Council (MHTC)',
     category: 'Statutory Body',
     summary:
-      'On 29 November 2023, GET Academy trained the MHTC team on how to navigate digital marketing in the healthcare industry.',
+      'On 29 November 2023, our training practice trained the MHTC team on how to navigate digital marketing in the healthcare industry.',
     image: '/assets/photos/mhtc-healthcare-workshop.jpeg',
-    imageAlt: 'GET Academy training session with the Malaysia Healthcare Travel Council team',
+    imageAlt: 'Training session with the Malaysia Healthcare Travel Council team',
     stat: '29 November 2023',
     home: true,
   },
