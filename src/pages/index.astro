@@ -6,7 +6,6 @@ import ProjectCard from '@/components/ui/ProjectCard.astro';
 import ProjectFeature from '@/components/ui/ProjectFeature.astro';
 import TestimonialCard from '@/components/ui/TestimonialCard.astro';
 import LogoGrid from '@/components/ui/LogoGrid.astro';
-import CompTIAPanel from '@/components/ui/CompTIAPanel.astro';
 import AccreditationCarousel from '@/components/ui/AccreditationCarousel.astro';
 import coursesData from '@/data/courses.json';
 import { projects } from '@/data/track-record';
@@ -20,64 +19,230 @@ import {
   Building2,
   Briefcase,
   CheckCircle2,
+  Clock,
+  Compass,
   Cpu,
   Globe2,
   GraduationCap,
+  HeartPulse,
   Laptop,
+  Layers,
   Mail,
   MapPin,
   Rocket,
   Send,
   ShieldCheck,
+  Sparkles,
+  TrendingUp,
   Award,
+  Stethoscope,
+  ArrowUpRight,
+  ChevronDown,
+  ExternalLink,
+  Play,
+  Pause,
+  RotateCcw,
+  Maximize2,
+  X,
 } from 'lucide-astro';
 
-// 4 capability pillars (company profile, slide 2)
-const capabilityPillars = [
+// 3 Core Service Pillars: Consulting, Implementation, Training
+const servicePillars = [
   {
     number: '01',
-    icon: Cpu,
-    title: 'Artificial Intelligence Capacity Building',
-    subtitle: 'Institutional & Workforce AI Adoption',
-    description: 'Institutional AI readiness, leadership advisory, and practical AI adoption for educators, public sector leaders, and corporate workforces.',
-    image: '/assets/photos/ai-educator-training.jpeg',
-    imageAlt: 'GET Academy educators and institutional leaders in an applied AI training session',
-    href: '/track-record#projects',
-    badge: 'Institutional & Workforce AI'
+    icon: Compass,
+    title: 'Consulting',
+    subtitle: 'Strategic Advisory & Roadmapping',
+    description: 'We guide enterprise leaders and government agencies through digital maturity assessments, institutional AI readiness frameworks, and sustainable technology transformation roadmaps.',
+    image: '/assets/photos/staging-executive-advisory.jpg',
+    imageAlt: 'Executive digital transformation advisory and roadmapping session',
+    badge: 'Advisory & Strategy',
+    features: [
+      'Digital Maturity & Readiness Assessments',
+      'Institutional AI Strategy & Governance',
+      'Enterprise Technology Roadmaps',
+    ],
+    href: '/corporate-solutions',
+    ctaText: 'Explore Consulting Solutions',
   },
   {
     number: '02',
-    icon: Globe2,
-    title: 'Entrepreneurship & Cross-Border Business',
-    subtitle: 'Incubation & Market Expansion',
-    description: 'Certified digital marketing strategies (CDMS), enterprise incubation, and market expansion pathways connecting local businesses with global ecosystems.',
-    image: '/assets/photos/cross-border-select-usa.jpeg',
-    imageAlt: 'GET Academy international cross-border business and enterprise incubation initiative',
-    href: '/international',
-    badge: 'Digital Strategy & Incubation'
+    icon: Layers,
+    title: 'Implementation',
+    subtitle: 'Technology Integration & Execution',
+    description: 'We execute digital transformation by integrating modern software systems, automating mission-critical workflows, and architecting scalable digital tools tailored to operational needs.',
+    image: '/assets/photos/corporate-solutions.jpg',
+    imageAlt: 'Enterprise digital implementation, workflow automation, and systems integration',
+    badge: 'Integration & Deployment',
+    features: [
+      'Digital Workflow & Process Automation',
+      'AI & Cloud Systems Integration',
+      'Scalable Solution Architecture',
+    ],
+    href: '/corporate-solutions',
+    ctaText: 'Explore Implementation Track',
   },
   {
     number: '03',
-    icon: ShieldCheck,
-    title: 'Global IT Certification',
-    subtitle: 'Industry-Aligned Credentials',
-    description: 'Industry-aligned IT and cybersecurity training, including CompTIA certification pathways and foundational digital resilience for non-IT personnel.',
-    isBrandGraphic: true,
-    imageAlt: 'CompTIA international certification pathways',
-    href: '/courses?category=technical-it',
-    badge: 'CompTIA Pathways'
+    icon: GraduationCap,
+    title: 'Training',
+    subtitle: 'Workforce Capability Building',
+    description: 'Practitioner-led corporate training, certified IT career pathways, and applied AI masterclasses to equip teams with the practical skills required to succeed in modern digital environments.',
+    image: '/assets/photos/ai-educator-training.jpeg',
+    imageAlt: 'Workforce capability development and applied AI training workshop',
+    badge: 'Upskilling & Certification',
+    features: [
+      'Applied AI & Digital Literacy Programmes',
+      'Global IT Certifications (CompTIA, Cyber Security)',
+      'Leadership & Operational Excellence',
+    ],
+    href: '#programmes',
+    ctaText: 'View Training Portfolio',
+  },
+];
+
+// Interactive Ecosystem Showcases (Dr KG Official & SEA AI Academy)
+// Curated Venture Showcase (Dr KG Official & SEA AI Academy)
+const ecosystemProjects = [
+  {
+    id: 'dr-kg-official',
+    name: 'Dr KG Official',
+    sector: 'HealthTech & Functional Longevity',
+    ventureEntity: 'Long Life Wellness',
+    tagline: 'Doctor-led biomarker reviews and proactive functional longevity diagnostics moving healthcare from reactive treatment to biological optimization.',
+    url: 'https://drkgofficial.com',
+    ctaText: 'Visit drkgofficial.com',
+    previewImage: '/assets/ventures/drkg-preview.png',
+    previewAlt: 'Dr KG Official functional longevity platform walkthrough preview',
+    videoWalkthrough: '/assets/ventures/drkg-walkthrough.mp4',
+    videoWebm: '/assets/ventures/drkg-walkthrough.webm',
+    theme: {
+      accentText: 'text-teal-300',
+      accentBorder: 'border-white/10 hover:border-teal-400/40',
+      badgeBg: 'bg-teal-500/10 text-teal-300 border-teal-500/20',
+      buttonBg: 'bg-teal-500 hover:bg-teal-400 text-slate-950',
+      dotColor: 'bg-teal-400',
+      glow: 'rgba(20, 184, 166, 0.25)',
+    },
+    sections: [
+      {
+        id: 'overview',
+        label: 'Overview & Mission',
+        title: 'Normal ≠ Optimum Functional Health',
+        lead: 'A digital-first preventative health ecosystem moving patient care from reactive symptom triage to proactive biochemical optimization.',
+        highlights: [
+          'Doctor-interpreted virtual blood test biomarker consultations nationwide',
+          'Clinical guidance led by Dr. Kalpana Devi A/P Silvaraj (Dr. KG), MD, MMC & MOH Registered (17+ years clinical experience)',
+          'Clear functional longevity tiers designed to identify early metabolic and inflammatory shifts',
+        ],
+        mediaType: 'image',
+        mediaSrc: '/assets/ventures/drkg-preview.png',
+        mediaAlt: 'Dr KG Official functional medicine platform overview',
+      },
+      {
+        id: 'walkthrough',
+        label: 'Live Walkthrough',
+        title: 'Authentic Browser Navigation Session',
+        lead: 'Direct recording of real patient intake and service navigation across drkgofficial.com in high-definition 1280x720.',
+        highlights: [
+          'Demonstrates real responsive UI, clinical review tiers, and pricing models',
+          'Full-desktop live walkthrough covering biomarker reviews and corporate screening',
+          'Interactive controls: scrub, pause, replay, and expand fullscreen',
+        ],
+        mediaType: 'video',
+      },
+      {
+        id: 'protocols',
+        label: '90-Day Protocols',
+        title: 'Structured Longevity & Lifestyle Action Plans',
+        lead: 'Personalized three-month protocols combining targeted clinical nutrition, micronutrient repletion, and progressive follow-up checkpoints.',
+        highlights: [
+          'Doctor-directed actionable nutrition and lifestyle roadmap',
+          'Eliminates supplementation guesswork with evidence-based biomarkers',
+          'Trackable progress milestones evaluated at 30, 60, and 90-day intervals',
+        ],
+        mediaType: 'image',
+        mediaSrc: '/assets/ventures/drkg-lab.jpg',
+        mediaAlt: 'Clinical protocol planning and laboratory biomarker evaluation',
+      },
+    ],
   },
   {
-    number: '04',
-    icon: Award,
-    title: 'Professional Development',
-    subtitle: 'Managerial & Operational Excellence',
-    description: 'Applied leadership development, customer experience management, design thinking, root-cause problem solving, and cross-functional team performance.',
-    image: '/assets/photos/welcome-classroom-session.jpeg',
-    imageAlt: 'Interactive classroom workshop session on managerial capabilities',
-    href: '/courses?category=workplace-performance',
-    badge: 'Leadership & Team Performance'
-  }
+    id: 'sea-ai-academy',
+    name: 'SEA AI Academy',
+    sector: 'EdTech & Learning Intelligence',
+    ventureEntity: 'Adaptive Learning Infrastructure',
+    tagline: 'Next-generation adaptive learning platform that diagnoses competency gaps and generates tailored, verifiable pathways for modern enterprise workforces.',
+    url: 'https://seaaiacademy.io',
+    ctaText: 'Visit seaaiacademy.io',
+    previewImage: '/assets/ventures/seaai-preview.png',
+    previewAlt: 'SEA AI Academy adaptive learning platform walkthrough preview',
+    videoWalkthrough: '/assets/ventures/seaai-walkthrough.mp4',
+    videoWebm: '/assets/ventures/seaai-walkthrough.webm',
+    theme: {
+      accentText: 'text-amber-300',
+      accentBorder: 'border-white/10 hover:border-amber-400/40',
+      badgeBg: 'bg-amber-500/10 text-amber-300 border-amber-500/20',
+      buttonBg: 'bg-amber-500 hover:bg-amber-400 text-slate-950',
+      dotColor: 'bg-amber-400',
+      glow: 'rgba(245, 158, 11, 0.25)',
+    },
+    sections: [
+      {
+        id: 'overview',
+        label: 'Overview & Mission',
+        title: 'Learning That Adapts to What You Need',
+        lead: 'An AI-powered Learning Management System built for modern workforces, bridging the gap between strategic AI ambition and day-to-day operational execution.',
+        highlights: [
+          'Goal-first diagnostic assessment that pinpoints real organizational skill gaps',
+          'Dynamically curated learning paths integrating world-class curricula (Microsoft Learn & Cisco)',
+          'Verifiable Skills Passport proving real applied competency instead of passive attendance',
+        ],
+        mediaType: 'image',
+        mediaSrc: '/assets/ventures/seaai-preview.png',
+        mediaAlt: 'SEA AI Academy adaptive learning platform overview',
+      },
+      {
+        id: 'walkthrough',
+        label: 'Live Walkthrough',
+        title: 'Authentic Platform Navigation Session',
+        lead: 'Direct recording of real user navigation across seaaiacademy.io, showcasing the 4-step framework, competency diagnostic flows, and adaptive pathways.',
+        highlights: [
+          'Demonstrates the 4-step framework: Goal, Diagnostic, Adaptive Path, and Skills Passport',
+          'Full-desktop 1280x720 capture of the interactive learner dashboard',
+          'Seamless interactive playback controls with high-definition rendering',
+        ],
+        mediaType: 'video',
+      },
+      {
+        id: 'pathways',
+        label: 'Adaptive Pathways',
+        title: 'Personalized Enterprise Skilling Rails',
+        lead: 'Automated modular pathways tailored to organizational roles and individual learning velocities, grounded in applied problem-solving.',
+        highlights: [
+          'Eliminates generic course bloat with precision micro-learning units',
+          'Real workplace capstones verifying actual workflow task mastery',
+          'Built for HR and technology leaders demanding measurable skill ROI',
+        ],
+        mediaType: 'image',
+        mediaSrc: '/assets/ventures/seaai-workshop.jpg',
+        mediaAlt: 'Enterprise collaborative learning and applied AI workshop',
+      },
+    ],
+  },
+];
+
+// Incubation Pipeline (FinTech Venture)
+const incubationProjects = [
+  {
+    id: 'fintech-venture',
+    name: 'Enterprise FinTech Venture',
+    sector: 'Financial Technology Infrastructure',
+    status: 'In R&D Incubation',
+    stage: 'Phase 02 Architecture',
+    description: 'An upcoming financial technology initiative architecting institutional digital transaction infrastructure, programmable settlement pipelines, and regulatory-compliant digital asset rails.',
+    focusAreas: ['Digital Transaction Infrastructure', 'Programmable Settlement', 'Regulatory Compliance'],
+  },
 ];
 
 // Track-record preview: one featured engagement and six supporting projects
@@ -127,10 +292,10 @@ const featuredCourses = coursesData.filter((course) => course.featured);
 ---
 
 <BaseLayout
-  title="Global Experiential Training Academy PLT — Human Capital Development Partner"
-  description="GET Academy is an established human capital development and skills training partner for enterprises, government agencies, and educational institutions across Malaysia."
+  title="Digital Transformation Centre — Consulting, Implementation & Training"
+  description="Korporatly Group is a Digital Transformation Centre & Agency delivering enterprise consulting, technology implementation, and workforce capability development across Malaysia."
 >
-  <!-- Section 1 — Hero: Who We Are (Visual-First Modern Corporate Design) -->
+  <!-- Section 1 — Hero: Korporatly Group Digital Transformation Positioning -->
   <section id="hero" class="relative bg-gradient-to-b from-[#244336] via-[#2D5444] to-[#244336] text-white overflow-hidden py-14 sm:py-20 lg:py-24 border-b border-brand-sage/30">
     <!-- Subtle Background Texture -->
     <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#FADB50_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
@@ -142,15 +307,15 @@ const featuredCourses = coursesData.filter((course) => course.featured);
         <div class="lg:col-span-6 space-y-5">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-brand-gold/30 text-brand-gold text-xs font-bold tracking-wide">
             <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
-            <span>Human Capital Development Partner</span>
+            <span>Digital Transformation Centre & Agency</span>
           </div>
 
           <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight sm:leading-tight text-white">
-            Your Unbeatable <span class="text-brand-gold">Human Capital</span> Development Partner
+            Accelerating Enterprise <span class="text-brand-gold">Digital Transformation</span>
           </h1>
 
           <p class="text-base sm:text-lg text-gray-200 leading-relaxed max-w-xl">
-            We partner with enterprises, government agencies, and educational institutions across Malaysia to build practical capabilities in artificial intelligence, technology, leadership, and operational excellence.
+            Korporatly Group partners with enterprises, government bodies, and institutions across Malaysia to drive modern digital modernization through strategic Consulting, technology Implementation, and specialized workforce Training.
           </p>
 
           <!-- Two Clear Actions -->
@@ -159,24 +324,24 @@ const featuredCourses = coursesData.filter((course) => course.featured);
               href="#corporate-enquiry"
               class="inline-flex items-center justify-center px-6 py-3.5 text-sm sm:text-base font-bold rounded-lg text-brand-dark bg-brand-gold hover:bg-brand-gold-deep shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
             >
-              <span>Discuss Your Training Needs</span>
+              <span>Consult Our Advisory Team</span>
               <ArrowRight class="w-4 h-4 ml-2" />
             </a>
             <a
-              href="#what-we-do"
+              href="#services"
               class="inline-flex items-center justify-center px-6 py-3.5 text-sm sm:text-base font-bold rounded-lg text-white bg-transparent border-2 border-white/70 hover:bg-white/10 hover:border-white transition-all"
             >
-              Explore Our Capabilities
+              Explore Services & Ventures
             </a>
           </div>
         </div>
 
-        <!-- Hero Visual: Prominent Authentic Photograph from Company Profile PDF -->
+        <!-- Hero Visual: Authentic Strategic Advisory Photograph -->
         <div class="lg:col-span-6">
           <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/20 group">
             <img
               src="/assets/photos/live-workshop-facilitator-enhanced.jpg"
-              alt="GET Academy corporate workshop facilitator conducting an interactive training session"
+              alt="Korporatly Group advisory facilitator conducting an executive capability session"
               class="w-full h-80 sm:h-[420px] lg:h-[460px] object-cover object-center transform group-hover:scale-102 transition-transform duration-700"
               width="1539"
               height="1737"
@@ -187,14 +352,14 @@ const featuredCourses = coursesData.filter((course) => course.featured);
             <div class="absolute bottom-4 left-4 right-4 bg-brand-dark/85 backdrop-blur-md p-4 rounded-xl border border-white/15 text-white flex items-center justify-between gap-4">
               <div class="space-y-0.5">
                 <span class="text-[11px] font-extrabold uppercase tracking-wider text-brand-gold block">
-                  Interactive Adult Learning
+                  Strategic Advisory & Implementation
                 </span>
                 <p class="text-xs text-gray-200 font-medium">
-                  Practitioner-led workshop delivery for corporate and institutional cohorts
+                  Guiding organizations through technology adoption and capability building
                 </p>
               </div>
               <span class="shrink-0 px-2.5 py-1 rounded bg-brand-sage text-[10px] font-bold text-white uppercase tracking-wider">
-                GET Academy
+                Korporatly Group
               </span>
             </div>
           </div>
@@ -203,31 +368,27 @@ const featuredCourses = coursesData.filter((course) => course.featured);
     </div>
   </section>
 
-  <!-- Section 2 — What We Do: 4 Capability Pillars -->
-  <section class="py-20 lg:py-24 bg-white" id="what-we-do">
+  <!-- Section 2 — Core Service Pillars: Consulting, Implementation, Training -->
+  <section class="py-20 lg:py-24 bg-white" id="services">
     <div class="container-custom">
       <SectionHeader
-        eyebrow="Core Capabilities"
-        title="What We Do"
-        subtitle="Specialized human capital and capability development structured across four distinct pillars for organizations seeking measurable operational growth."
+        eyebrow="Core Service Pillars"
+        title="Consulting, Implementation & Training"
+        subtitle="A tripartite capability framework designed to bridge executive strategy, technology integration, and human workforce readiness."
         centered={true}
       />
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-        {capabilityPillars.map((pillar) => (
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {servicePillars.map((pillar) => (
           <div class="bg-brand-light rounded-2xl border border-brand-border hover:border-brand-sage/60 hover:shadow-lg transition-all duration-300 flex flex-col overflow-hidden group">
-            <!-- Visual Asset: Meaningful Photograph or Certified Strip from Company Profile -->
+            <!-- Visual Asset: Authentic Photography -->
             <div class="relative h-48 w-full bg-slate-100 overflow-hidden border-b border-brand-border">
-              {pillar.isBrandGraphic ? (
-                <CompTIAPanel />
-              ) : (
-                <img
-                  src={pillar.image}
-                  alt={pillar.imageAlt}
-                  class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-              )}
+              <img
+                src={pillar.image}
+                alt={pillar.imageAlt}
+                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
 
               <!-- Badge Overlay -->
               <div class="absolute top-3 left-3 flex items-center gap-2">
@@ -241,7 +402,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
             </div>
 
             <!-- Card Content -->
-            <div class="p-6 flex-grow flex flex-col justify-between">
+            <div class="p-6 sm:p-7 flex-grow flex flex-col justify-between">
               <div>
                 <div class="flex items-center gap-2 mb-2 text-brand-sage">
                   <pillar.icon class="w-4 h-4 shrink-0" />
@@ -250,13 +411,24 @@ const featuredCourses = coursesData.filter((course) => course.featured);
                   </span>
                 </div>
 
-                <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-sage transition-colors leading-snug mb-3">
+                <h3 class="text-xl font-extrabold text-brand-dark group-hover:text-brand-sage transition-colors leading-snug mb-3">
                   {pillar.title}
                 </h3>
 
-                <p class="text-xs text-brand-muted leading-relaxed mb-4">
+                <p class="text-xs sm:text-sm text-brand-muted leading-relaxed mb-5">
                   {pillar.description}
                 </p>
+
+                <!-- Core Capabilities List -->
+                <div class="space-y-2 mb-6 pt-2">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-brand-muted block">Capabilities</span>
+                  {pillar.features.map((feature) => (
+                    <div class="flex items-center gap-2 text-xs text-brand-dark font-medium">
+                      <CheckCircle2 class="w-3.5 h-3.5 text-brand-sage shrink-0" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <!-- Action Link -->
@@ -265,7 +437,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
                   href={pillar.href}
                   class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-sage group-hover:text-brand-sage-dark group-hover:translate-x-0.5 transition-all"
                 >
-                  <span>Explore Track</span>
+                  <span>{pillar.ctaText}</span>
                   <ArrowRight class="w-3.5 h-3.5 text-brand-sage" />
                 </a>
               </div>
@@ -276,8 +448,290 @@ const featuredCourses = coursesData.filter((course) => course.featured);
     </div>
   </section>
 
-  <!-- Section 3 — Institutional Experience and Impact -->
-  <section class="py-20 bg-brand-light border-y border-brand-border" id="institutional-experience">
+  <!-- Section 3 — Projects & Innovation Ecosystem Showcase (Cinematic Art-Directed Theme) -->
+  <section class="relative py-24 lg:py-32 bg-[#12201a] text-white border-y border-white/10 overflow-hidden" id="ventures">
+    <!-- Subtle Ambient Backdrop -->
+    <div class="absolute inset-0 pointer-events-none opacity-25">
+      <div class="absolute top-0 left-1/4 w-[36rem] h-[36rem] rounded-full bg-teal-500/10 blur-[120px]"></div>
+      <div class="absolute bottom-0 right-1/4 w-[36rem] h-[36rem] rounded-full bg-amber-500/10 blur-[120px]"></div>
+    </div>
+
+    <div class="container-custom relative z-10">
+      <!-- Section Header: Clear, Confident, Editorial Hierarchy -->
+      <div class="max-w-3xl mx-auto text-center mb-16 lg:mb-20">
+        <p class="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-3">
+          Specialized Ventures
+        </p>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15]">
+          Architecting &amp; Operating High-Impact Products
+        </h2>
+        <p class="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed font-normal">
+          Beyond enterprise advisory, Korporatly Group builds and scales specialized digital products across frontline domains, from longevity diagnostics to adaptive learning intelligence.
+        </p>
+      </div>
+
+      <!-- Flagship Cinematic Showcase (Dual Project Columns) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 mb-16" id="project-showcase-container">
+        {ecosystemProjects.map((project) => (
+          <article
+            class="project-showcase-card group rounded-3xl bg-slate-900/60 border border-white/10 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:border-white/20 hover:bg-slate-900/80"
+            id={`showcase-${project.id}`}
+            data-project-id={project.id}
+          >
+            <div>
+              <!-- 1. Project Identity (Editorial Header) -->
+              <div class="flex items-start justify-between gap-4 mb-6">
+                <div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class={`inline-block w-2 h-2 rounded-full ${project.theme.dotColor}`}></span>
+                    <span class="text-xs font-semibold tracking-wide uppercase text-slate-400">
+                      {project.sector}
+                    </span>
+                  </div>
+                  <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                    {project.name}
+                  </h3>
+                </div>
+
+                <span class="font-mono text-xs text-slate-400 bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg shrink-0 hidden sm:inline-block">
+                  {project.url.replace('https://', '')}
+                </span>
+              </div>
+
+              <!-- 2. Cinematic Video Walkthrough Window -->
+              <div class="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-white/10 shadow-2xl mb-6 group/video">
+                <video
+                  class="project-video-player w-full h-full object-cover object-top"
+                  poster={project.previewImage}
+                  muted
+                  playsinline
+                  loop
+                  preload="metadata"
+                  data-project-video={project.id}
+                  aria-label={`${project.name} live product walkthrough recording`}
+                >
+                  <source src={project.videoWalkthrough} type="video/mp4" />
+                  <source src={project.videoWebm} type="video/webm" />
+                  Your browser does not support HTML5 video walkthroughs.
+                </video>
+
+                <!-- Subtle Video Gradient Scrim -->
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none"></div>
+
+                <!-- Floating Center Play/Pause Control -->
+                <button
+                  type="button"
+                  class="video-play-center-btn absolute inset-0 m-auto w-14 h-14 rounded-full bg-slate-950/80 backdrop-blur-md text-white border border-white/20 flex items-center justify-center shadow-xl transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/40"
+                  aria-label={`Play or pause walkthrough video for ${project.name}`}
+                  data-control-target={project.id}
+                >
+                  <Play class="play-icon w-5 h-5 text-white ml-0.5 fill-white" />
+                  <Pause class="pause-icon w-5 h-5 text-white hidden fill-white" />
+                </button>
+
+                <!-- Minimal Restrained Player Bottom Bar (Reveals on Hover/Focus) -->
+                <div class="video-control-bar absolute bottom-3 inset-x-3 px-3 py-2 rounded-xl bg-slate-950/80 backdrop-blur-md border border-white/10 flex items-center justify-between text-white text-xs opacity-90 transition-opacity duration-200">
+                  <div class="flex items-center gap-3">
+                    <button
+                      type="button"
+                      class="video-play-toggle hover:text-white/80 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white"
+                      aria-label="Toggle video playback"
+                      data-control-target={project.id}
+                    >
+                      <Play class="play-icon-sm w-3.5 h-3.5 fill-current" />
+                      <Pause class="pause-icon-sm w-3.5 h-3.5 hidden fill-current" />
+                    </button>
+                    <button
+                      type="button"
+                      class="video-restart-btn hover:text-white/80 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white"
+                      aria-label="Restart video"
+                      data-restart-target={project.id}
+                    >
+                      <RotateCcw class="w-3.5 h-3.5" />
+                    </button>
+                    <span class="video-time-display font-mono text-[11px] text-slate-300">00:00</span>
+                  </div>
+
+                  <div class="flex items-center gap-3">
+                    <span class="text-[10px] font-semibold tracking-wider uppercase text-slate-400 hidden sm:inline-block">Live Product Capture</span>
+                    <button
+                      type="button"
+                      class="video-fullscreen-btn hover:text-white/80 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white"
+                      aria-label="Fullscreen video"
+                      data-fullscreen-target={project.id}
+                    >
+                      <Maximize2 class="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3. Concise Editorial Description -->
+              <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-normal mb-8">
+                {project.tagline}
+              </p>
+            </div>
+
+            <!-- 4. Clear Actions: Launch Mini-Browser & Direct Link -->
+            <div class="pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+              <button
+                type="button"
+                class="venture-open-btn inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer"
+                data-open-venture={project.id}
+                aria-haspopup="dialog"
+                aria-controls="venture-mini-browser-modal"
+              >
+                <Compass class="w-4 h-4 text-emerald-400" />
+                <span>Explore Mini-Browser</span>
+              </button>
+
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl font-bold text-xs shadow-md transition-all duration-200 ${project.theme.buttonBg}`}
+                aria-label={`Open full official website for ${project.name} (opens in new tab)`}
+              >
+                <span>{project.ctaText}</span>
+                <ArrowUpRight class="w-4 h-4" />
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Restrained Incubation Preview (FinTech Venture) -->
+      <div class="rounded-2xl bg-white/5 border border-white/10 p-6 sm:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+        <div>
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="text-xs font-semibold uppercase tracking-wider text-amber-400">Incubation Pipeline</span>
+            <span class="text-white/30">&bull;</span>
+            <span class="text-xs text-slate-400">Financial Technology</span>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-white mb-1">Enterprise FinTech Venture</h4>
+          <p class="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed font-normal">
+            Currently in research and architecture, designing institutional digital transaction infrastructure and programmable settlement rails.
+          </p>
+        </div>
+
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-amber-500/10 text-amber-300 border border-amber-500/20 shrink-0">
+          <Clock class="w-3.5 h-3.5" />
+          <span>In R&amp;D Incubation</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Immersive Mini-Browser Full-Screen Experience (Shared-Element Modal) -->
+    <div
+      id="venture-mini-browser-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+      class="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 opacity-0 pointer-events-none transition-opacity duration-300 bg-slate-950/90 backdrop-blur-md"
+      data-active-venture=""
+    >
+      <!-- Mini-Browser Window Container -->
+      <div
+        id="mini-browser-window"
+        class="relative w-full max-w-6xl h-full max-h-[92vh] flex flex-col bg-slate-900 border border-white/15 rounded-2xl md:rounded-3xl shadow-[0_25px_80px_-15px_rgba(0,0,0,0.9)] overflow-hidden transition-transform duration-350 ease-out"
+        style="will-change: transform, opacity;"
+      >
+        <!-- 1. Top Browser Chrome Bar -->
+        <header class="px-4 py-3 bg-slate-950 border-b border-white/10 flex items-center justify-between gap-3 shrink-0">
+          <!-- Window Controls (macOS style) -->
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              id="mini-browser-close-btn"
+              class="w-3.5 h-3.5 rounded-full bg-rose-500/90 hover:bg-rose-400 flex items-center justify-center text-slate-950 focus:outline-none focus:ring-2 focus:ring-rose-400 transition-transform active:scale-90"
+              aria-label="Close mini-browser experience"
+            >
+              <X class="w-2.5 h-2.5 stroke-[3]" />
+            </button>
+            <span class="w-3.5 h-3.5 rounded-full bg-amber-500/80 hidden sm:inline-block"></span>
+            <span class="w-3.5 h-3.5 rounded-full bg-emerald-500/80 hidden sm:inline-block"></span>
+          </div>
+
+          <!-- Believable Domain Pill with SSL lock -->
+          <div class="flex items-center gap-2 px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-slate-300 max-w-[280px] sm:max-w-md truncate">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]"></span>
+            <span id="mini-browser-url-text" class="truncate font-medium">https://drkgofficial.com</span>
+          </div>
+
+          <!-- Right Action: Open Live Site & Dismiss -->
+          <div class="flex items-center gap-2">
+            <a
+              id="mini-browser-external-link"
+              href="https://drkgofficial.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white/10 hover:bg-white/20 text-white transition-colors"
+            >
+              <span class="hidden sm:inline">Open Live Website</span>
+              <ArrowUpRight class="w-3.5 h-3.5" />
+            </a>
+            <button
+              type="button"
+              id="mini-browser-esc-btn"
+              class="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-white/10 focus:outline-none"
+              aria-label="Dismiss window (Esc)"
+            >
+              <X class="w-5 h-5" />
+            </button>
+          </div>
+        </header>
+
+        <!-- 2. Internal Venture Navigation Bar -->
+        <nav
+          class="px-4 py-2 bg-slate-950/80 border-b border-white/10 flex items-center justify-between gap-2 overflow-x-auto no-scrollbar shrink-0"
+          aria-label="Mini-browser internal sections"
+        >
+          <div id="mini-browser-tabs" class="flex items-center gap-1 sm:gap-2">
+            <!-- Dynamic Section Navigation Pills populated via JS -->
+          </div>
+          <span class="text-[11px] font-mono text-slate-400 shrink-0 hidden md:inline-block">
+            Verified Staging Architecture &bull; Local Preview
+          </span>
+        </nav>
+
+        <!-- 3. Dynamic Interactive Content Stage -->
+        <main
+          id="mini-browser-viewport"
+          class="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white space-y-6"
+        >
+          <!-- Content dynamically rendered per selected section -->
+        </main>
+
+        <!-- 4. Bottom Information & Live Verification Footer -->
+        <footer class="px-5 py-3 bg-slate-950/90 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400 shrink-0">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span id="mini-browser-footer-entity">Operating under Long Life Wellness</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <span>Press <kbd class="px-1.5 py-0.5 rounded bg-white/10 font-mono text-[10px] text-slate-300">Esc</kbd> to return</span>
+            <a
+              id="mini-browser-footer-cta"
+              href="https://drkgofficial.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-bold"
+            >
+              <span>Visit Production Portal</span>
+              <ArrowUpRight class="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Serialized Venture Data for Client Mini-Browser -->
+    <script type="application/json" id="ventures-data" set:html={JSON.stringify(ecosystemProjects)}></script>
+  </section>
+
+  <!-- Section 4 — Institutional Experience and Impact -->
+  <section class="py-20 bg-white border-b border-brand-border" id="institutional-experience">
     <div class="container-custom">
       <!-- Section Header & Ecosystem Attribution Context -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
@@ -285,7 +739,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
           <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage">Demonstrated Track Record</p>
           <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">Institutional Experience & Public Sector Impact</h2>
           <p class="text-sm sm:text-base text-brand-muted leading-relaxed max-w-2xl">
-            GET Academy is entrusted by federal ministries, statutory bodies, and university leadership to design capability roadmaps, executive advisory, and technological skilling.
+            Our leadership and advisory practice are entrusted by federal ministries, statutory bodies, and university leadership to design capability roadmaps, executive advisory, and technological skilling.
           </p>
         </div>
         <div class="lg:col-span-5 bg-white p-5 rounded-2xl border border-brand-border shadow-sm flex items-start gap-3.5">
@@ -404,7 +858,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
   </section>
 
   <!-- Section 6 — Why Partner With Us -->
-  <section class="py-20 bg-brand-light border-y border-brand-border" id="why-get-academy">
+  <section class="py-20 bg-brand-light border-y border-brand-border" id="why-partner">
     <div class="container-custom">
       <div class="max-w-3xl mx-auto text-center mb-14">
         <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">The Strategic Advantage</p>
@@ -412,7 +866,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
           Why Partner With Us?
         </h2>
         <p class="text-sm sm:text-base text-brand-muted mt-3 leading-relaxed">
-          Five reasons organisations choose GET Academy to build practical, certified and measurable capability in their teams.
+          Five reasons organisations choose Korporatly Group to guide digital transformation and build practical, certified and measurable capability in their teams.
         </p>
       </div>
 
@@ -484,9 +938,9 @@ const featuredCourses = coursesData.filter((course) => course.featured);
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
         <div class="max-w-2xl">
           <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">Participant Feedback</p>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">What Our Trainees Say</h2>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">What Our Participants Say</h2>
           <p class="text-sm sm:text-base text-brand-muted mt-2">
-            Founders and marketers describe learning with Coach GK in their own words.
+            Founders, executives, and marketers describe learning with Coach GK in their own words.
           </p>
         </div>
         <a
@@ -518,7 +972,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
     <div class="container-custom">
       <div class="text-center max-w-2xl mx-auto mb-8">
         <span class="text-xs font-extrabold uppercase tracking-widest text-brand-sage block mb-1">Our Engagements</span>
-        <h3 class="text-xl font-extrabold text-brand-dark">Organisations We Have Engaged With</h3>
+        <h3 class="text-xl font-extrabold text-brand-dark">Organisations Engaged by Our Leadership & Practice Teams</h3>
       </div>
       <LogoGrid logos={featuredLogos} />
       <div class="mt-8 text-center">
@@ -535,10 +989,10 @@ const featuredCourses = coursesData.filter((course) => course.featured);
     <div class="container-custom">
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
         <div>
-          <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">Curriculum Offerings</p>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">Programmes for Every Learner</h2>
+          <p class="text-xs font-extrabold uppercase tracking-widest text-brand-sage mb-2">Service Pillar 03: Training & Skilling</p>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">Workforce Capability Building Programmes</h2>
           <p class="text-sm sm:text-base text-brand-muted mt-2 max-w-xl">
-            Programmes spanning digital marketing (CDMS), business incubation, global IT certification and professional development. All HRDC claimable.
+            Comprehensive training tracks spanning applied AI, global IT certification (CompTIA), digital strategies, and leadership transformation. All programmes HRDC claimable.
           </p>
         </div>
         <div>
@@ -590,9 +1044,9 @@ const featuredCourses = coursesData.filter((course) => course.featured);
         <!-- Left: Official Contact Desk -->
         <div class="lg:col-span-5 space-y-6">
           <span class="text-xs font-extrabold uppercase tracking-widest text-brand-gold block">B2B & Institutional Engagement</span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Discuss Your Training Needs</h2>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Discuss Your Digital Transformation Needs</h2>
           <p class="text-gray-200 text-sm leading-relaxed">
-            We partner with corporate HR directors, government training coordinators, and higher education leaders to formulate tailored capability frameworks and proposal schedules.
+            We partner with corporate executives, government leaders, and higher education directors to formulate tailored consulting frameworks, implementation plans, and workforce training schedules.
           </p>
 
           <div class="p-6 bg-white/5 rounded-2xl border border-white/10 space-y-4 text-xs text-gray-300">
@@ -626,9 +1080,9 @@ const featuredCourses = coursesData.filter((course) => course.featured);
         <!-- Right: Inquiry Form -->
         <div class="lg:col-span-7 bg-white text-brand-dark p-8 sm:p-10 rounded-2xl border border-brand-border shadow-xl">
           <div class="mb-6">
-            <h3 class="text-xl font-extrabold text-brand-dark">Request an Enterprise or Institutional Proposal</h3>
+            <h3 class="text-xl font-extrabold text-brand-dark">Request a Consultation or Proposal</h3>
             <p class="text-xs text-brand-muted mt-1">
-              Submit your departmental requirements below and our advisory team will respond within {site.responseTime}.
+              Submit your departmental or organizational requirements below and our advisory team will respond within {site.responseTime}.
             </p>
           </div>
 
@@ -661,19 +1115,19 @@ const featuredCourses = coursesData.filter((course) => course.featured);
             </div>
 
             <div>
-              <label for="org-pillar" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Primary Capability Track *</label>
+              <label for="org-pillar" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Primary Focus Area *</label>
               <select id="org-pillar" name="track" required class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage">
-                <option value="Artificial Intelligence Capacity Building">Artificial Intelligence Capacity Building</option>
-                <option value="Entrepreneurship & Cross-Border Business">Entrepreneurship & Cross-Border Business</option>
+                <option value="Digital Transformation Consulting & Strategy">Digital Transformation Consulting & Strategy</option>
+                <option value="Software & Technology Implementation">Software & Technology Implementation</option>
+                <option value="Workforce AI & Technology Training">Workforce AI & Technology Training</option>
                 <option value="Global IT Certification (CompTIA, Cyber Security)">Global IT Certification (CompTIA, Cyber Security)</option>
-                <option value="Professional Development & Leadership Transformation">Professional Development & Leadership Transformation</option>
-                <option value="Custom In-House Capability Outline">Custom In-House Capability Outline</option>
+                <option value="Custom Enterprise Capability Framework">Custom Enterprise Capability Framework</option>
               </select>
             </div>
 
             <div>
               <label for="org-notes" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-1.5">Brief Objectives or Target Schedule</label>
-              <textarea id="org-notes" name="message" rows="3" placeholder="Outline your team upskilling objectives, target month, or specific cohort requirements..." class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage"></textarea>
+              <textarea id="org-notes" name="message" rows="3" placeholder="Outline your transformation objectives, target month, or specific cohort requirements..." class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-border rounded-lg text-xs text-brand-text focus:outline-none focus:ring-2 focus:ring-brand-sage"></textarea>
             </div>
 
             <!-- Honeypot: hidden from visitors, catches automated submissions -->
@@ -684,7 +1138,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
 
             <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 bg-brand-sage text-white font-bold rounded-lg hover:bg-brand-sage-dark transition-all text-xs shadow-sm disabled:opacity-60">
               <Send class="w-3.5 h-3.5" />
-              <span>Submit Training Consultation Request</span>
+              <span>Submit Consultation Request</span>
             </button>
           </form>
 
@@ -711,4 +1165,477 @@ const featuredCourses = coursesData.filter((course) => course.featured);
       responseTime: site.responseTime,
     });
   }
+
+  // Pass static venture data to client controller
+  const venturesData = JSON.parse(document.getElementById('ventures-data')?.textContent || '[]');
+
+  // Interactive Project Showcase Controller (desktop focus coordination & keyboard support)
+  const showcaseContainer = document.getElementById('project-showcase-container');
+  const showcaseCards = document.querySelectorAll<HTMLElement>('.project-showcase-card');
+
+  // Desktop hover coordination: subtle elevation of active card, gentle recess for peer
+  if (showcaseContainer && window.matchMedia('(min-width: 1024px)').matches) {
+    showcaseCards.forEach((card) => {
+      card.addEventListener('mouseenter', () => {
+        showcaseCards.forEach((other) => {
+          if (other !== card) {
+            other.classList.add('opacity-80');
+          }
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        showcaseCards.forEach((c) => {
+          c.classList.remove('opacity-80');
+        });
+      });
+    });
+  }
+
+  // Cinematic Video Walkthrough Controller for homepage cards
+  const projectVideos = document.querySelectorAll<HTMLVideoElement>('.project-video-player');
+  const playButtons = document.querySelectorAll<HTMLButtonElement>('.video-play-center-btn, .video-play-toggle');
+  const restartButtons = document.querySelectorAll<HTMLButtonElement>('.video-restart-btn');
+  const fullscreenButtons = document.querySelectorAll<HTMLButtonElement>('.video-fullscreen-btn');
+
+  function updatePlayIcons(projectId: string, isPlaying: boolean) {
+    const card = document.getElementById(`showcase-${projectId}`);
+    if (!card) return;
+
+    const playIcons = card.querySelectorAll('.play-icon, .play-icon-sm');
+    const pauseIcons = card.querySelectorAll('.pause-icon, .pause-icon-sm');
+    const centerBtn = card.querySelector<HTMLButtonElement>('.video-play-center-btn');
+
+    if (isPlaying) {
+      playIcons.forEach((el) => el.classList.add('hidden'));
+      pauseIcons.forEach((el) => el.classList.remove('hidden'));
+      if (centerBtn) {
+        centerBtn.classList.add('opacity-0', 'pointer-events-none');
+      }
+    } else {
+      playIcons.forEach((el) => el.classList.remove('hidden'));
+      pauseIcons.forEach((el) => el.classList.add('hidden'));
+      if (centerBtn) {
+        centerBtn.classList.remove('opacity-0', 'pointer-events-none');
+      }
+    }
+  }
+
+  function formatTime(seconds: number): string {
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  }
+
+  projectVideos.forEach((video) => {
+    const projectId = video.getAttribute('data-project-video');
+    if (!projectId) return;
+
+    video.addEventListener('timeupdate', () => {
+      const card = document.getElementById(`showcase-${projectId}`);
+      const display = card?.querySelector<HTMLElement>('.video-time-display');
+      if (display) {
+        const cur = formatTime(video.currentTime);
+        const dur = isNaN(video.duration) ? '--:--' : formatTime(video.duration);
+        display.textContent = `${cur} / ${dur}`;
+      }
+    });
+
+    video.addEventListener('play', () => {
+      projectVideos.forEach((other) => {
+        if (other !== video && !other.paused) {
+          other.pause();
+        }
+      });
+      updatePlayIcons(projectId, true);
+    });
+
+    video.addEventListener('pause', () => updatePlayIcons(projectId, false));
+    video.addEventListener('ended', () => updatePlayIcons(projectId, false));
+  });
+
+  playButtons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const targetId = btn.getAttribute('data-control-target');
+      if (!targetId) return;
+      const card = document.getElementById(`showcase-${targetId}`);
+      const video = card?.querySelector<HTMLVideoElement>('.project-video-player');
+      if (!video) return;
+
+      if (video.paused) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  });
+
+  restartButtons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const targetId = btn.getAttribute('data-restart-target');
+      if (!targetId) return;
+      const card = document.getElementById(`showcase-${targetId}`);
+      const video = card?.querySelector<HTMLVideoElement>('.project-video-player');
+      if (!video) return;
+
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    });
+  });
+
+  fullscreenButtons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const targetId = btn.getAttribute('data-fullscreen-target');
+      if (!targetId) return;
+      const card = document.getElementById(`showcase-${targetId}`);
+      const video = card?.querySelector<HTMLVideoElement>('.project-video-player');
+      if (!video) return;
+
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      }
+    });
+  });
+
+  // Desktop hover-to-play coordination (subtle preview without motion sickness, respects prefers-reduced-motion)
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced && window.matchMedia('(min-width: 1024px)').matches) {
+    showcaseCards.forEach((card) => {
+      card.addEventListener('mouseenter', () => {
+        const video = card.querySelector<HTMLVideoElement>('.project-video-player');
+        if (video) {
+          video.play().catch(() => {});
+        }
+      });
+
+      card.addEventListener('mouseleave', () => {
+        const video = card.querySelector<HTMLVideoElement>('.project-video-player');
+        if (video) {
+          video.pause();
+        }
+      });
+    });
+  }
+
+  // ==========================================
+  // SPATIAL MINI-BROWSER CONTROLLER (PHASE 5)
+  // ==========================================
+  const modal = document.getElementById('venture-mini-browser-modal');
+  const windowEl = document.getElementById('mini-browser-window');
+  const openButtons = document.querySelectorAll<HTMLButtonElement>('[data-open-venture]');
+  const closeBtn = document.getElementById('mini-browser-close-btn');
+  const escBtn = document.getElementById('mini-browser-esc-btn');
+  const urlText = document.getElementById('mini-browser-url-text');
+  const externalLink = document.getElementById('mini-browser-external-link') as HTMLAnchorElement | null;
+  const tabsContainer = document.getElementById('mini-browser-tabs');
+  const viewport = document.getElementById('mini-browser-viewport');
+  const footerEntity = document.getElementById('mini-browser-footer-entity');
+  const footerCta = document.getElementById('mini-browser-footer-cta') as HTMLAnchorElement | null;
+
+  let activeVenture: any = null;
+  let activeSectionId = 'overview';
+  let lastActiveTrigger: HTMLElement | null = null;
+  let scrollPos = 0;
+  let isAnimating = false;
+
+  function renderSection(sectionId: string) {
+    if (!activeVenture || !viewport || !tabsContainer) return;
+    activeSectionId = sectionId;
+
+    // Update Tab Styles
+    const tabButtons = tabsContainer.querySelectorAll<HTMLButtonElement>('.mini-tab-btn');
+    tabButtons.forEach((btn) => {
+      const isCurrent = btn.getAttribute('data-section-id') === sectionId;
+      btn.setAttribute('aria-selected', String(isCurrent));
+      if (isCurrent) {
+        btn.className = `mini-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${activeVenture.theme.badgeBg}`;
+      } else {
+        btn.className = 'mini-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-transparent text-slate-400 hover:text-white hover:bg-white/5';
+      }
+    });
+
+    const currentSection = activeVenture.sections.find((s: any) => s.id === sectionId) || activeVenture.sections[0];
+    if (!currentSection) return;
+
+    if (currentSection.mediaType === 'video') {
+      viewport.innerHTML = `
+        <div class="space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Cinematic Walkthrough</span>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-1">${currentSection.title}</h3>
+            </div>
+            <span class="text-xs font-mono text-slate-400 bg-white/5 px-2.5 py-1 rounded border border-white/10 shrink-0">1280x720 HD Authentic Session</span>
+          </div>
+
+          <div class="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-white/15 shadow-2xl">
+            <video
+              class="w-full h-full object-cover object-top"
+              controls
+              autoplay
+              muted
+              playsinline
+              preload="auto"
+              poster="${activeVenture.previewImage}"
+            >
+              <source src="${activeVenture.videoWalkthrough}" type="video/mp4" />
+              <source src="${activeVenture.videoWebm}" type="video/webm" />
+              Your browser does not support HTML5 video walkthroughs.
+            </video>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+            <p class="text-sm text-slate-300 leading-relaxed font-normal">${currentSection.lead}</p>
+            <ul class="space-y-2 pt-2 border-t border-white/10">
+              ${currentSection.highlights.map((h: string) => `
+                <li class="flex items-start gap-2.5 text-xs text-slate-300">
+                  <span class="inline-block w-1.5 h-1.5 rounded-full ${activeVenture.theme.dotColor} mt-1.5 shrink-0"></span>
+                  <span class="leading-relaxed">${h}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    } else {
+      viewport.innerHTML = `
+        <div class="space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Interactive Architecture</span>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-1">${currentSection.title}</h3>
+            </div>
+            <a
+              href="${activeVenture.url}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 text-xs font-bold ${activeVenture.theme.accentText} hover:underline"
+            >
+              <span>Explore on ${activeVenture.url.replace('https://', '')}</span>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </a>
+          </div>
+
+          <div class="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-white/15 shadow-2xl">
+            <img
+              src="${currentSection.mediaSrc}"
+              alt="${currentSection.mediaAlt || currentSection.title}"
+              class="w-full h-full object-cover object-top"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none"></div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+            <p class="text-sm text-slate-300 leading-relaxed font-normal">${currentSection.lead}</p>
+            <ul class="space-y-2 pt-2 border-t border-white/10">
+              ${currentSection.highlights.map((h: string) => `
+                <li class="flex items-start gap-2.5 text-xs text-slate-300">
+                  <span class="inline-block w-1.5 h-1.5 rounded-full ${activeVenture.theme.dotColor} mt-1.5 shrink-0"></span>
+                  <span class="leading-relaxed">${h}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  function openMiniBrowser(ventureId: string, originCard: HTMLElement | null) {
+    if (isAnimating || !modal || !windowEl) return;
+    const venture = venturesData.find((v: any) => v.id === ventureId);
+    if (!venture) return;
+
+    activeVenture = venture;
+    isAnimating = true;
+
+    // Pause all background homepage videos
+    projectVideos.forEach((v) => v.pause());
+
+    // Update Browser Chrome Details
+    if (urlText) urlText.textContent = venture.url;
+    if (externalLink) {
+      externalLink.href = venture.url;
+      externalLink.setAttribute('aria-label', `Open official production website for ${venture.name}`);
+    }
+    if (footerEntity) footerEntity.textContent = `Operating under ${venture.ventureEntity}`;
+    if (footerCta) {
+      footerCta.href = venture.url;
+      footerCta.querySelector('span')!.textContent = `Visit ${venture.name} Portal`;
+    }
+
+    // Populate Dynamic Section Tabs
+    if (tabsContainer) {
+      tabsContainer.innerHTML = venture.sections.map((s: any, idx: number) => `
+        <button
+          type="button"
+          role="tab"
+          class="mini-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${idx === 0 ? venture.theme.badgeBg : 'border-transparent text-slate-400 hover:text-white hover:bg-white/5'}"
+          data-section-id="${s.id}"
+          aria-selected="${idx === 0 ? 'true' : 'false'}"
+        >
+          ${s.label}
+        </button>
+      `).join('');
+
+      tabsContainer.querySelectorAll<HTMLButtonElement>('.mini-tab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const sid = btn.getAttribute('data-section-id');
+          if (sid) renderSection(sid);
+        });
+      });
+    }
+
+    // Render initial section
+    renderSection(venture.sections[0]?.id || 'overview');
+
+    // Lock background scroll while keeping position
+    scrollPos = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollPos}px`;
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+
+    // Spatial FLIP Transition Calculation
+    if (originCard && !prefersReduced) {
+      const firstRect = originCard.getBoundingClientRect();
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.setAttribute('aria-hidden', 'false');
+
+      // Final coordinates
+      const lastRect = windowEl.getBoundingClientRect();
+      const deltaX = (firstRect.left + firstRect.width / 2) - (lastRect.left + lastRect.width / 2);
+      const deltaY = (firstRect.top + firstRect.height / 2) - (lastRect.top + lastRect.height / 2);
+      const scaleX = Math.max(0.2, firstRect.width / lastRect.width);
+      const scaleY = Math.max(0.2, firstRect.height / lastRect.height);
+
+      // Invert: position window at the card's exact dimensions
+      windowEl.style.transition = 'none';
+      windowEl.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`;
+      windowEl.style.opacity = '0.5';
+
+      // Force layout repaint
+      windowEl.offsetHeight;
+
+      // Play: smoothly expand outward with refined cubic bezier
+      windowEl.style.transition = 'transform 380ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease-out';
+      windowEl.style.transform = 'translate(0px, 0px) scale(1, 1)';
+      windowEl.style.opacity = '1';
+
+      setTimeout(() => {
+        isAnimating = false;
+        closeBtn?.focus();
+      }, 400);
+    } else {
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.setAttribute('aria-hidden', 'false');
+      windowEl.style.transform = 'none';
+      windowEl.style.opacity = '1';
+      isAnimating = false;
+      closeBtn?.focus();
+    }
+  }
+
+  function closeMiniBrowser() {
+    if (isAnimating || !modal || !windowEl) return;
+    isAnimating = true;
+
+    // Pause any active media inside viewport
+    const activeVideo = viewport?.querySelector<HTMLVideoElement>('video');
+    if (activeVideo) activeVideo.pause();
+
+    const originCard = lastActiveTrigger ? lastActiveTrigger.closest<HTMLElement>('.project-showcase-card') : null;
+
+    if (originCard && !prefersReduced) {
+      const firstRect = windowEl.getBoundingClientRect();
+      const lastRect = originCard.getBoundingClientRect();
+      const deltaX = (lastRect.left + lastRect.width / 2) - (firstRect.left + firstRect.width / 2);
+      const deltaY = (lastRect.top + lastRect.height / 2) - (firstRect.top + firstRect.height / 2);
+      const scaleX = Math.max(0.2, lastRect.width / firstRect.width);
+      const scaleY = Math.max(0.2, lastRect.height / firstRect.height);
+
+      // Animate back into card
+      windowEl.style.transition = 'transform 320ms cubic-bezier(0.16, 1, 0.3, 1), opacity 280ms ease-in';
+      windowEl.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`;
+      windowEl.style.opacity = '0';
+      modal.style.transition = 'opacity 300ms ease-in';
+      modal.classList.add('opacity-0');
+
+      setTimeout(() => {
+        modal.classList.add('pointer-events-none');
+        modal.setAttribute('aria-hidden', 'true');
+        modal.style.transition = '';
+        windowEl.style.transition = '';
+        windowEl.style.transform = '';
+
+        // Unlock scroll
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, scrollPos);
+
+        isAnimating = false;
+        activeVenture = null;
+        if (lastActiveTrigger) {
+          lastActiveTrigger.focus();
+        }
+      }, 330);
+    } else {
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, scrollPos);
+      isAnimating = false;
+      activeVenture = null;
+      if (lastActiveTrigger) {
+        lastActiveTrigger.focus();
+      }
+    }
+  }
+
+  // Open listeners
+  openButtons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const vid = btn.getAttribute('data-open-venture');
+      if (vid) {
+        lastActiveTrigger = btn;
+        openMiniBrowser(vid, btn.closest<HTMLElement>('.project-showcase-card'));
+      }
+    });
+  });
+
+  // Close listeners
+  closeBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeMiniBrowser();
+  });
+
+  escBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeMiniBrowser();
+  });
+
+  // Click on background backdrop to dismiss
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeMiniBrowser();
+    }
+  });
+
+  // Keyboard accessibility: Escape to dismiss & focus trap
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.classList.contains('pointer-events-none')) {
+      e.preventDefault();
+      closeMiniBrowser();
+    }
+  });
 </script>

@@ -49,7 +49,7 @@ export const accreditations: Accreditation[] = [
     name: 'HRD Corp',
     badge: 'Approved Training Provider',
     scope:
-      'Approved training provider of the Human Resources Development Corporation (HRDC). All GET Academy programmes are HRDC claimable.',
+      'Approved training provider of the Human Resources Development Corporation (HRDC). All capability building programmes are HRDC claimable.',
     logo: '/assets/partners/hrd-corp.png',
   },
   {
