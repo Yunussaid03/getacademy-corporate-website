@@ -19,7 +19,6 @@ import {
   Building2,
   Briefcase,
   CheckCircle2,
-  Clock,
   Compass,
   Cpu,
   Globe2,
@@ -42,6 +41,8 @@ import {
   Play,
   Pause,
   RotateCcw,
+  Volume2,
+  VolumeX,
   Maximize2,
   X,
 } from 'lucide-astro';
@@ -113,9 +114,8 @@ const ecosystemProjects = [
     url: 'https://drkgofficial.com',
     ctaText: 'Visit drkgofficial.com',
     previewImage: '/assets/ventures/drkg-preview.png',
-    previewAlt: 'Dr KG Official functional longevity platform walkthrough preview',
+    previewAlt: 'Dr KG Official / Long Life Wellness platform demonstration preview',
     videoWalkthrough: '/assets/ventures/drkg-walkthrough.mp4',
-    videoWebm: '/assets/ventures/drkg-walkthrough.webm',
     theme: {
       accentText: 'text-teal-300',
       accentBorder: 'border-white/10 hover:border-teal-400/40',
@@ -142,11 +142,11 @@ const ecosystemProjects = [
       {
         id: 'walkthrough',
         label: 'Live Walkthrough',
-        title: 'Authentic Browser Navigation Session',
-        lead: 'Direct recording of real patient intake and service navigation across drkgofficial.com in high-definition 1280x720.',
+        title: 'Platform Demonstration & Diagnostics Walkthrough',
+        lead: 'Detailed walkthrough demonstrating Long Life Wellness functional longevity reviews, blood report analysis, and doctor-led clinical protocols in 1080p Full HD.',
         highlights: [
-          'Demonstrates real responsive UI, clinical review tiers, and pricing models',
-          'Full-desktop live walkthrough covering biomarker reviews and corporate screening',
+          'Demonstrates real responsive UI, clinical review tiers, and biomarker evaluation',
+          'Full 1080p live demonstration covering functional health diagnostics and reporting',
           'Interactive controls: scrub, pause, replay, and expand fullscreen',
         ],
         mediaType: 'video',
@@ -176,9 +176,8 @@ const ecosystemProjects = [
     url: 'https://seaaiacademy.io',
     ctaText: 'Visit seaaiacademy.io',
     previewImage: '/assets/ventures/seaai-preview.png',
-    previewAlt: 'SEA AI Academy adaptive learning platform walkthrough preview',
+    previewAlt: 'SEA AI Academy adaptive learning platform demonstration preview',
     videoWalkthrough: '/assets/ventures/seaai-walkthrough.mp4',
-    videoWebm: '/assets/ventures/seaai-walkthrough.webm',
     theme: {
       accentText: 'text-amber-300',
       accentBorder: 'border-white/10 hover:border-amber-400/40',
@@ -205,12 +204,12 @@ const ecosystemProjects = [
       {
         id: 'walkthrough',
         label: 'Live Walkthrough',
-        title: 'Authentic Platform Navigation Session',
-        lead: 'Direct recording of real user navigation across seaaiacademy.io, showcasing the 4-step framework, competency diagnostic flows, and adaptive pathways.',
+        title: 'Platform Demonstration & Learning Architecture',
+        lead: 'Comprehensive demo showcasing the SEA AI Academy learning architecture, goal setting, diagnostic flows, and adaptive enterprise pathways in 1080p Full HD.',
         highlights: [
           'Demonstrates the 4-step framework: Goal, Diagnostic, Adaptive Path, and Skills Passport',
-          'Full-desktop 1280x720 capture of the interactive learner dashboard',
-          'Seamless interactive playback controls with high-definition rendering',
+          '1080p Full HD walkthrough of the interactive learner platform and enterprise dashboard',
+          'Seamless interactive playback controls: scrub, play/pause, restart, and fullscreen',
         ],
         mediaType: 'video',
       },
@@ -232,18 +231,7 @@ const ecosystemProjects = [
   },
 ];
 
-// Incubation Pipeline (FinTech Venture)
-const incubationProjects = [
-  {
-    id: 'fintech-venture',
-    name: 'Enterprise FinTech Venture',
-    sector: 'Financial Technology Infrastructure',
-    status: 'In R&D Incubation',
-    stage: 'Phase 02 Architecture',
-    description: 'An upcoming financial technology initiative architecting institutional digital transaction infrastructure, programmable settlement pipelines, and regulatory-compliant digital asset rails.',
-    focusAreas: ['Digital Transaction Infrastructure', 'Programmable Settlement', 'Regulatory Compliance'],
-  },
-];
+
 
 // Track-record preview: one featured engagement and six supporting projects
 const [featuredProject, ...previewProjects] = projects.filter((p) => p.home);
@@ -292,8 +280,8 @@ const featuredCourses = coursesData.filter((course) => course.featured);
 ---
 
 <BaseLayout
-  title="Digital Transformation Centre — Consulting, Implementation & Training"
-  description="Korporatly Group is a Digital Transformation Centre & Agency delivering enterprise consulting, technology implementation, and workforce capability development across Malaysia."
+  title="Korporatly Group — Enterprise Consulting, Technology & Training"
+  description="Korporatly Group partners with enterprises and institutions across Malaysia to deliver strategic consulting, technology implementation, and workforce capability development."
 >
   <!-- Section 1 — Hero: Korporatly Group Digital Transformation Positioning -->
   <section id="hero" class="relative bg-gradient-to-b from-[#244336] via-[#2D5444] to-[#244336] text-white overflow-hidden py-14 sm:py-20 lg:py-24 border-b border-brand-sage/30">
@@ -307,7 +295,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
         <div class="lg:col-span-6 space-y-5">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-brand-gold/30 text-brand-gold text-xs font-bold tracking-wide">
             <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
-            <span>Digital Transformation Centre & Agency</span>
+            <span>Korporatly Group</span>
           </div>
 
           <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight sm:leading-tight text-white">
@@ -511,8 +499,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
                   aria-label={`${project.name} live product walkthrough recording`}
                 >
                   <source src={project.videoWalkthrough} type="video/mp4" />
-                  <source src={project.videoWebm} type="video/webm" />
-                  Your browser does not support HTML5 video walkthroughs.
+                  Your browser does not support HTML5 video demo walkthroughs.
                 </video>
 
                 <!-- Subtle Video Gradient Scrim -->
@@ -548,6 +535,16 @@ const featuredCourses = coursesData.filter((course) => course.featured);
                       data-restart-target={project.id}
                     >
                       <RotateCcw class="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      class="video-volume-toggle hover:text-white/80 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-white"
+                      aria-label="Unmute sound"
+                      title="Unmute sound"
+                      data-volume-target={project.id}
+                    >
+                      <Volume2 class="volume-on-icon w-3.5 h-3.5 hidden" />
+                      <VolumeX class="volume-off-icon w-3.5 h-3.5" />
                     </button>
                     <span class="video-time-display font-mono text-[11px] text-slate-300">00:00</span>
                   </div>
@@ -598,26 +595,6 @@ const featuredCourses = coursesData.filter((course) => course.featured);
             </div>
           </article>
         ))}
-      </div>
-
-      <!-- Restrained Incubation Preview (FinTech Venture) -->
-      <div class="rounded-2xl bg-white/5 border border-white/10 p-6 sm:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-        <div>
-          <div class="flex items-center gap-2 mb-1.5">
-            <span class="text-xs font-semibold uppercase tracking-wider text-amber-400">Incubation Pipeline</span>
-            <span class="text-white/30">&bull;</span>
-            <span class="text-xs text-slate-400">Financial Technology</span>
-          </div>
-          <h4 class="text-base sm:text-lg font-bold text-white mb-1">Enterprise FinTech Venture</h4>
-          <p class="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed font-normal">
-            Currently in research and architecture, designing institutional digital transaction infrastructure and programmable settlement rails.
-          </p>
-        </div>
-
-        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-amber-500/10 text-amber-300 border border-amber-500/20 shrink-0">
-          <Clock class="w-3.5 h-3.5" />
-          <span>In R&amp;D Incubation</span>
-        </span>
       </div>
     </div>
 
@@ -1196,6 +1173,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
   const projectVideos = document.querySelectorAll<HTMLVideoElement>('.project-video-player');
   const playButtons = document.querySelectorAll<HTMLButtonElement>('.video-play-center-btn, .video-play-toggle');
   const restartButtons = document.querySelectorAll<HTMLButtonElement>('.video-restart-btn');
+  const volumeButtons = document.querySelectorAll<HTMLButtonElement>('.video-volume-toggle');
   const fullscreenButtons = document.querySelectorAll<HTMLButtonElement>('.video-fullscreen-btn');
 
   function updatePlayIcons(projectId: string, isPlaying: boolean) {
@@ -1221,6 +1199,31 @@ const featuredCourses = coursesData.filter((course) => course.featured);
     }
   }
 
+  function updateVolumeIcons(projectId: string, isMuted: boolean) {
+    const card = document.getElementById(`showcase-${projectId}`);
+    if (!card) return;
+
+    const onIcon = card.querySelector('.volume-on-icon');
+    const offIcon = card.querySelector('.volume-off-icon');
+    const btn = card.querySelector<HTMLButtonElement>('.video-volume-toggle');
+
+    if (isMuted) {
+      onIcon?.classList.add('hidden');
+      offIcon?.classList.remove('hidden');
+      if (btn) {
+        btn.setAttribute('aria-label', 'Unmute sound');
+        btn.setAttribute('title', 'Unmute sound');
+      }
+    } else {
+      onIcon?.classList.remove('hidden');
+      offIcon?.classList.add('hidden');
+      if (btn) {
+        btn.setAttribute('aria-label', 'Mute sound');
+        btn.setAttribute('title', 'Mute sound');
+      }
+    }
+  }
+
   function formatTime(seconds: number): string {
     const m = Math.floor(seconds / 60);
     const s = Math.floor(seconds % 60);
@@ -1239,6 +1242,10 @@ const featuredCourses = coursesData.filter((course) => course.featured);
         const dur = isNaN(video.duration) ? '--:--' : formatTime(video.duration);
         display.textContent = `${cur} / ${dur}`;
       }
+    });
+
+    video.addEventListener('volumechange', () => {
+      updateVolumeIcons(projectId, video.muted || video.volume === 0);
     });
 
     video.addEventListener('play', () => {
@@ -1263,10 +1270,35 @@ const featuredCourses = coursesData.filter((course) => course.featured);
       const video = card?.querySelector<HTMLVideoElement>('.project-video-player');
       if (!video) return;
 
-      if (video.paused) {
-        video.play().catch(() => {});
+      if (video.paused || video.muted) {
+        // User deliberately clicked play: unmute and play with audio
+        video.muted = false;
+        video.volume = 1;
+        updateVolumeIcons(targetId, false);
+        if (video.paused) {
+          video.play().catch(() => {});
+        }
       } else {
         video.pause();
+      }
+    });
+  });
+
+  volumeButtons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const targetId = btn.getAttribute('data-volume-target');
+      if (!targetId) return;
+      const card = document.getElementById(`showcase-${targetId}`);
+      const video = card?.querySelector<HTMLVideoElement>('.project-video-player');
+      if (!video) return;
+
+      video.muted = !video.muted;
+      video.volume = 1;
+      updateVolumeIcons(targetId, video.muted);
+
+      if (!video.muted && video.paused) {
+        video.play().catch(() => {});
       }
     });
   });
@@ -1281,6 +1313,9 @@ const featuredCourses = coursesData.filter((course) => course.featured);
       if (!video) return;
 
       video.currentTime = 0;
+      video.muted = false;
+      video.volume = 1;
+      updateVolumeIcons(targetId, false);
       video.play().catch(() => {});
     });
   });
@@ -1357,6 +1392,9 @@ const featuredCourses = coursesData.filter((course) => course.featured);
       }
     });
 
+    const prevVideo = viewport.querySelector<HTMLVideoElement>('video');
+    if (prevVideo) prevVideo.pause();
+
     const currentSection = activeVenture.sections.find((s: any) => s.id === sectionId) || activeVenture.sections[0];
     if (!currentSection) return;
 
@@ -1368,7 +1406,7 @@ const featuredCourses = coursesData.filter((course) => course.featured);
               <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Cinematic Walkthrough</span>
               <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-1">${currentSection.title}</h3>
             </div>
-            <span class="text-xs font-mono text-slate-400 bg-white/5 px-2.5 py-1 rounded border border-white/10 shrink-0">1280x720 HD Authentic Session</span>
+            <span class="text-xs font-mono text-slate-400 bg-white/5 px-2.5 py-1 rounded border border-white/10 shrink-0">1080p Full HD Demo</span>
           </div>
 
           <div class="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-white/15 shadow-2xl">
@@ -1376,14 +1414,12 @@ const featuredCourses = coursesData.filter((course) => course.featured);
               class="w-full h-full object-cover object-top"
               controls
               autoplay
-              muted
               playsinline
               preload="auto"
               poster="${activeVenture.previewImage}"
             >
               <source src="${activeVenture.videoWalkthrough}" type="video/mp4" />
-              <source src="${activeVenture.videoWebm}" type="video/webm" />
-              Your browser does not support HTML5 video walkthroughs.
+              Your browser does not support HTML5 video demo walkthroughs.
             </video>
           </div>
 
@@ -1400,6 +1436,15 @@ const featuredCourses = coursesData.filter((course) => course.featured);
           </div>
         </div>
       `;
+
+      const modalVideo = viewport.querySelector<HTMLVideoElement>('video');
+      if (modalVideo) {
+        modalVideo.volume = 1;
+        modalVideo.play().catch(() => {
+          modalVideo.muted = true;
+          modalVideo.play().catch(() => {});
+        });
+      }
     } else {
       viewport.innerHTML = `
         <div class="space-y-6">

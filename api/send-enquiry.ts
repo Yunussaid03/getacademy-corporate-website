@@ -1,8 +1,10 @@
-import { validateEnquiryPayload, buildEnquiryEmailHtml, type EnquiryPayload } from '../src/utils/enquiry.js';
-
-declare const process: {
-  env: Record<string, string | undefined>;
-};
+import nodemailer from 'nodemailer';
+import {
+  validateEnquiryPayload,
+  buildEnquiryEmailHtml,
+  buildEnquiryEmailText,
+  type EnquiryPayload,
+} from '../src/utils/enquiry.ts';
 
 // Max body size: 64 KB
 const MAX_BODY_SIZE = 64 * 1024;
@@ -57,14 +59,18 @@ export default async function handler(req: any, res: any) {
     const payload = body as EnquiryPayload;
 
     // 4. Read server environment variables
-    const resendApiKey = process.env.RESEND_API_KEY;
+    const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
+    const smtpPort = Number(process.env.SMTP_PORT) || 465;
+    const smtpSecure = process.env.SMTP_SECURE !== 'false'; // Default to true for SSL/TLS (port 465)
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
     const recipientEmail = process.env.ENQUIRY_RECIPIENT_EMAIL;
-    const senderEmail = process.env.ENQUIRY_SENDER_EMAIL || 'GET Academy Website <onboarding@resend.dev>';
+    const senderEmail = process.env.ENQUIRY_SENDER_EMAIL || (smtpUser ? `"Korporatly Group Enquiries" <${smtpUser}>` : undefined);
 
-    // If configuration is missing, fail honestly with a 503 Service Unavailable
-    if (!resendApiKey || !recipientEmail) {
+    // If required SMTP credentials or recipient are missing, return 503 Service Unavailable
+    if (!smtpUser || !smtpPass || !recipientEmail) {
       console.error(
-        '[Enquiry Handler Error] Missing required server configuration: RESEND_API_KEY or ENQUIRY_RECIPIENT_EMAIL is not set.'
+        '[Enquiry Handler Error] Missing required server configuration: SMTP_USER, SMTP_PASS, or ENQUIRY_RECIPIENT_EMAIL is not set.'
       );
       return res.status(503).json({
         success: false,
@@ -72,49 +78,56 @@ export default async function handler(req: any, res: any) {
       });
     }
 
-    // 5. Construct email HTML and plain text fallback
+    // 5. Construct email HTML and plain-text fallback
     const emailHtml = buildEnquiryEmailHtml(payload);
+    const emailText = buildEnquiryEmailText(payload);
     const emailSubject = `[Training Enquiry] ${payload.organisation} — ${payload.track}`;
 
-    // 6. Dispatch to Resend REST API
-    const resendResponse = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${resendApiKey}`,
-        'Content-Type': 'application/json',
-        'User-Agent': 'GETAcademy-Website/1.0',
+    // 6. Configure Nodemailer transport with resilient timeouts for serverless environments
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpSecure,
+      auth: {
+        user: smtpUser,
+        pass: smtpPass,
       },
-      body: JSON.stringify({
-        from: senderEmail,
-        to: [recipientEmail],
-        reply_to: payload.email,
-        subject: emailSubject,
-        html: emailHtml,
-      }),
+      connectionTimeout: 10000, // 10s connection timeout
+      greetingTimeout: 10000,   // 10s greeting timeout
+      socketTimeout: 10000,     // 10s socket activity timeout
     });
 
-    if (!resendResponse.ok) {
-      const errorText = await resendResponse.text();
-      console.error('[Resend API Error]', resendResponse.status, errorText);
-
+    // 7. Dispatch email via Google SMTP
+    let info;
+    try {
+      info = await transporter.sendMail({
+        from: senderEmail || `"Korporatly Group Enquiries" <${smtpUser}>`,
+        to: recipientEmail,
+        replyTo: `"${payload.name.replace(/["\r\n]/g, '')}" <${payload.email}>`,
+        subject: emailSubject,
+        text: emailText,
+        html: emailHtml,
+      });
+    } catch (smtpErr: any) {
+      // Log sanitized error message on server without exposing credentials or internal traces to user
+      console.error('[SMTP Delivery Error]', smtpErr?.code || smtpErr?.message || 'Unknown SMTP error');
       return res.status(502).json({
         success: false,
-        error: 'Unable to deliver your enquiry at this time due to an upstream provider issue. Please try again shortly.',
+        error: 'Unable to deliver your enquiry at this time due to an upstream mail service issue. Please try again shortly or contact us directly.',
       });
     }
-
-    const result = await resendResponse.json();
 
     return res.status(200).json({
       success: true,
       message: 'Your training consultation enquiry has been delivered successfully.',
-      id: result?.id,
+      id: info?.messageId,
     });
   } catch (error: any) {
-    console.error('[Enquiry Handler Exception]', error);
+    console.error('[Enquiry Handler Exception]', error?.message || 'Internal handler error');
     return res.status(500).json({
       success: false,
       error: 'An unexpected internal server error occurred while processing your enquiry. Please try again later.',
     });
   }
 }
+

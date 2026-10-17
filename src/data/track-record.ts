@@ -1,6 +1,5 @@
 /**
  * Track record: projects, strategic contributions, engagements, ecosystem and media partners.
- * Source: GET Academy company profile. Slide numbers are noted per block so entries can be re-checked.
  */
 export interface Project {
   id: string;
@@ -116,7 +115,7 @@ export const projects: Project[] = [
     summary:
       'Delivered first-time employment readiness training for local universities and private colleges.',
     image: '/assets/photos/staging-university-workshop.jpg',
-    imageAlt: 'University workshop session led by GET Academy',
+    imageAlt: 'University workshop session on employment readiness',
   },
   {
     id: 'aic-raise',
@@ -126,7 +125,7 @@ export const projects: Project[] = [
     summary:
       'Our COO, Ganesh Kumar Manokara, mentored startups in the business incubation programme organised by the Government of India, leading mentor-led sessions on market research and customer development (Tech Catalyst Pre-Incubation Programme 2024) and on product-market fit.',
     image: '/assets/photos/aic-raise-mentor-session.jpg',
-    imageAlt: 'AIC RAISE Tech Catalyst session poster featuring GET Academy’s COO as resource person',
+    imageAlt: 'AIC RAISE Tech Catalyst session poster featuring Ganesh Kumar Manokara as resource person',
   },
   {
     id: 'satu-sekolah-satu-industri',
@@ -270,7 +269,7 @@ export const engagements: Engagement[] = [
     detail:
       'Met Mr. Kenny Lim (Executive Director of Spritzer) and Mr. Ferdaus Md Taib (Director of Century Greentech Co.) during the benchmarking programme.',
     image: '/assets/photos/matrade-perak-benchmarking.jpg',
-    imageAlt: 'GET Academy’s COO with business leaders at the MATRADE MTC-MSME Perak Benchmarking Programme',
+    imageAlt: 'Korporatly Group COO Ganesh Kumar Manokara with business leaders at the MATRADE MTC-MSME Perak Benchmarking Programme',
   },
   {
     id: 'selectusa',
@@ -285,14 +284,14 @@ export const engagements: Engagement[] = [
     title: 'With YB Kula',
     detail: 'Former Human Resources Minister.',
     image: '/assets/photos/engagement-yb-kula.jpg',
-    imageAlt: 'GET Academy with YB Kula, former Human Resources Minister',
+    imageAlt: 'Executive leadership with YB Kula, former Human Resources Minister',
   },
   {
     id: 'yb-ong-kian-ming',
     title: 'With YB Ong Kian Ming',
     detail: 'Former Deputy Minister of International Trade and Industry.',
     image: '/assets/photos/engagement-yb-ong-kian-ming.jpg',
-    imageAlt: 'GET Academy with YB Ong Kian Ming, former Deputy Minister of International Trade and Industry',
+    imageAlt: 'Executive leadership with YB Ong Kian Ming, former Deputy Minister of International Trade and Industry',
   },
   {
     id: 'segi-apel',
@@ -315,7 +314,7 @@ export const engagements: Engagement[] = [
     detail: 'Meeting with PKNS Academy.',
     when: '17 April',
     image: '/assets/photos/pkns-academy-meeting.jpg',
-    imageAlt: 'GET Academy team with PKNS Academy representatives',
+    imageAlt: 'Executive meeting with PKNS Academy representatives',
     logo: '/assets/partners/pkns.png',
   },
   {
