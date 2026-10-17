@@ -1,5 +1,5 @@
 /**
- * Participant testimonials, transcribed from the GET Academy company profile (slides 42, 44–46).
+ * Participant testimonials from enterprise and professional training cohorts.
  * Text is verbatim; “…” marks a trimmed sentence. Do not paraphrase participant quotes.
  */
 export interface FeaturedTestimonial {

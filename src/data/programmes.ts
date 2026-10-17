@@ -1,6 +1,5 @@
 /**
- * Programme pathways and learner segments.
- * Source: GET Academy company profile slide 4 (“Our Expertise & Programs”). All programmes are HRDC claimable;
+ * Programme pathways and learner segments. All programmes are HRDC claimable;
  * terms and conditions apply.
  */
 export interface Pathway {

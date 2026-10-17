@@ -1,6 +1,5 @@
 /**
  * Accreditations, appointments and professional affiliations.
- * Every entry is taken from the GET Academy company profile (slides 1, 4, 8–12, 26–29).
  * Registration / appointment dates are intentionally not printed: certificates are renewed periodically,
  * so current documents are supplied on request (see `verificationNote`).
  */

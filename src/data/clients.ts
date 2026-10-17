@@ -1,7 +1,5 @@
 /**
- * Organisations GET Academy has engaged with.
- * Source: company profile slide 31 ("Our Engagements" logo wall) plus institutions named on the project,
- * strategic-contribution and engagement slides (18, 24, 26–29, 38).
+ * Organisations and institutional partners engaged with.
  */
 export interface LogoItem {
   name: string;

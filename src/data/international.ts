@@ -1,6 +1,5 @@
 /**
  * International projects and network.
- * Source: GET Academy company profile slides 5, 19–24, 30, 33.
  */
 export interface MediaRef {
   src: string;
@@ -53,7 +52,7 @@ export const stories: Story[] = [
       'Invited to speak at the 10th UNESCO-APEID Meeting on Entrepreneurship Education in Tashkent, with the opportunity to network with representatives of 80 other countries and promote Malaysian medical tourism.',
     ],
     images: [
-      { src: '/assets/photos/unesco-ee-net-tashkent.jpg', alt: 'GET Academy’s representative seated at the Malaysia nameplate at the UNESCO EE-Net meeting in Uzbekistan' },
+      { src: '/assets/photos/unesco-ee-net-tashkent.jpg', alt: 'Ganesh Kumar Manokara seated at the Malaysia nameplate at the UNESCO EE-Net meeting in Uzbekistan' },
       { src: '/assets/photos/unesco-ee-net-session.jpg', alt: 'Delegates in session at the UNESCO EE-Net regional engagement' },
     ],
   },
@@ -67,8 +66,8 @@ export const stories: Story[] = [
       'The initiative also explored stronger Malaysia–Uzbekistan business links, including pathways for Uzbek startups to access ASEAN markets and potential future collaboration through joint initiatives and formal partnerships.',
     ],
     images: [
-      { src: '/assets/photos/uzbekistan-it-park-meeting.jpg', alt: 'GET Academy meeting with IT Park Syrdarya representatives in Uzbekistan' },
-      { src: '/assets/photos/uzbekistan-startup-delegation.jpg', alt: 'GET Academy’s COO with the Uzbek delegation' },
+      { src: '/assets/photos/uzbekistan-it-park-meeting.jpg', alt: 'Leadership meeting with IT Park Syrdarya representatives in Uzbekistan' },
+      { src: '/assets/photos/uzbekistan-startup-delegation.jpg', alt: 'Korporatly Group COO with the Uzbek delegation' },
     ],
   },
   {
@@ -77,13 +76,13 @@ export const stories: Story[] = [
     title: 'New York: Consulate General of Malaysia and MATRADE',
     when: 'January 2024',
     summary:
-      'GET Academy’s COO, Mr Ganesh Kumar, met Mr Amir, Consul General at the Consulate General of Malaysia in New York, to carve a path for Malaysian entrepreneurs to step into the US market.',
+      'Our COO, Mr Ganesh Kumar, met Mr Amir, Consul General at the Consulate General of Malaysia in New York, to carve a path for Malaysian entrepreneurs to step into the US market.',
     details: [
-      'In New York, we connected with education and trade leaders (MATRADE) to expand opportunities for US degrees and business collaborations, aiming to establish GET Academy’s presence and growth in America.',
+      'In New York, we connected with education and trade leaders (MATRADE) to expand opportunities for US degrees and business collaborations, aiming to establish international presence and growth in America.',
     ],
     images: [
-      { src: '/assets/photos/nyc-consulate-general.jpg', alt: 'GET Academy’s COO with the Consul General at the Consulate General of Malaysia in New York' },
-      { src: '/assets/photos/nyc-matrade-office.jpg', alt: 'GET Academy’s COO at the MATRADE New York office' },
+      { src: '/assets/photos/nyc-consulate-general.jpg', alt: 'Our COO with the Consul General at the Consulate General of Malaysia in New York' },
+      { src: '/assets/photos/nyc-matrade-office.jpg', alt: 'Our COO at the MATRADE New York office' },
     ],
   },
   {
@@ -91,13 +90,13 @@ export const stories: Story[] = [
     region: 'United Kingdom · India',
     title: 'Birmingham City University MoU and HERO Cycles India',
     summary:
-      'A tripartite Memorandum of Understanding (MoU) was signed with MBCIE, represented by Dr. Prem Kumar, Executive Director, and Dr. Vijay Venkatesan of Birmingham City University, United Kingdom. The partnership establishes GET Academy as a reputable global academic partner in both the academic and startup spaces.',
+      'A tripartite Memorandum of Understanding (MoU) was signed between GET Academy, MBCIE (represented by Dr. Prem Kumar, Executive Director), and Dr. Vijay Venkatesan of Birmingham City University, United Kingdom. This foundational engagement established a global academic bridge in both the university and startup spaces.',
     details: [
-      'GET Academy’s COO, Mr. Ganesh, was also honoured as the esteemed guest of HERO Cycles India, hosted by Mr. Rai, the Senior Vice Chairman.',
+      'Korporatly Group COO, Mr. Ganesh, was also honoured as the esteemed guest of HERO Cycles India, hosted by Mr. Rai, the Senior Vice Chairman.',
     ],
     images: [
-      { src: '/assets/photos/hero-cycles-india.jpg', alt: 'GET Academy’s COO with hosts during the visit to India' },
-      { src: '/assets/photos/mbcie-verse.jpg', alt: 'GET Academy’s COO at the MBCIEverse venue' },
+      { src: '/assets/photos/hero-cycles-india.jpg', alt: 'Korporatly Group COO with hosts during the visit to India' },
+      { src: '/assets/photos/mbcie-verse.jpg', alt: 'Korporatly Group COO at the MBCIEverse venue' },
     ],
     logos: [
       { src: '/assets/partners/mbcie.png', alt: 'MBCIE, powered by Birmingham City University' },

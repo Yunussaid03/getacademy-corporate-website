@@ -27,7 +27,7 @@ const canonicalURL = `${canonicalOrigin}${normalizedPath}`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/assets/brand/GETA-Logo-100x100.png" />
+    <link rel="icon" type="image/png" href="/assets/brand/korporatly-favicon.png" />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
@@ -41,11 +41,11 @@ const canonicalURL = `${canonicalOrigin}${normalizedPath}`;
     />
 
     <!-- SEO Meta Tags -->
-    <title>{title} | Korporatly Group</title>
+    <title>{title.includes('Korporatly Group') ? title : `${title} | Korporatly Group`}</title>
     <meta name="description" content={description} />
-    <meta property="og:title" content={`${title} | Korporatly Group`} />
+    <meta property="og:title" content={title.includes('Korporatly Group') ? title : `${title} | Korporatly Group`} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/assets/brand/GETA-Logo.png" />
+    <meta property="og:image" content="/assets/brand/korporatly-og.png" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#1A2E26" />

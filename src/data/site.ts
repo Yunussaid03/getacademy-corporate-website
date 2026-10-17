@@ -1,6 +1,5 @@
 /**
  * Company facts shared across the site.
- * Source: GET Academy company profile (contact slide), so every page prints the same details.
  */
 export const site = {
   name: 'Korporatly Group',
