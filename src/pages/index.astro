@@ -13,7 +13,7 @@ import { featuredTestimonials } from '@/data/testimonials';
 import { differentiators } from '@/data/why-partner';
 import { featuredLogos } from '@/data/clients';
 import { audiences } from '@/data/programmes';
-import { site, mapsUrl } from '@/data/site';
+import { site } from '@/data/site';
 import {
   ArrowRight,
   Building2,
@@ -27,7 +27,6 @@ import {
   Laptop,
   Layers,
   Mail,
-  MapPin,
   Rocket,
   Send,
   ShieldCheck,
@@ -1034,13 +1033,6 @@ const featuredCourses = coursesData.filter((course) => course.featured);
                 <div>
                   <span class="block font-bold text-white uppercase text-[11px]">Corporate Entity</span>
                   <span class="text-gray-200">{site.legalName} ({site.llpNumber})</span>
-                </div>
-              </div>
-              <div class="flex items-start gap-3">
-                <MapPin class="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
-                <div>
-                  <span class="block font-bold text-white uppercase text-[11px]">Registered Corporate Office</span>
-                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="text-gray-200 hover:text-brand-gold transition-colors">{site.address.singleLine}</a>
                 </div>
               </div>
               <div class="flex items-start gap-3">

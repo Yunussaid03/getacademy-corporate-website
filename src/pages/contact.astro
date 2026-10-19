@@ -4,14 +4,12 @@ import SectionHeader from '@/components/ui/SectionHeader.astro';
 import PageHero from '@/components/ui/PageHero.astro';
 import {
   Mail,
-  MapPin,
   Send,
   ShieldCheck,
   Clock,
-  ExternalLink,
   Building2
 } from 'lucide-astro';
-import { site, mapsUrl } from '@/data/site';
+import { site } from '@/data/site';
 
 const trainingTracks = [
   'Digital Marketing & E-Commerce (CDMS)',
@@ -33,7 +31,7 @@ const sectors = [
 
 <BaseLayout
   title="Contact Us — Korporatly Group | Advisory & Transformation Desk"
-  description="Connect with Korporatly Group for enterprise capability roadmaps, digital transformation consulting, course outlines, and HRDC claimable training proposals. Level 33, Ilham Tower, Kuala Lumpur."
+  description="Connect with Korporatly Group for enterprise capability roadmaps, digital transformation consulting, course outlines, and HRDC claimable training proposals."
 >
   <PageHero
     eyebrow="Get in Touch"
@@ -62,32 +60,13 @@ const sectors = [
               Official Corporate Desk
             </h3>
 
-            <address class="not-italic space-y-5 text-sm">
+            <div class="space-y-5 text-sm">
               <div class="flex items-start gap-3.5">
                 <Building2 class="w-5 h-5 text-brand-sage shrink-0 mt-0.5" />
                 <div>
                   <span class="font-bold block text-xs uppercase tracking-wider text-brand-muted">Corporate Entity</span>
                   <p class="text-brand-dark font-medium mt-0.5">{site.legalName}</p>
-                  <span class="text-[11px] text-brand-muted">{site.llpNumber}</span>
-                </div>
-              </div>
-
-              <div class="flex items-start gap-3.5">
-                <MapPin class="w-5 h-5 text-brand-sage shrink-0 mt-0.5" />
-                <div>
-                  <span class="font-bold block text-xs uppercase tracking-wider text-brand-muted">Registered Office Address</span>
-                  <p class="text-brand-dark font-medium mt-0.5 leading-relaxed">
-                    {site.address.lines.map((line, i) => (
-                      <>
-                        {line}
-                        {i < site.address.lines.length - 1 && <br />}
-                      </>
-                    ))}
-                  </p>
-                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="mt-1.5 inline-flex items-center gap-1 text-xs font-bold text-brand-sage hover:text-brand-sage-dark">
-                    <span>Open in Google Maps</span>
-                    <ExternalLink class="w-3 h-3" />
-                  </a>
+                  <span class="text-[11px] text-brand-muted">Registered in Malaysia · {site.llpNumber}</span>
                 </div>
               </div>
 
@@ -98,7 +77,7 @@ const sectors = [
                   <a href={`mailto:${site.email}`} class="text-brand-dark font-medium mt-0.5 inline-block hover:text-brand-sage transition-colors">{site.email}</a>
                 </div>
               </div>
-            </address>
+            </div>
 
             <!-- Response Commitment Badge -->
             <div class="p-4 bg-brand-light rounded-xl border border-brand-border flex items-center gap-3">

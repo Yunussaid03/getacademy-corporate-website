@@ -26,12 +26,10 @@
     "@astrojs/tailwind": "6.0.2",
     "astro": "5.18.2",
     "lucide-astro": "0.556.0",
-    "nodemailer": "^10.1.1",
     "tailwindcss": "3.4.17",
     "typescript": "5.7.3"
   },
   "devDependencies": {
-    "@types/nodemailer": "^8.0.2",
     "playwright": "^1.64.1"
   }
 }
