@@ -1,15 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "cleanUrls": true,
-  "functions": {
-    "api/send-enquiry.ts": {
-      "includeFiles": "src/utils/enquiry.ts"
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/api/send-enquiry",
-      "destination": "/api/send-enquiry"
-    }
-  ]
+  "cleanUrls": true
 }
+

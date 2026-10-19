@@ -1,6 +1,6 @@
 ---
-import { Mail, MapPin, ShieldCheck } from 'lucide-astro';
-import { site, mapsUrl } from '@/data/site';
+import { Mail, ShieldCheck } from 'lucide-astro';
+import { site } from '@/data/site';
 ---
 
 <footer class="bg-brand-dark text-white pt-16 pb-12 border-t border-brand-sage/40">
@@ -66,24 +66,16 @@ import { site, mapsUrl } from '@/data/site';
 
       <!-- Col 4: Contact -->
       <div class="space-y-4">
-        <h4 class="text-sm font-bold tracking-wider uppercase text-brand-gold">Corporate Office</h4>
-        <address class="not-italic space-y-3 text-sm text-gray-200">
-          <div class="flex items-start gap-2.5">
-            <MapPin class="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
-            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="text-xs text-gray-300 hover:text-brand-gold transition-colors leading-relaxed">
-              {site.address.lines.map((line, i) => (
-                <>
-                  {line}
-                  {i < site.address.lines.length - 1 && <br />}
-                </>
-              ))}
-            </a>
-          </div>
+        <h4 class="text-sm font-bold tracking-wider uppercase text-brand-gold">Contact & Enquiries</h4>
+        <div class="space-y-3 text-sm text-gray-200">
           <div class="flex items-center gap-2.5">
             <Mail class="w-4 h-4 text-brand-gold shrink-0" />
             <a href={`mailto:${site.email}`} class="text-xs text-gray-300 hover:text-brand-gold transition-colors">{site.email}</a>
           </div>
-        </address>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            Corporate training proposals, syllabus outlines, and capability advisory. Responses provided within {site.responseTime}.
+          </p>
+        </div>
       </div>
     </div>
 
